@@ -60,6 +60,10 @@
     <Compile Include="EfGenericRepository.cs" />
     <Compile Include="IDbContext.cs" />
     <Compile Include="IRepository.cs" />
+    <Compile Include="Migrations\201609041820071_201609041819327_AutomaticMigration.cs" />
+    <Compile Include="Migrations\201609041820071_201609041819327_AutomaticMigration.Designer.cs">
+      <DependentUpon>201609041820071_201609041819327_AutomaticMigration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MultiLanguageDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +77,11 @@
       <Project>{0D1685CC-7100-4D48-9988-00C0C4B0FACD}</Project>
       <Name>Multi-language.Models</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201609041820071_201609041819327_AutomaticMigration.resx">
+      <DependentUpon>201609041820071_201609041819327_AutomaticMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

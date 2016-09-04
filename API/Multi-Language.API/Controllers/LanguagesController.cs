@@ -1,5 +1,7 @@
-﻿using Multi_language.Models;
+﻿using AutoMapper.QueryableExtensions;
+using Multi_language.Models;
 using Multi_language.Services;
+using Multi_Language.API.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,10 +18,16 @@ namespace Multi_Language.API.Controllers
         {
             this.langService = langService;
         }
-        // GET: api/Languages
-        public IEnumerable<Languages> Get()
+
+
+        /// <summary>
+        /// Get List with all the languages. 
+        /// </summary>
+        public IEnumerable<LanguagesApiModel> Get()
         {
-            var lstLanguages = langService.GetAll();
+            var lstLanguages2 = langService.GetAll().ToList();
+
+            var lstLanguages = langService.GetAll().ProjectTo<LanguagesApiModel>().ToList();
 
             return lstLanguages;
         }

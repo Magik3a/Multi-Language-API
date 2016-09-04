@@ -34,7 +34,8 @@
             foreach (var map in maps)
             {
                 Mapper.Initialize(s => s.CreateMap(map.Source, map.Destination));
-                Mapper.Initialize(s => s.CreateMap(map.Destination, map.Source));
+                Mapper.Initialize(s => s.CreateMap(map.Source, map.Destination).ReverseMap());
+
             }
         }
 

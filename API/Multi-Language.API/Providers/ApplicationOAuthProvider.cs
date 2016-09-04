@@ -10,6 +10,7 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Multi_Language.API.Models;
+using Multi_language.Models;
 
 namespace Multi_Language.API.Providers
 {
@@ -31,7 +32,7 @@ namespace Multi_Language.API.Providers
         {
             var userManager = context.OwinContext.GetUserManager<ApplicationUserManager>();
 
-            ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
+            AppUser user = await userManager.FindAsync(context.UserName, context.Password);
 
             if (user == null)
             {

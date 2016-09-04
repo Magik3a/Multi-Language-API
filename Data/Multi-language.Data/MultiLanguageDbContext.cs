@@ -11,6 +11,7 @@ namespace Multi_language.Data
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
+        public virtual IDbSet<Languages> languages { get; set; }
 
         public static MultiLanguageDbContext Create()
         {
