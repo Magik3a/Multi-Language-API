@@ -1,4 +1,5 @@
-﻿using AutoMapper.QueryableExtensions;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Multi_language.Models;
 using Multi_language.Services;
 using Multi_Language.API.Models;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Multi_Language.API.Controllers
 {
@@ -23,34 +25,61 @@ namespace Multi_Language.API.Controllers
         /// <summary>
         /// Get List with all the languages. 
         /// </summary>
-        public IEnumerable<LanguagesApiModel> Get()
+        [ResponseType(typeof(IEnumerable<LanguagesApiModel>))]
+        public IHttpActionResult Get()
         {
-            var lstLanguages2 = langService.GetAll().ToList();
-
             var lstLanguages = langService.GetAll().ProjectTo<LanguagesApiModel>().ToList();
 
-            return lstLanguages;
+            return Ok(lstLanguages);
         }
 
-        // GET: api/Languages/5
-        public string Get(int id)
+        /// <summary>
+        /// Get exact language by id. 
+        /// </summary>
+        [ResponseType(typeof(LanguagesApiModel))]
+        public IHttpActionResult Get(int id)
         {
-            return "value";
+            var language = langService.GetById(id).ProjectTo<LanguagesApiModel>().FirstOrDefault();
+    
+            return Ok(language);
         }
 
-        // POST: api/Languages
-        public void Post([FromBody]string value)
+        /// <summary>
+        /// Add new language
+        /// </summary>
+        /// <param model="LanguagesApiModel"></param>
+        public IHttpActionResult Post(LanguagesApiModel language)
         {
+            if (ModelState.IsValid)
+            {
+                language.Datechanged = DateTime.Now;
+                language.DateCreated = DateTime.Now;
+                langService.Add(Mapper.Map<LanguagesApiModel, Languages>(language));
+                langService.Save();
+
+                return Ok();
+            }
+
+            return BadRequest();
         }
 
         // PUT: api/Languages/5
-        public void Put(int id, [FromBody]string value)
+        public IHttpActionResult Put(LanguagesApiModel language)
         {
+            language.Datechanged = DateTime.Now;
+            langService.Update(Mapper.Map<LanguagesApiModel, Languages>(language));
+            langService.Save();
+
+            return Ok();
         }
 
         // DELETE: api/Languages/5
-        public void Delete(int id)
+        public IHttpActionResult Delete(int id)
         {
+            langService.Delete(id);
+            langService.Save();
+
+            return Ok();
         }
     }
 }

@@ -33,10 +33,15 @@ namespace Multi_language.Services
             languages.Update(Language);
         }
 
-        public void Delete(Languages Language)
+        public void Delete(int id)
         {
-            languages.Delete(Language);
+            var language = languages.GetById(id);
+            languages.Delete(language);
         }
 
+        public void Save()
+        {
+            languages.SaveChanges();
+        }
     }
 }
