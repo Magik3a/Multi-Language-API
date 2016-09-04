@@ -40,7 +40,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Contracts\ILanguagesService.cs" />
+    <Compile Include="LanguagesService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data\Multi-language.Data\Multi-language.Data.csproj">
+      <Project>{86614BA5-287D-4082-AA47-F7B0790DCDD9}</Project>
+      <Name>Multi-language.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\Multi-language.Models\Multi-language.Models.csproj">
+      <Project>{0D1685CC-7100-4D48-9988-00C0C4B0FACD}</Project>
+      <Name>Multi-language.Models</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

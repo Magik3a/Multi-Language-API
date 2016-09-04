@@ -58,11 +58,18 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppUser.cs" />
+    <Compile Include="Languages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Common\Multi-Language.Common\Multi-language.Common.csproj">
+      <Project>{1f83b9e5-a3fc-4af0-97c2-13cb73469db4}</Project>
+      <Name>Multi-language.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -21,6 +21,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{8B30F2
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multi-language.Client", "Client\Multi-language.Client\Multi-language.Client.csproj", "{743276D8-1436-48E2-BED5-50A717845E3E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{687D5968-800B-4AF7-ABC5-3502DE8E6B59}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multi-language.Common", "Common\Multi-Language.Common\Multi-language.Common.csproj", "{1F83B9E5-A3FC-4AF0-97C2-13CB73469DB4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +51,10 @@ Global
 		{743276D8-1436-48E2-BED5-50A717845E3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{743276D8-1436-48E2-BED5-50A717845E3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{743276D8-1436-48E2-BED5-50A717845E3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F83B9E5-A3FC-4AF0-97C2-13CB73469DB4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F83B9E5-A3FC-4AF0-97C2-13CB73469DB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F83B9E5-A3FC-4AF0-97C2-13CB73469DB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F83B9E5-A3FC-4AF0-97C2-13CB73469DB4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,5 +65,6 @@ Global
 		{0D1685CC-7100-4D48-9988-00C0C4B0FACD} = {E176F52F-D3EF-4133-A525-3795A35EFBAC}
 		{6A9670F4-3D3E-4B7A-8A77-EB087D3C1E33} = {4E0A81DC-E56A-4D14-8B54-B2A3BF269FF3}
 		{743276D8-1436-48E2-BED5-50A717845E3E} = {8B30F2F7-A067-4B38-9CEF-0A5BE12EFC18}
+		{1F83B9E5-A3FC-4AF0-97C2-13CB73469DB4} = {687D5968-800B-4AF7-ABC5-3502DE8E6B59}
 	EndGlobalSection
 EndGlobal

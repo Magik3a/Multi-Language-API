@@ -10,7 +10,7 @@ namespace Multi_language.Data.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = false;
+            AutomaticMigrationsEnabled = true;
             ContextKey = "Multi_language.Data.MultiLanguageDbContext";
         }
 
