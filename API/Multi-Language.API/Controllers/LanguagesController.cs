@@ -63,7 +63,11 @@ namespace Multi_Language.API.Controllers
             return BadRequest();
         }
 
-        // PUT: api/Languages/5
+        /// <summary>
+        /// Update language 
+        /// </summary>
+        /// <param LanguagesApiModel="language"></param>
+        /// <returns>If succeeded Response Ok</returns>
         public IHttpActionResult Put(LanguagesApiModel language)
         {
             language.Datechanged = DateTime.Now;
@@ -76,7 +80,11 @@ namespace Multi_Language.API.Controllers
         // DELETE: api/Languages/5
         public IHttpActionResult Delete(int id)
         {
-            langService.Delete(id);
+            if (langService.GetById(id).FirstOrDefault() != null)
+                langService.Delete(id);
+            else
+                return BadRequest();
+
             langService.Save();
 
             return Ok();
