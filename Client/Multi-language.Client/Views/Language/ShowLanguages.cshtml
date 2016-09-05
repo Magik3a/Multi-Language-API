@@ -1,0 +1,48 @@
+﻿
+   <table id="tableLanguages" class="table table-bordered table-striped" data-table>
+            <thead>
+                <tr>
+                    <th>Id Language</th>
+                    <th>Name</th>
+                    <th>Initials</th>
+                    <th>Culture</th>
+                    <th>Is Active</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="Language in Languages">
+                <td>
+                    {{Language.IdLanguage}}
+                </td>
+                   <td>
+                    {{Language.Name}}
+                </td>
+                  <td>
+                    {{Language.Initials}}
+                </td>
+                  <td>
+                    {{Language.Culture}}
+                </td>
+                  <td>
+                    {{Language.IsActive}}
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                       <th>Id Language</th>
+                    <th>Name</th>
+                    <th>Initials</th>
+                    <th>Culture</th>
+                    <th>Is Active</th>
+                </tr>
+            </tfoot>
+
+        </table>
+ 
+<script>
+        $(function () {
+            $("#tableLanguages").DataTable();
+        })
+    
+</script>

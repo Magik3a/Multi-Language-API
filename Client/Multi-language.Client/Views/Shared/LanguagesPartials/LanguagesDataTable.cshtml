@@ -1,0 +1,54 @@
+﻿
+<div class="box" ng-app="LanguagesDataTableModule">
+    <div class="box-header">
+        <h3 class="box-title">Languages Data Table</h3>
+        <div class="box-tools pull-right">
+            <a href="showLanguages" class="btn btn-default"><i class="fa fa-refresh"></i></a>
+            <a href="addLanguage" class="btn btn-default"><i class="fa fa-plus"></i></a>
+        </div>
+    </div><!-- /.box-header -->
+    <div class="box-body" ng-controller="ShowLanguagesController" ng-view>
+       <table id="tableLanguages" class="table table-bordered table-striped" data-table>
+            <thead>
+                <tr>
+                    <th>Id Language</th>
+                    <th>Name</th>
+                    <th>Initials</th>
+                    <th>Culture</th>
+                    <th>Is Active</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr ng-repeat="Language in Languages">
+                <td>
+                    {{Language.IdLanguage}}
+                </td>
+                   <td>
+                    {{Language.Name}}
+                </td>
+                  <td>
+                    {{Language.Initials}}
+                </td>
+                  <td>
+                    {{Language.Culture}}
+                </td>
+                  <td>
+                    {{Language.IsActive}}
+                </td>
+            </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                       <th>Id Language</th>
+                    <th>Name</th>
+                    <th>Initials</th>
+                    <th>Culture</th>
+                    <th>Is Active</th>
+                </tr>
+            </tfoot>
+
+        </table>
+ 
+    </div><!-- /.box-body -->
+           <div class="clearfix"> </div>
+</div><!-- /.box -->

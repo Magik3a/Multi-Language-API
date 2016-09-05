@@ -13,5 +13,28 @@ namespace Multi_language.Client.Controllers
         {
             return View();
         }
+
+
+        public ActionResult ShowLanguages()
+        {
+            return PartialView();
+        }
+
+
+        public ActionResult AddNewLanguage()
+        {
+            return PartialView();
+        }
+
+
+        public ActionResult EditLanguage()
+        {
+            return PartialView();
+        }
+
+        public ActionResult DeleteLanguage()
+        {
+            return PartialView();
+        }
     }
 }

@@ -14,6 +14,15 @@ namespace Multi_language.Client
             bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/angular").Include(
+                       "~/Scripts/angular.js",
+                       "~/Scripts/angular-route.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/angular-languages-scripts")
+                .IncludeDirectory("~/Scripts/AppScripts/Languages/Modules", "*.js")
+                .IncludeDirectory("~/Scripts/AppScripts/Languages/Services", "*.js")
+                .IncludeDirectory("~/Scripts/AppScripts/Languages/Controllers", "*.js"));
+
             #region AdminLte Scripts
 
             bundles.Add(new ScriptBundle("~/bundles/adminLte").Include(
