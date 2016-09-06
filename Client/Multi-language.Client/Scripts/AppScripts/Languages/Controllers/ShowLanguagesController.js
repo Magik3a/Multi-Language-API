@@ -16,7 +16,7 @@
 
     //Method to route to the addLanguage
     $scope.addLanguage = function () {
-        $location.path("/addLanguage");
+        $location.path("/Home/addLanguage");
     }
 
     //Method to route to the editLanguage
@@ -24,7 +24,7 @@
     //This value can then be used to communicate across the Controllers
     $scope.editLanguage = function (LangNo) {
         ShareData.value = LangNo;
-        $location.path("/editLanguage");
+        $location.path("/Home/editLanguage");
     }
 
     //Method to route to the deleteLanguage
@@ -32,6 +32,6 @@
     //This value can then be used to communicate across the Controllers
     $scope.deleteLanguage = function (LangNo) {
         ShareData.value = LangNo;
-        $location.path("/deleteLanguage");
+        $location.path("/Home/deleteLanguage");
     }
 });

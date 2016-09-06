@@ -68,8 +68,15 @@ namespace Multi_Language.API.Controllers
         /// </summary>
         /// <param LanguagesApiModel="language"></param>
         /// <returns>If succeeded Response Ok</returns>
-        public IHttpActionResult Put(LanguagesApiModel language)
+        [ResponseType(typeof(void))]
+        public IHttpActionResult Put(int id, LanguagesApiModel language)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            language.IdLanguage = id;
             language.Datechanged = DateTime.Now;
             langService.Update(Mapper.Map<LanguagesApiModel, Languages>(language));
             langService.Save();

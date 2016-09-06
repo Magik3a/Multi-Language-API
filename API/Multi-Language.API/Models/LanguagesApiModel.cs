@@ -17,7 +17,7 @@ namespace Multi_Language.API.Models
         
         public string Culture { get; set; }
         
-        public byte[] Picture { get; set; }
+        //public byte[] Picture { get; set; }
 
         public bool IsActive { get; set; }
         

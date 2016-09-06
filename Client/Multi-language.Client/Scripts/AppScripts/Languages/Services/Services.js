@@ -8,6 +8,7 @@ appLanguages.service("SinglePageCRUDService", function ($http) {
 
     //Fundction to Read Language based upon id
     this.getLanguage = function (id) {
+        console.log(id);
         return $http.get("http://localhost:4446/api/Languages/" + id);
     };
 
@@ -16,16 +17,22 @@ appLanguages.service("SinglePageCRUDService", function ($http) {
         var request = $http({
             method: "post",
             url: "http://localhost:4446/api/Languages",
-            data: Language
+            data: Language,
+             headers: {
+                'Content-Type': 'application/json'
+            }
         });
         return request;
     };
     //Function  to Edit Language based upon id 
-    this.put = function (id,Language) {
+    this.put = function (id, Language) {
         var request = $http({
             method: "put",
             url: "http://localhost:4446/api/Languages/" + id,
-            data: Language
+            data: Language,
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
         return request;
     };

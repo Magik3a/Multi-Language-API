@@ -777,6 +777,8 @@
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
     <Content Include="Scripts\AppScripts\Languages\Controllers\AddLanguageController.js" />
+    <Content Include="Scripts\AppScripts\Languages\Controllers\DeleteLanguageController.js" />
+    <Content Include="Scripts\AppScripts\Languages\Controllers\EditLanguageController.js" />
     <Content Include="Scripts\AppScripts\Languages\Modules\AppModules.js" />
     <Content Include="Scripts\AppScripts\Languages\Controllers\ShowLanguagesController.js" />
     <Content Include="Scripts\AppScripts\Languages\Services\Services.js" />

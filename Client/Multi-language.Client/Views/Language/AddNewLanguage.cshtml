@@ -1,28 +1,52 @@
-﻿
-<table>
-    <tr>
-        <td>Name</td>
-        <td><input type="text" ng-model="Name" />  </td>
-    </tr>
-    <tr>
-        <td>Initials</td>
-        <td><input type="text" ng-model="Initials" />  </td>
-    </tr>
-    <tr>
-        <td>Culture</td>
-        <td><input type="text" ng-model="Culture" />  </td>
-    </tr>
-    <tr>
-        <td>Picture</td>
-        <td><input type="text" ng-model="Picture" />  </td>
-    </tr>
-        <tr>
-        <td>IsActive</td>
-        <td><input type="text" ng-model="IsActive" />  </td>
-    </tr>
-        <tr>
-        <td>UserName</td>
-        <td><input type="text" ng-model="UserName" disabled>  </td>
-    </tr>
-</table>
-<input type="button" value="Save" ng-click="save()" />
+﻿<div class="form-group">
+    <label class="col-sm-2 control-label" for="langName">Name</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="langName" placeholder="Language Name"  ng-model="Name" >
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label" for="langInitials">Initials</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="langInitials" placeholder="Initials" ng-model="Initials" >
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label" for="langCulture">Culture</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="langCulture" placeholder="Culture" ng-model="Culture" >
+    </div>
+</div>
+
+@*<div class="form-group">
+    <label class="col-sm-2 control-label" for="langPicture">Picture</label>
+    <div class="col-sm-10">
+        <input type="file"  class="form-control" id="langPicture" placeholder="Picture" ng-model="Picture" >
+    </div>
+</div>*@
+
+<div class="form-group">
+    <label class="col-sm-2 control-label" for="langIsActive">Is Active</label>
+
+    <div class="checkbox col-sm-10">
+            <input type="checkbox" id="langIsActive"  ng-model="IsActive">
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label" for="langUsername">User name</label>
+    <div class="col-sm-10">
+        <input type="text" class="form-control" id="langUsername" placeholder="User name" value="@User.Identity.Name" ng-model="UserName"  disabled>
+    </div>
+</div>
+<input class="btn btn-primary center-block" type="button" value="Save" ng-click="save()" />
+
+<div>{{error}}</div>
+<script>
+        $(function () {
+            $('#langIsActive').iCheck({
+    checkboxClass: 'icheckbox_square-blue',
+    radioClass: 'iradio_square',
+    increaseArea: '20%' // optional
+  });
+        })
+    
+</script>

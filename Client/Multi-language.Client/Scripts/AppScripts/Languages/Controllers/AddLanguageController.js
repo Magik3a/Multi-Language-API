@@ -8,7 +8,7 @@ appLanguages.controller('AddLanguageController', function ($scope, SinglePageCRU
             Name : $scope.Name,
             Initials:  $scope.Initials,
             Culture: $scope.Culture,
-            Picture: $scope.Picture,
+           // Picture: $scope.Picture,
             IsActive: $scope.IsActive,
             UserName: $scope.UserName,
         };
@@ -18,7 +18,7 @@ appLanguages.controller('AddLanguageController', function ($scope, SinglePageCRU
 
         promisePost.then(function (pl) {
             $scope.LangNo = pl.data.LangNo;
-            alert("LangNo " + pl.data.LangNo);
+           // alert("LangNo " + pl.data.LangNo);
         },
               function (errorPl) {
                   $scope.error = 'failure loading Languages', errorPl;

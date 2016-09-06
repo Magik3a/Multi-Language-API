@@ -1,1 +1,46 @@
 ﻿
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Id Language</th>
+            <th>Name</th>
+            <th>Initials</th>
+            <th>Culture</th>
+            <th>Is Active</th>
+
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>
+                {{Language.IdLanguage}}
+            </td>
+            <td>
+                {{Language.Name}}
+            </td>
+            <td>
+                {{Language.Initials}}
+            </td>
+            <td>
+                {{Language.Culture}}
+            </td>
+            <td>
+                {{Language.IsActive}}
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <th>Id Language</th>
+            <th>Name</th>
+            <th>Initials</th>
+            <th>Culture</th>
+            <th>Is Active</th>
+
+        </tr>
+    </tfoot>
+
+</table>
+
+<input class="btn btn-danger" type="button" value="Delete" ng-click="delete()" />
