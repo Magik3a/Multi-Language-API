@@ -1,6 +1,15 @@
 # Multi-Language-API
 
 [![Build status](https://ci.appveyor.com/api/projects/status/8q2gd8ldexwl595q?svg=true)](https://ci.appveyor.com/project/Magik3a/multi-language-api)
+
+## Technologies Used
+- ASP.NET MVC
+- ASP.NET Web API
+- Entity Framework (Repository Pattern)
+- DI/IOC (Ninject)
+- AutoMapper 
+- AngularJS
+
 ### Nuget Packages 
 - AdminLteMvc" version="1.0.0" 
 - angularjs" version="1.5.8"
