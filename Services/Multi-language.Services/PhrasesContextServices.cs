@@ -8,18 +8,16 @@ using Multi_language.Data;
 
 namespace Multi_language.Services
 {
-    public class PhrasesService : IPhrasesService
+    public class PhrasesContextServices : IPhrasesContextServices
     {
-        private readonly IRepository<Phrases> phrases;
         private readonly IRepository<PhrasesContext> phrasesContext;
 
-        public PhrasesService(IRepository<Phrases> phrases, IRepository<PhrasesContext> phrasesContext)
+        public PhrasesContextServices(IRepository<PhrasesContext> phrasesContext)
         {
-            this.phrases = phrases;
             this.phrasesContext = phrasesContext;
         }
 
-        public void Add(Phrases Phrase)
+        public void Add(PhrasesContext PhraseContext)
         {
             throw new NotImplementedException();
         }
@@ -29,12 +27,12 @@ namespace Multi_language.Services
             throw new NotImplementedException();
         }
 
-        public IQueryable<Phrases> GetAll()
+        public IQueryable<PhrasesContext> GetAll()
         {
             throw new NotImplementedException();
         }
 
-        public IQueryable<Phrases> GetById(int IdPhrase)
+        public IQueryable<PhrasesContext> GetById(int IdLanguage)
         {
             throw new NotImplementedException();
         }
@@ -44,7 +42,7 @@ namespace Multi_language.Services
             throw new NotImplementedException();
         }
 
-        public void Update(Phrases Phrase)
+        public void Update(PhrasesContext PhraseContext)
         {
             throw new NotImplementedException();
         }
