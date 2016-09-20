@@ -8,10 +8,14 @@ namespace Multi_language.Data
     public class MultiLanguageDbContext : IdentityDbContext<AppUser>, IDbContext
     {
         public MultiLanguageDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+            : base("MultiLanguage", throwIfV1Schema: false)
         {
         }
         public virtual IDbSet<Languages> languages { get; set; }
+
+        public virtual IDbSet<Phrases> Phrases { get; set; }
+
+        public virtual IDbSet<PhrasesContext> PhraseContext { get; set; }
 
         public static MultiLanguageDbContext Create()
         {

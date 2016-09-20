@@ -30,7 +30,7 @@ namespace Multi_language.Models
         [StringLength(ValidationConstants.UserEmail)]
         public string UserName { get; set; }
 
-        public DateTime? Datechanged { get; set; }
+        public DateTime? DateChanged { get; set; }
 
         public DateTime? DateCreated { get; set; }
     }

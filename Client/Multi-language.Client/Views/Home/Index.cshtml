@@ -1,17 +1,17 @@
-﻿@* 
+﻿@*
     This is the example main content of the AdminLTE demo and represents a good smattering of AdminLTE functionality in a cshtml
     TODO: Delete this file when you're ready to start building your app
  *@
 
 @{
     // Layout set automatially in _ViewStart.cshtml
-    
+
     // EXAMPLE:
     // Using the ViewBag on a page to set the title and sub-title
     // This will cause the _AdminLteLayout to include this value in the page title
     // And also set the top titles in the main content area of the page
-    ViewBag.Title = "Admin LTE";
-    ViewBag.TitleSmall = "Version 2.0";
+    ViewBag.Title = "Multi-Language API";
+    ViewBag.TitleSmall = "Version 1.0";
 
     // EXAMPLE:
     // Using the Breadcrumb class to create a dynamically generated breadcrumb on the page with
@@ -19,6 +19,8 @@
     ViewBag.Breadcrumb = new Breadcrumb(new Crumb[] {
         new Crumb("Dashboard", "", "fa-dashboard")
     });
+
+    ViewBag.DashboardMenuItem = "active";
 }
 
 <!-- Info boxes -->
@@ -529,4 +531,10 @@
 <script src="~/Scripts/AdminLTE/plugins/datatables/dataTables.bootstrap.js"></script>
 <script src="~/Scripts/AdminLTE/plugins/iCheck/icheck.js"></script>
 
+
+    <script>
+        $(document).ready(function () {
+            $('a[href$="showLanguages"]').click();
+        });
+    </script>
 }

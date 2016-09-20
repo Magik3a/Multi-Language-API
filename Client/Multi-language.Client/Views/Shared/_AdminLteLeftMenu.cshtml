@@ -35,7 +35,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview">
+            <li class="treeview @ViewBag.DashboardMenuItem">
                 <a href="~/">
                     <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                 </a>
@@ -47,14 +47,14 @@
                 </a>
             </li>
             <li class="header">MULTI-LANGUAGE</li>
-            <li>
+            <li class="@ViewBag.LanguagesMenuItem">
                 <a href="@Url.Action("Index","Language",null)">
                     <i class="fa fa-language"></i> Languages
                 </a>
             </li>
             <li>
                 <a href="#">
-                    <i class="fa fa-file-text-o "></i> Resources
+                    <i class="fa fa-book"></i> Resources
                 </a>
             </li>
         </ul>

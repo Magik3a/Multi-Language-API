@@ -14,7 +14,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
     <!-- Ionicons -->
     <link href="http://code.ionicframework.com/ionicons/2.0.0/css/ionicons.min.css" rel="stylesheet" type="text/css" />
- 
+
     @Styles.Render("~/Content/adminLte")
     <link href="~/Scripts/AdminLTE/plugins/iCheck/all.css" rel="stylesheet" />
     <!--[if lt IE 9]>
@@ -63,7 +63,9 @@
     @Scripts.Render("~/bundles/angular")
 
     <script src="~/Scripts/AdminLTE/demo.js"></script>
-
+    <script>
+        $(document).ajaxStart(function () { Pace.restart(); });
+    </script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
