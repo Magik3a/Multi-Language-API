@@ -19,7 +19,8 @@ namespace Multi_language.Services
 
         public void Add(PhrasesContext PhraseContext)
         {
-            throw new NotImplementedException();
+            phrasesContext.Add(PhraseContext);
+            phrasesContext.SaveChanges();
         }
 
         public void Delete(int id)
@@ -29,17 +30,17 @@ namespace Multi_language.Services
 
         public IQueryable<PhrasesContext> GetAll()
         {
-            throw new NotImplementedException();
+            return phrasesContext.All();
         }
 
-        public IQueryable<PhrasesContext> GetById(int IdLanguage)
+        public PhrasesContext GetById(int IdPhrasesContext)
         {
-            throw new NotImplementedException();
+            return phrasesContext.GetById(IdPhrasesContext);
         }
 
         public void Save()
         {
-            throw new NotImplementedException();
+            phrasesContext.SaveChanges();
         }
 
         public void Update(PhrasesContext PhraseContext)

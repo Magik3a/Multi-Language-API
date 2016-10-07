@@ -16,12 +16,15 @@
             {
                 types.AddRange(assembly.GetExportedTypes());
             }
-
-            LoadStandardMappings(types);
-            LoadCustomMappings(types);
+            Mapper.Initialize(s =>
+          {
+              LoadStandardMappings(s, types);
+              LoadCustomMappings(s, types);
+          });
         }
 
-        private static void LoadStandardMappings(IEnumerable<Type> types)
+
+        private static void LoadStandardMappings(IMapperConfigurationExpression conf, IEnumerable<Type> types)
         {
             var maps = types.SelectMany(t => t.GetInterfaces(), (t, i) => new { t, i })
                 .Where(
@@ -33,13 +36,14 @@
 
             foreach (var map in maps)
             {
-                Mapper.Initialize(s => s.CreateMap(map.Source, map.Destination));
-                Mapper.Initialize(s => s.CreateMap(map.Source, map.Destination).ReverseMap());
-
+                conf.CreateMap(map.Source, map.Destination);
+                conf.CreateMap(map.Source, map.Destination).ReverseMap();
+                conf.CreateMissingTypeMaps = true;
             }
+
         }
 
-        private static void LoadCustomMappings(IEnumerable<Type> types)
+        private static void LoadCustomMappings(IMapperConfigurationExpression conf, IEnumerable<Type> types)
         {
             var maps =
                 types.SelectMany(t => t.GetInterfaces(), (t, i) => new { t, i })
@@ -51,7 +55,7 @@
 
             foreach (var map in maps)
             {
-                map.CreateMappings(Mapper.Configuration.Configuration);
+                map.CreateMappings(conf);
             }
         }
     }

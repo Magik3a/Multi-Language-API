@@ -10,6 +10,6 @@ namespace Multi_language.Common.Infrastructure.Mapping
 
     public interface ICustomMapping
     {
-        void CreateMappings(IConfiguration config);
+        void CreateMappings(IMapperConfigurationExpression config);
     }
 }

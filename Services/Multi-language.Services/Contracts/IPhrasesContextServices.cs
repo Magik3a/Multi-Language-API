@@ -5,7 +5,7 @@ namespace Multi_language.Services
 {
     public interface IPhrasesContextServices
     {
-        IQueryable<PhrasesContext> GetById(int IdLanguage);
+        PhrasesContext GetById(int IdLanguage);
 
         IQueryable<PhrasesContext> GetAll();
 

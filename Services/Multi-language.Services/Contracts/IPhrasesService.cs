@@ -7,7 +7,11 @@ namespace Multi_language.Services
     {
         IQueryable<Phrases> GetById(int IdPhrase);
 
+        IQueryable<Phrases> GetByIdContextAndIdLanguage(int IdPhraseContext, int IdLanguage);
+
         IQueryable<Phrases> GetAll();
+
+        IQueryable<Phrases> GetAllByIdLanguage(int IdLanguage);
 
         void Add(Phrases Phrase);
 
