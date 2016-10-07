@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{4E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multi-language.Services", "Services\Multi-language.Services\Multi-language.Services.csproj", "{6A9670F4-3D3E-4B7A-8A77-EB087D3C1E33}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{8B30F2F7-A067-4B38-9CEF-0A5BE12EFC18}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{8B30F2F7-A067-4B38-9CEF-0A5BE12EFC18}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multi-language.Client", "Client\Multi-language.Client\Multi-language.Client.csproj", "{743276D8-1436-48E2-BED5-50A717845E3E}"
 EndProject

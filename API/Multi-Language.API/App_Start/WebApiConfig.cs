@@ -19,11 +19,18 @@ namespace Multi_Language.API
 
             // Web API routes
             config.MapHttpAttributeRoutes();
-            
+
+            config.Routes.MapHttpRoute(
+                name: "DefaultApi2",
+                routeTemplate: "api/phrases/{id}/{language}",
+                constraints: new { language = @"(\w{2})|(\w{2}-\w{2})" },
+                defaults: new { controller="phrases", id = RouteParameter.Optional, language = RouteParameter.Optional }
+            );
+
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
-                routeTemplate: "api/{controller}/{id}/{idLanguage}",
-                defaults: new { id = RouteParameter.Optional, idLanguage = RouteParameter.Optional }
+                routeTemplate: "api/{controller}/{id}",
+                defaults: new { id = RouteParameter.Optional }
             );
         }
     }

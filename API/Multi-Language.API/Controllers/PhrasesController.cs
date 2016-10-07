@@ -53,8 +53,9 @@ namespace Multi_Language.API.Controllers
         /// Get exact phase by id and language.
         /// </summary>
         [ResponseType(typeof(PhrasesApiModel))]
-        public IHttpActionResult Get(int id, int idLanguage)
+        public IHttpActionResult Get(int id, string language)
         {
+            var idLanguage = langService.GetAll().Where(l => l.Culture == language).FirstOrDefault().IdLanguage;
             var phrase = phrasesService.GetByIdContextAndIdLanguage(id, idLanguage).ProjectTo<PhrasesApiModel>().FirstOrDefault();
 
             return Ok(phrase);
