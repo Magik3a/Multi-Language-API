@@ -465,6 +465,7 @@
     <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Contexts\Index.cshtml" />
     <Content Include="Views\Resources\Index.cshtml" />
+    <Content Include="Views\Languages\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

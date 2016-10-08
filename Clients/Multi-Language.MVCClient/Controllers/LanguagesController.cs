@@ -50,12 +50,12 @@ namespace Multi_Language.MVCClient.Controllers
 
                 return View(model);
             }
-            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added languages", "New Language is created successfuly.");
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added languages", "New Language is created successfully.");
 
             if (Request.IsAjaxRequest())
-                return PartialView("Index",model);
+                return PartialView("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
 
-            return View("Index", model);
+            return View("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
         }
     }
 }

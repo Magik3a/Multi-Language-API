@@ -89,14 +89,18 @@ desired effect
     @Scripts.Render("~/bundles/theme")
 
     <script>
-        function MainSidebarLinkClickBegin(elem) {
-            $(".sidebar-menu li").removeClass("active");
+        function AjaxClickBegin(elem) {
+            var target = $(elem).parent();
+            if (target.is("li")) {
+                $(".sidebar-menu li").removeClass("active");
+            }
             $("#page-content").fadeTo(0, 0, function () {
-                $(elem).parent().addClass("active");
-
+                if (target.is("li")) {
+                    target.addClass("active");
+                }
             });
         };
-        function MainSidebarLinkClickComplete(action, controller, icon) {
+        function AjaxClickComplete(action, controller, icon) {
             $("#page-content").fadeTo("fast", 1, function () {
 
                 $("#breadcrumb-parent").html("<i class='fa " + icon + "'></i>" + controller);
@@ -107,7 +111,7 @@ desired effect
             });
 
         };
-        function MainSidebarLinkClickSuccess(data, status, xhr) {
+        function AjaxClickSuccess(data, status, xhr) {
             $(".content-header h1").html(xhr.getResponseHeader("ContentHeader") + " <small>" + xhr.getResponseHeader("ContentDescription") + "</small>");
         };
 

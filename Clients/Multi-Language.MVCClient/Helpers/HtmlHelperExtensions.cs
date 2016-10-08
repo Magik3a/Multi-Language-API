@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Helpers;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
+using System.Web.Mvc.Html;
 
 public static class HtmlHelperExtensions
 {
@@ -32,9 +33,9 @@ public static class HtmlHelperExtensions
     {
         var repID = Guid.NewGuid().ToString();
 
-        ajaxOptions.OnBegin = "MainSidebarLinkClickBegin(this)";
-        ajaxOptions.OnComplete = $"MainSidebarLinkClickComplete('{actionName}', '{controllerName}', 'fa {icon}')";
-        ajaxOptions.OnSuccess = "MainSidebarLinkClickSuccess";
+        ajaxOptions.OnBegin = "AjaxClickBegin(this)";
+        ajaxOptions.OnComplete = $"AjaxClickComplete('{actionName}', '{controllerName}', 'fa {icon}')";
+        ajaxOptions.OnSuccess = "AjaxClickSuccess";
         ajaxOptions.UpdateTargetId = "page-content";
         ajaxOptions.InsertionMode = InsertionMode.Replace;
 
@@ -51,9 +52,9 @@ public static class HtmlHelperExtensions
     {
         var repID = Guid.NewGuid().ToString();
 
-        ajaxOptions.OnBegin = "MainSidebarLinkClickBegin(this)";
-        ajaxOptions.OnComplete = $"MainSidebarLinkClickComplete('{actionName}', '{controllerName}', 'fa {icon}')";
-        ajaxOptions.OnSuccess = "MainSidebarLinkClickSuccess";
+        ajaxOptions.OnBegin = "AjaxClickBegin(this)";
+        ajaxOptions.OnComplete = $"AjaxClickComplete('{actionName}', '{controllerName}', 'fa {icon}')";
+        ajaxOptions.OnSuccess = "AjaxClickSuccess";
         ajaxOptions.UpdateTargetId = "page-content";
         ajaxOptions.InsertionMode = InsertionMode.Replace;
 
@@ -63,4 +64,25 @@ public static class HtmlHelperExtensions
 
         // return $" <a href='{destination}'></a>";
     }
+
+    public static MvcForm RawAjaxBeginForm(this AjaxHelper ajaxHelper,
+        string icon,
+        string actionName,
+        string controllerName,
+        object routeValues,
+        AjaxOptions ajaxOptions,
+        object htmlAttributes)
+    {
+
+        ajaxOptions.OnBegin = "AjaxClickBegin(this)";
+        ajaxOptions.OnComplete = $"AjaxClickComplete('{actionName}', '{controllerName}', 'fa {icon}')";
+        ajaxOptions.OnSuccess = "AjaxClickSuccess";
+        ajaxOptions.UpdateTargetId = "page-content";
+        ajaxOptions.InsertionMode = InsertionMode.Replace;
+
+        var lnk = ajaxHelper.BeginForm(actionName, controllerName, routeValues, ajaxOptions, htmlAttributes);
+
+        return lnk;
+    }
+
 }

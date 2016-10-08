@@ -12,6 +12,7 @@ namespace Multi_Language.MVCClient.Models
 {
     public class LanguagesViewModels : IMapFrom<Languages>
     {
+        [Required]
         public string Name { get; set; }
 
         [Required]
@@ -20,6 +21,7 @@ namespace Multi_Language.MVCClient.Models
 
         [Required]
         [StringLength(20)]
+       // [RegularExpression("^([a-zA-Z0-9 .&'-]+)$")]
         public string Culture { get; set; }
 
         [Column(TypeName = "image")]
