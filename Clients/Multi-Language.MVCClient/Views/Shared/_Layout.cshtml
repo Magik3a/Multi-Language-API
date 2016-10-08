@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Multi-Language API</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+<!--
+BODY TAG OPTIONS:
+=================
+Apply one or more of the following classes to get the
+desired effect
+|---------------------------------------------------------|
+| SKINS         | skin-blue                               |
+|               | skin-black                              |
+|               | skin-purple                             |
+|               | skin-yellow                             |
+|               | skin-red                                |
+|               | skin-green                              |
+|---------------------------------------------------------|
+|LAYOUT OPTIONS | fixed                                   |
+|               | layout-boxed                            |
+|               | layout-top-nav                          |
+|               | sidebar-collapse                        |
+|               | sidebar-mini                            |
+|---------------------------------------------------------|
+-->
+<body class="hold-transition skin-red sidebar-mini">
+    <div class="wrapper">
+
+        <!-- Main Header -->
+        @Html.Partial("LayoutPartials/MainHeader")
+
+        <!-- Left side column. contains the logo and sidebar -->
+        @Html.Partial("LayoutPartials/MainSidebar")
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <section class="content-header">
+                <h1>
+                   @ViewBag.ContentHeader
+                    <small>@ViewBag.ContentDescription</small>
+                </h1>
+                <ol class="breadcrumb">
+                    <li><a href="#" id="breadcrumb-parent"><i class="fa fa-dashboard"></i> Level</a></li>
+                    <li class="active" id="breadcrumb-child">Here</li>
+                </ol>
+            </section>
+
+            <!-- Main content -->
+            <section class="content" id="page-content">
+                <!-- Your Page Content Here -->
+
+                @RenderBody()
+            </section>
+            <!-- /.content -->
+        </div>
+
+        <!-- Main Footer -->
+        @Html.Partial("LayoutPartials/MainFooter")
+
+        <!-- Control Sidebar -->
+        @Html.Partial("LayoutPartials/ControlSidebar")
+
+        <!-- Add the sidebar's background. This div must be placed
+             immediately after the control sidebar -->
+        <div class="control-sidebar-bg"></div>
+    </div>
+
+    <!-- jQuery -->
+    @Scripts.Render("~/bundles/jquery")
+
+    <!-- Bootstrap -->
+    @Scripts.Render("~/bundles/bootstrap")
+
+    <!-- Theme and plugins -->
+    @Scripts.Render("~/bundles/theme")
+
+    <script>
+        function MainSidebarLinkClickBegin(elem) {
+            $(".sidebar-menu li").removeClass("active");
+            $("#page-content").fadeTo(0, 0, function () {
+                $(elem).parent().addClass("active");
+
+            });
+        };
+        function MainSidebarLinkClickComplete(action, controller, icon) {
+            $("#page-content").fadeTo("fast", 1, function () {
+
+                $("#breadcrumb-parent").html("<i class='fa " + icon + "'></i>" + controller);
+                $("#breadcrumb-child").html(action);
+
+                var content = $(".wrapper").html();
+                window.history.pushState({ "html": content, "action": action }, action, '../' + controller + '/' + action);
+            });
+
+        };
+        function MainSidebarLinkClickSuccess(data, status, xhr) {
+            $(".content-header h1").html(xhr.getResponseHeader("ContentHeader") + " <small>" + xhr.getResponseHeader("ContentDescription") + "</small>");
+        };
+
+        window.onpopstate = function (e) {
+            if (e.state) {
+                $(".wrapper").html(e.state.html);
+                $("#page-content").fadeIn(200);
+                document.title = e.state.action;
+            }
+        };
+    </script>
+    @RenderSection("scripts", required: false)
+</body>
+</html>
