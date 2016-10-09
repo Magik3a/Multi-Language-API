@@ -12,6 +12,8 @@ namespace Multi_Language.MVCClient.Models
 {
     public class LanguagesViewModels : IMapFrom<Languages>
     {
+        public int IdLanguage { get; set; }
+
         [Required]
         public string Name { get; set; }
 

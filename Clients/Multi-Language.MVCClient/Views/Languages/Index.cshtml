@@ -67,9 +67,13 @@
                         @Html.DisplayFor(modelItem => item.DateCreated)
                     </td>
                     <td>
-                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                        @Ajax.RawActionLinkWithoutIcon("Edit", "fa-language", "Edit", "Languages", new { id = item.IdLanguage }, new AjaxOptions { }, new { @class = "" })
+                        |
+                        @Ajax.RawActionLinkWithoutIcon("Details", "fa-language", "Details", "Languages", new { id = item.IdLanguage }, new AjaxOptions { }, new { @class = "" })
+                        |
+                        @Ajax.RawActionLinkWithoutIcon("Delete", "fa-language", "Delete", "Languages", new { id = item.IdLanguage }, new AjaxOptions { }, new { @class = "" })
+
+
                     </td>
                 </tr>
             }

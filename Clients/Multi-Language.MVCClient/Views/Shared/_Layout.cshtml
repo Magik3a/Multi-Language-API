@@ -93,21 +93,23 @@ desired effect
             var target = $(elem).parent();
             if (target.is("li")) {
                 $(".sidebar-menu li").removeClass("active");
+
             }
             $("#page-content").fadeTo(0, 0, function () {
                 if (target.is("li")) {
+                    $(elem).append("<span><i class='fa fa-refresh fa-spin pull-right' id='mainSidebarLoader'></i></span>");
                     target.addClass("active");
                 }
             });
         };
         function AjaxClickComplete(action, controller, icon) {
             $("#page-content").fadeTo("fast", 1, function () {
-
+                $("#mainSidebarLoader").remove();
                 $("#breadcrumb-parent").html("<i class='fa " + icon + "'></i>" + controller);
                 $("#breadcrumb-child").html(action);
 
                 var content = $(".wrapper").html();
-                window.history.pushState({ "html": content, "action": action }, action, '../' + controller + '/' + action);
+                window.history.pushState({ "html": content, "action": action }, action, '../../' + controller + '/' + action);
             });
 
         };

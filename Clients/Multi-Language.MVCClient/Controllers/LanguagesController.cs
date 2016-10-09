@@ -1,4 +1,5 @@
-﻿using AutoMapper.QueryableExtensions;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Multi_language.Services;
 using Multi_Language.MVCClient.Models;
 using System;
@@ -52,10 +53,86 @@ namespace Multi_Language.MVCClient.Controllers
             }
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added languages", "New Language is created successfully.");
 
+            // TODO Make some data thing here
             if (Request.IsAjaxRequest())
                 return PartialView("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
 
             return View("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
         }
+
+        [HttpGet]
+        public ActionResult Edit(int? id)
+        {
+            if (!id.HasValue)
+            {
+                SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Edit language", "Error. Go back to list and choose language.");
+                return View(new LanguagesViewModels());
+            }
+            var idLang = id ?? 0;
+            var model = Mapper.Map<LanguagesViewModels>(languagesService.GetById(idLang).FirstOrDefault());
+
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Edit language", " ");
+            if (Request.IsAjaxRequest())
+                return PartialView(model);
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(LanguagesViewModels model)
+        {
+            if (!ModelState.IsValid)
+            {
+                SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Edit", "You have some validation errors.");
+                if (Request.IsAjaxRequest())
+                    return PartialView(model);
+
+                return View(model);
+            }
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added languages", "Language is edited successfully.");
+
+            // TODO Make some data thing here
+            if (Request.IsAjaxRequest())
+                return PartialView("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
+
+            return View("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
+        }
+
+        [HttpGet]
+        public ActionResult Details(int? id)
+        {
+            if (!id.HasValue)
+            {
+                SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Details for language", "Error. Go back to list and choose language.");
+                return View(new LanguagesViewModels());
+            }
+            var idLang = id ?? 0;
+            var model = Mapper.Map<LanguagesViewModels>(languagesService.GetById(idLang).FirstOrDefault());
+
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Details for language", " ");
+            if (Request.IsAjaxRequest())
+                return PartialView(model);
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int? id)
+        {
+            if (!id.HasValue)
+            {
+                SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Delete language", "Error. Go back to list and choose language.");
+                return View(new LanguagesViewModels());
+            }
+            var idLang = id ?? 0;
+            var model = Mapper.Map<LanguagesViewModels>(languagesService.GetById(idLang).FirstOrDefault());
+
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Delete language", "Alert! All contexts and resources associate with the language will be deleted to!");
+            if (Request.IsAjaxRequest())
+                return PartialView(model);
+
+            return View(model);
+        }
+
     }
 }
