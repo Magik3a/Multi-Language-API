@@ -55,7 +55,6 @@ namespace Multi_Language.API.Controllers
                 language.Datechanged = DateTime.Now;
                 language.DateCreated = DateTime.Now;
                 langService.Add(Mapper.Map<LanguagesApiModel, Languages>(language));
-                langService.Save();
 
                 return Ok();
             }
@@ -79,7 +78,6 @@ namespace Multi_Language.API.Controllers
             language.IdLanguage = id;
             language.Datechanged = DateTime.Now;
             langService.Update(Mapper.Map<LanguagesApiModel, Languages>(language));
-            langService.Save();
 
             return Ok();
         }
@@ -91,9 +89,7 @@ namespace Multi_Language.API.Controllers
                 langService.Delete(id);
             else
                 return BadRequest();
-
-            langService.Save();
-
+            
             return Ok();
         }
     }

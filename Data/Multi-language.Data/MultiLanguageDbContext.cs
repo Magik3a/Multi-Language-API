@@ -2,6 +2,7 @@
 namespace Multi_language.Data
 {
     using Microsoft.AspNet.Identity.EntityFramework;
+    using Migrations;
     using Models;
     using System.Data.Entity;
 
@@ -10,6 +11,7 @@ namespace Multi_language.Data
         public MultiLanguageDbContext()
             : base("MultiLanguage", throwIfV1Schema: false)
         {
+            Database.SetInitializer(new MigrateDatabaseToLatestVersion<MultiLanguageDbContext, Configuration>());
         }
         public virtual IDbSet<Languages> languages { get; set; }
 
