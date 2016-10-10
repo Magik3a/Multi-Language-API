@@ -38,6 +38,11 @@ namespace Multi_language.Services
             return phrasesContext.GetById(IdPhrasesContext);
         }
 
+        public void Remove(PhrasesContext phrasesContext)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Save()
         {
             phrasesContext.SaveChanges();

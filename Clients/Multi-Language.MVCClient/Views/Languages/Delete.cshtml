@@ -86,7 +86,7 @@
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
-         @using (Html.BeginForm())
+         @using (Ajax.RawAjaxBeginForm("fa-language","Delete","Languages",   new {  id=Model.IdLanguage }, new AjaxOptions {}, null))
             {
                 @Html.AntiForgeryToken()
 

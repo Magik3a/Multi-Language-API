@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Multi_language.Models;
 using Multi_language.Services;
 using Multi_Language.MVCClient.Models;
 using System;
@@ -53,7 +54,11 @@ namespace Multi_Language.MVCClient.Controllers
             }
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added languages", "New Language is created successfully.");
 
-            // TODO Make some data thing here
+            model.DateChanged = DateTime.Now;
+            model.DateCreated = DateTime.Now;
+            model.UserName = User.Identity.Name;
+            languagesService.Add(Mapper.Map<Languages>(model));
+
             if (Request.IsAjaxRequest())
                 return PartialView("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
 
@@ -91,7 +96,10 @@ namespace Multi_Language.MVCClient.Controllers
             }
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added languages", "Language is edited successfully.");
 
-            // TODO Make some data thing here
+            model.DateChanged = DateTime.Now;
+            model.UserName = User.Identity.Name;
+            languagesService.Update(Mapper.Map<Languages>(model));
+
             if (Request.IsAjaxRequest())
                 return PartialView("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
 
@@ -134,5 +142,19 @@ namespace Multi_Language.MVCClient.Controllers
             return View(model);
         }
 
+        // POST: Contexts/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteConfirmed(int id)
+        {
+            languagesService.Delete(id);
+
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added languages", "Language is deleted successfully.");
+
+            if (Request.IsAjaxRequest())
+                return PartialView("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
+
+            return View("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
+        }
     }
 }

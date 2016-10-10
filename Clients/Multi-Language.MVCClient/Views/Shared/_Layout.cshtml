@@ -97,7 +97,7 @@ desired effect
             }
             $("#page-content").fadeTo(0, 0, function () {
                 if (target.is("li")) {
-                    $(elem).append("<span><i class='fa fa-refresh fa-spin pull-right' id='mainSidebarLoader'></i></span>");
+                    $(elem).append("<span id='mainSidebarLoader'><i class='fa fa-refresh fa-spin pull-right'></i></span>");
                     target.addClass("active");
                 }
             });

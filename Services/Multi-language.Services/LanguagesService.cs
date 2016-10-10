@@ -16,7 +16,7 @@ namespace Multi_language.Services
         public IQueryable<Languages> GetById(int IdLanguage)
         {
             return languages.All().Where(s => s.IdLanguage == IdLanguage);
-        } 
+        }
 
         public IQueryable<Languages> GetAll()
         {
@@ -26,20 +26,23 @@ namespace Multi_language.Services
         public void Add(Languages Language)
         {
             languages.Add(Language);
+            Save();
         }
 
         public void Update(Languages Language)
         {
             languages.Update(Language);
+            Save();
         }
 
         public void Delete(int id)
         {
             var language = languages.GetById(id);
             languages.Delete(language);
+            Save();
         }
 
-        public void Save()
+        private void Save()
         {
             languages.SaveChanges();
         }

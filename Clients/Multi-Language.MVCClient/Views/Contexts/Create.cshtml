@@ -1,0 +1,54 @@
+﻿@model Multi_Language.MVCClient.Models.PhrasesContextViewModel
+
+@{
+    ViewBag.Title = "Create";
+}
+<!-- Default box -->
+<div class="box box-success">
+    <div class="box-header with-border">
+        <h3 class="box-title">Create new</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+
+@using (Ajax.RawAjaxBeginForm("fa-cube","Create","Contexts", null, new AjaxOptions {}, null))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Context, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Context, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Context, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+            </div>
+        </div>
+    </div>
+}
+
+  </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+     @Ajax.RawActionLinkWithoutIcon("Back to list", "fa-cube", "Index", "Contexts", null, new AjaxOptions { }, null)
+    </div>
+    <!-- /.box-footer-->
+</div>
+<!-- /.box -->

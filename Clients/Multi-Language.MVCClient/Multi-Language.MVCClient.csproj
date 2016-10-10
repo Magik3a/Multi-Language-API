@@ -208,6 +208,7 @@
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\LanguagesViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\PhrasesContextViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -463,12 +464,16 @@
     <Content Include="Views\Shared\LayoutPartials\ControlSidebar.cshtml" />
     <Content Include="Views\Languages\Index.cshtml" />
     <Content Include="Views\Projects\Index.cshtml" />
-    <Content Include="Views\Contexts\Index.cshtml" />
     <Content Include="Views\Resources\Index.cshtml" />
     <Content Include="Views\Languages\Create.cshtml" />
     <Content Include="Views\Languages\Edit.cshtml" />
     <Content Include="Views\Languages\Details.cshtml" />
     <Content Include="Views\Languages\Delete.cshtml" />
+    <Content Include="Views\Contexts\Create.cshtml" />
+    <Content Include="Views\Contexts\Delete.cshtml" />
+    <Content Include="Views\Contexts\Details.cshtml" />
+    <Content Include="Views\Contexts\Edit.cshtml" />
+    <Content Include="Views\Contexts\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

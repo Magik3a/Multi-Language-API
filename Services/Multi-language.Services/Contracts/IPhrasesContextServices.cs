@@ -16,5 +16,6 @@ namespace Multi_language.Services
         void Delete(int id);
 
         void Save();
+        void Remove(PhrasesContext phrasesContext);
     }
 }

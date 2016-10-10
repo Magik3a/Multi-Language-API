@@ -21,7 +21,8 @@
 @using (Ajax.RawAjaxBeginForm("fa-language","Edit","Languages",   new {  id=Model.IdLanguage }, new AjaxOptions {}, null))
 {
     @Html.AntiForgeryToken()
-
+    @Html.HiddenFor(model => model.IdLanguage)
+    @Html.HiddenFor(model => model.DateCreated)
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">

@@ -23,7 +23,7 @@ namespace Multi_Language.MVCClient.Models
 
         [Required]
         [StringLength(20)]
-       // [RegularExpression("^([a-zA-Z0-9 .&'-]+)$")]
+       [RegularExpression("^[a-z]{2,3}(?:-[A-Z]{2,3}(?:-[a-zA-Z]{4})?)?$")]
         public string Culture { get; set; }
 
         [Column(TypeName = "image")]

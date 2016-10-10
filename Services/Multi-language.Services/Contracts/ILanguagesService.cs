@@ -14,7 +14,5 @@ namespace Multi_language.Services
         void Update(Languages Language);
 
         void Delete(int id);
-
-        void Save();
     }
 }
