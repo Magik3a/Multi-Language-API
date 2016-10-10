@@ -1,48 +1,70 @@
 ﻿@model Multi_Language.MVCClient.Models.PhrasesContextViewModel
 
-@{
-    ViewBag.Title = "Delete";
-}
-
-<h2>Delete</h2>
-
-<h3>Are you sure you want to delete this?</h3>
-<div>
-    <h4>PhrasesContext</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Context)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Context)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateChanged)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateChanged)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DateCreated)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DateCreated)
-        </dd>
-
-    </dl>
-
-    @using (Html.BeginForm()) {
-        @Html.AntiForgeryToken()
-
-        <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> |
-            @Html.ActionLink("Back to List", "Index")
-        </div>
+    @{
+        ViewBag.Title = "Delete";
     }
+<!-- Default box -->
+<div class="box box-success">
+    <div class="box-header with-border">
+        <h3 class="box-title">Delete</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>PhrasesContext</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.Context)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Context)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateChanged)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateChanged)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.DateCreated)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.DateCreated)
+            </dd>
+
+        </dl>
+
+
+    </div>
+          </div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+       @using (Ajax.RawAjaxBeginForm("fa-cube","Delete","Contexts",   new {  id=Model.IdPhraseContext }, new AjaxOptions {}, null))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-actions no-color">
+                <input type="submit" value="Delete" class="btn btn-default" /> |
+           @Ajax.RawActionLinkWithoutIcon("Back to list", "fa-cube", "Index", "Contexts", null, new AjaxOptions { }, null)
+            </div>
+        }
+    </div>
+    <!-- /.box-footer-->
 </div>
+<!-- /.box -->

@@ -12,6 +12,7 @@ using Multi_language.Services;
 using AutoMapper.QueryableExtensions;
 using Multi_Language.MVCClient.Models;
 using AutoMapper;
+using Microsoft.AspNet.Identity;
 
 namespace Multi_Language.MVCClient.Controllers
 {
@@ -37,7 +38,7 @@ namespace Multi_Language.MVCClient.Controllers
         [HttpGet]
         public ActionResult Create()
         {
-            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Add new context", " ");
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Add new context", "Short description");
             if (Request.IsAjaxRequest())
                 return PartialView();
 
@@ -57,7 +58,11 @@ namespace Multi_Language.MVCClient.Controllers
             }
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added context", "New context is created successfully.");
 
-            // TODO Make some data thing here
+            model.DateChanged = DateTime.Now;
+            model.DateCreated = DateTime.Now;
+            model.UserId = User.Identity.GetUserId();
+            contextServices.Add(Mapper.Map<PhrasesContext>(model));
+
             if (Request.IsAjaxRequest())
                 return PartialView("Index", contextServices.GetAll().ProjectTo<PhrasesContextViewModel>());
 
@@ -95,7 +100,11 @@ namespace Multi_Language.MVCClient.Controllers
             }
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added context", "Context is edited successfully.");
 
-            // TODO Make some data thing here
+            model.DateChanged = DateTime.Now;
+            model.UserId = User.Identity.GetUserId();
+
+            contextServices.Update(Mapper.Map<PhrasesContext>(model));
+
             if (Request.IsAjaxRequest())
                 return PartialView("Index", contextServices.GetAll().ProjectTo<PhrasesContextViewModel>());
 
@@ -143,10 +152,13 @@ namespace Multi_Language.MVCClient.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            PhrasesContext phrasesContext = contextServices.GetById(id);
-            contextServices.Remove(phrasesContext);
-            contextServices.Save();
-            return RedirectToAction("Index");
+            contextServices.Delete(id);
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added context", "Context is deleted successfully.");
+
+            if (Request.IsAjaxRequest())
+                return PartialView("Index", contextServices.GetAll().ProjectTo<PhrasesContextViewModel>());
+
+            return View("Index", contextServices.GetAll().ProjectTo<PhrasesContextViewModel>());
         }
 
     }

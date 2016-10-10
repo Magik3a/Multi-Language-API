@@ -26,7 +26,7 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.IdPhraseContext)
-
+        @Html.HiddenFor(model => model.DateCreated)
 
 
         <div class="form-group">

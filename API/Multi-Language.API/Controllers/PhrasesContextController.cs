@@ -37,7 +37,6 @@ namespace Multi_Language.API.Controllers
                 phraseContext.DateChanged = DateTime.Now;
                 phraseContext.DateCreated = DateTime.Now;
                 phrasesContextService.Add(Mapper.Map<PhrasesContextApiModel, PhrasesContext>(phraseContext));
-                phrasesContextService.Save();
 
                 return Ok();
             }

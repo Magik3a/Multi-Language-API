@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Multi_language.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,5 +19,7 @@ namespace Multi_Language.MVCClient.Models
         public DateTime? DateChanged { get; set; }
 
         public DateTime? DateCreated { get; set; }
+
+        public virtual AppUser User { get; set; }
     }
 }
