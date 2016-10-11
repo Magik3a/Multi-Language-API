@@ -752,6 +752,9 @@
     <Content Include="Views\Resources\Details.cshtml" />
     <Content Include="Views\Resources\Edit.cshtml" />
     <Content Include="Views\Resources\Index.cshtml" />
+    <Content Include="Views\Shared\InnerPartials\CurrentProjectInfoBox.cshtml" />
+    <Content Include="Views\Shared\InnerPartials\LanguagesInfoBox.cshtml" />
+    <Content Include="Views\Shared\InnerPartials\ContextsInfoBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

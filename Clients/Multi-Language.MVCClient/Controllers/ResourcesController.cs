@@ -89,7 +89,20 @@ namespace Multi_Language.MVCClient.Controllers
 
                 return View(model);
             }
+            var currentPhrases = phrasesService.GetAll().Where(p => p.IdPhraseContext == model.IdPhraseContext && p.IdLanguage == model.IdLanguage);
+            if (currentPhrases.Count() > 0)
+            {
+                ViewBag.IdLanguage = new SelectList(languagesService.GetAll(), "IdLanguage", "Name", model.IdLanguage);
+                ViewBag.IdPhraseContext = new SelectList(contextServices.GetAll(), "IdPhraseContext", "Context", model.IdPhraseContext);
+                ModelState.AddModelError("", "Translation for this context in this language is already defined.");
 
+                SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Add new resource", $@"Translation for this context in this language is already defined.
+Please choose different language or edit current translation <a href='{Url.Action("Edit", new { id = currentPhrases.First().IdPhrase })}' >here!</a>");
+                if (Request.IsAjaxRequest())
+                    return PartialView(model);
+
+                return View(model);
+            }
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added resources", "New resource is created successfully.");
 
             model.DateChanged = DateTime.Now;

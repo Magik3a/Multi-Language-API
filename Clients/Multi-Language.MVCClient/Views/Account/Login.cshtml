@@ -28,7 +28,17 @@
             <a href="../../index2.html"><b>Multi-Language</b>API</a>
         </div><!-- /.login-logo -->
         <div class="login-box-body">
-            <p class="login-box-msg">Sign in to start your session</p>
+            <p class="login-box-msg">
+               <strong> Sign in to start your session</strong>
+                <br />
+                <div class="text-left">
+                    Default login:
+                    <br />
+                    User name: "testuser@s2kdesign.com"
+                    <br />
+                    Password: "password"
+                </div>
+            </p>
             @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
             {
                 @Html.AntiForgeryToken()
@@ -40,7 +50,7 @@
 
                     @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
                 </div>
-                <div class="form-group has-feedback"  style="margin-left:0; margin-right:0;">
+                <div class="form-group has-feedback" style="margin-left:0; margin-right:0;">
                     @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Password" })
 
                     <span class="glyphicon glyphicon-lock form-control-feedback"></span>

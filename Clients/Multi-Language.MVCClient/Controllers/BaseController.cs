@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace Multi_Language.MVCClient.Controllers
 {
+    [Authorize]
     public class BaseController : Controller
     {
         public void SetViewBagsAndHeaders(bool isAjax, string ContentHeader, string ContentDescription)
