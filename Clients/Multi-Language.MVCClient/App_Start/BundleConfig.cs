@@ -27,7 +27,11 @@ namespace Multi_Language.MVCClient
             bundles.Add(new ScriptBundle("~/bundles/theme").Include(
                       "~/admin-lte/js/app.min.js",
                       "~/Scripts/fastclick.js",
-                      "~/Scripts/jquery.slimscroll.js"));
+                      "~/Scripts/jquery.slimscroll.js",
+                      "~/Scripts/DataTables/jquery.dataTables.js",
+                      "~/Scripts/DataTables/dataTables.bootstrap.js",
+                      "~/Scripts/jquery.icheck.min.js",
+                      "~/Scripts/select2.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       // Bootstrap 3.3.6
@@ -36,6 +40,11 @@ namespace Multi_Language.MVCClient
                       "~/Content/css/font-awesome.min.css",
                       // Theme style
                       "~/admin-lte/css/AdminLTE.min.css",
+
+                      // Plugins styles
+                      "~/Content/DataTables/css/dataTables.bootstrap.css",
+                      "~/Content/css/select2.css",
+                      "~/Content/iCheck/square/blue.css",
                       /*
                        * AdminLTE Skins. We have chosen the skin-blue for this starter
                        * page. However, you can choose any other skin. Make sure you

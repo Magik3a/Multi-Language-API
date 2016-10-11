@@ -25,6 +25,13 @@ namespace Multi_language.Data.Migrations
                 var userToInsert = new AppUser { UserName = "svetlin.krastanov90@gmail.com", PhoneNumber = "0888017004", Email = "svetlin.krastanov90@gmail.com" };
                 userManager.Create(userToInsert, "svetlin90");
             }
+            if (!(context.Users.Any(u => u.UserName == "testuser@s2kdesign.com")))
+            {
+                var userStore = new UserStore<AppUser>(context);
+                var userManager = new UserManager<AppUser>(userStore);
+                var userToInsert = new AppUser { UserName = "testuser@s2kdesign.com", PhoneNumber = "0888017004", Email = "testuser@s2kdesign.com" };
+                userManager.Create(userToInsert, "password");
+            }
         }
     }
 }

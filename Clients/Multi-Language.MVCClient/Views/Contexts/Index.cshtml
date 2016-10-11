@@ -10,6 +10,10 @@
         <h3 class="box-title">Current contexts - @Model.Count()</h3>
 
         <div class="box-tools pull-right">
+            @Ajax.RawActionLinkWithoutIcon("Create New", "fa-cube", "Create", "Contexts",
+           null, new AjaxOptions { }, new { @class = "btn btn-success btn-xs" })
+
+
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fa fa-minus"></i>
             </button>
@@ -19,62 +23,89 @@
         </div>
     </div>
     <div class="box-body">
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.IdPhraseContext)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.User.UserName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Context)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateChanged)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateCreated)
-                </th>
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        <table class="table table-bordered table-hover table-striped dataTable">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.IdPhraseContext)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.User.UserName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Context)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateChanged)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.DateCreated)
-                    </td>
-                    <td>
-                        @Ajax.RawActionLinkWithoutIcon("Edit", "fa-cube", "Edit", "Contexts", new { id = item.IdPhraseContext }, new AjaxOptions { }, new { @class = "" })
-                        |
-                        @Ajax.RawActionLinkWithoutIcon("Details", "fa-cube", "Details", "Contexts", new { id = item.IdPhraseContext }, new AjaxOptions { }, new { @class = "" })
-                        |
-                        @Ajax.RawActionLinkWithoutIcon("Delete", "fa-cube", "Delete", "Contexts", new { id = item.IdPhraseContext }, new AjaxOptions { }, new { @class = "" })
-
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdPhraseContext)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Context)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateChanged)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateCreated)
+                    </th>
+                    <th></th>
                 </tr>
-            }
+            </thead>
+            <tfoot>
+                 <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.IdPhraseContext)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Context)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateChanged)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateCreated)
+                    </th>
+                    <th></th>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.IdPhraseContext)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Context)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateChanged)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreated)
+                        </td>
+                        <td>
+                            <div class="btn-group-vertical">
+                                @Ajax.RawActionLinkWithoutIcon("Details", "fa-cube", "Details", "Contexts",
+                               new { id = item.IdPhraseContext }, new AjaxOptions { }, new { @class = "btn btn-default btn-xs" })
 
+                                @Ajax.RawActionLinkWithoutIcon("Edit", "fa-cube", "Edit", "Contexts",
+                               new { id = item.IdPhraseContext }, new AjaxOptions { }, new { @class = "btn btn-default btn-xs" })
+
+                                @Ajax.RawActionLinkWithoutIcon("Delete", "fa-cube", "Delete", "Contexts",
+                               new { id = item.IdPhraseContext }, new AjaxOptions { }, new { @class = "btn btn-default btn-xs" })
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
         </table>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
 
         <p>
-            @Ajax.RawActionLinkWithoutIcon("Create New", "fa-cube", "Create", "Contexts", null, new AjaxOptions { }, new { @class = "" })
+            @Ajax.RawActionLinkWithoutIcon("Create New", "fa-cube", "Create", "Contexts", null, new AjaxOptions { }, new { @class = "btn btn-success btn-flat" })
         </p>
     </div>
     <!-- /.box-footer-->

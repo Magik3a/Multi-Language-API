@@ -5,7 +5,7 @@ namespace Multi_language.Services
 {
     public interface IPhrasesService
     {
-        IQueryable<Phrases> GetById(int IdPhrase);
+        Phrases GetById(int IdPhrase);
 
         IQueryable<Phrases> GetByIdContextAndIdLanguage(int IdPhraseContext, int IdLanguage);
 
@@ -18,7 +18,6 @@ namespace Multi_language.Services
         void Update(Phrases Phrase);
 
         void Delete(int id);
-
-        void Save();
+        
     }
 }

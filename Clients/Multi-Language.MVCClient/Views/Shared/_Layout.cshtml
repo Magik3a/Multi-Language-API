@@ -50,7 +50,7 @@ desired effect
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
-                   @ViewBag.ContentHeader
+                    @ViewBag.ContentHeader
                     <small>@ViewBag.ContentDescription</small>
                 </h1>
                 <ol class="breadcrumb">
@@ -89,6 +89,15 @@ desired effect
     @Scripts.Render("~/bundles/theme")
 
     <script>
+        $(document).ready(function () {
+             $(".select2").select2();
+            $('.dataTable').DataTable();
+            $('input[type=checkbox]').iCheck({
+                checkboxClass: 'icheckbox_square-blue',
+                radioClass: 'iradio_square-blue',
+                increaseArea: '20%' // optional
+            });
+        });
         function AjaxClickBegin(elem) {
             var target = $(elem).parent();
             if (target.is("li")) {
@@ -108,6 +117,20 @@ desired effect
                 $("#breadcrumb-parent").html("<i class='fa " + icon + "'></i>" + controller);
                 $("#breadcrumb-child").html(action);
 
+                // initialise plugins if there is any
+                if ($('.dataTable').children().length > 0) {
+                    $('.dataTable').DataTable();
+                }
+                if ($('input[type=checkbox]').length > 0) {
+                    $('input[type=checkbox]').iCheck({
+                        checkboxClass: 'icheckbox_square-blue',
+                        radioClass: 'iradio_square-blue',
+                        increaseArea: '20%' // optional
+                    });
+                }
+                if ($(".select2").length > 0){
+                     $(".select2").select2();
+                }
                 var content = $(".wrapper").html();
                 window.history.pushState({ "html": content, "action": action }, action, '../../' + controller + '/' + action);
             });

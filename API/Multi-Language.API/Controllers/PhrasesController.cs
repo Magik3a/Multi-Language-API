@@ -74,7 +74,6 @@ namespace Multi_Language.API.Controllers
                 phrase.DateChanged = DateTime.Now;
                 phrase.DateCreated = DateTime.Now;
                 phrasesService.Add(Mapper.Map<PhrasesApiModel, Phrases>(phrase));
-                phrasesService.Save();
 
                 return Ok();
             }
