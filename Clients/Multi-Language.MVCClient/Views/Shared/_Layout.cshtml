@@ -120,6 +120,9 @@ desired effect
                 radioClass: 'iradio_square-blue',
                 increaseArea: '20%' // optional
             });
+            var url = $(location).attr('href').split('/');
+            LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
+
         });
         function AjaxClickBegin(elem) {
             var target = $(elem).parent();
@@ -140,10 +143,11 @@ desired effect
                 $("#mainSidebarLoader").remove();
                 $("#breadcrumb-parent").html("<i class='fa " + icon + "'></i>" + controller);
                 $("#breadcrumb-child").html(action);
+                var url = $(location).attr('href').split('/');
+                if (url[3] != controller && action === "Index") {
 
-                if (action === "Index") {
-                     $("#first-row-content").fadeTo("fast", 0);
-                     $("#first-row-content").hide(300);
+                    $("#first-row-content").fadeTo("fast", 0);
+                    $("#first-row-content").hide(250);
                     LoadFirstRow("../../Sections/FirstRow?id=" + controller);
                 }
                 // initialise plugins if there is any
@@ -201,7 +205,7 @@ desired effect
                     },
                     success: function (json) {
                         $("#first-row-content").html(json);
-                        $("#first-row-content").show(300);
+                        $("#first-row-content").show(250);
                         $("#first-row-content").fadeTo("fast", 100);
                     }
                 });
@@ -216,6 +220,10 @@ desired effect
                 $(".wrapper").html(e.state.html);
                 $("#page-content").fadeIn(200);
                 document.title = e.state.action;
+                $("#first-row-content").fadeTo("fast", 0);
+                    $("#first-row-content").hide(250);
+                var url = $(location).attr('href').split('/');
+                LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
             }
         };
     </script>

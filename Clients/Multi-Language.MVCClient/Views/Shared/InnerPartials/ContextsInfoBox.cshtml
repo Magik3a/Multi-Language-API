@@ -1,18 +1,29 @@
-﻿
-
+﻿@model Multi_Language.MVCClient.Models.SectionsViewModels.ContextsInfoBoxViewModel
+@{
+    var percentage = Model.Translated * 100.0 / Model.CurrentCount;
+}
 <!-- Apply any bg-* class to to the info-box to color it -->
 <div class="info-box bg-yellow-gradient">
-  <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+  <span class="info-box-icon"><i class="fa fa-cube"></i></span>
   <div class="info-box-content">
-    <span class="info-box-text">Likes</span>
-    <span class="info-box-number">41,410</span>
+    <span class="info-box-text">Contexts</span>
+    <span class="info-box-number">@Model.CurrentCount</span>
     <!-- The progress section is optional -->
     <div class="progress">
-      <div class="progress-bar" style="width: 100%"></div>
+      <div class="progress-bar" style="width: @percentage%"></div>
     </div>
     <span class="progress-description">
-      70% Increase in 30 Days
+      Translated: @Model.Translated
+         @Ajax.RawActionLinkWithoutIcon("Create New", "fa-cube", "Create", "Contexts",
+           null, new AjaxOptions { }, new { @class = "btn btn-warning btn-xs pull-right", onmousedown="ChangeSidebarContextsActive()" })
+
     </span>
   </div><!-- /.info-box-content -->
 </div><!-- /.info-box -->
 
+<script>
+    function ChangeSidebarContextsActive() {
+        $(".sidebar-menu li").removeClass("active");
+    $('.sidebar-menu li a[href$="/Contexts"').parent().addClass("active");
+    }
+</script>

@@ -9,7 +9,7 @@ namespace Multi_language.Data
     public class MultiLanguageDbContext : IdentityDbContext<AppUser>, IDbContext
     {
         public MultiLanguageDbContext()
-            : base("MultiLanguage", throwIfV1Schema: false)
+            : base("DefaultConnection", throwIfV1Schema: false)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<MultiLanguageDbContext, Configuration>());
         }
@@ -23,7 +23,7 @@ namespace Multi_language.Data
         {
             return new MultiLanguageDbContext();
         }
-        
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

@@ -211,6 +211,10 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PhrasesContextViewModel.cs" />
     <Compile Include="Models\ResourcesViewModels.cs" />
+    <Compile Include="Models\SectionsViewModels\ContextsFirstRowSectionViewModel.cs" />
+    <Compile Include="Models\SectionsViewModels\ContextsInfoBoxViewModel.cs" />
+    <Compile Include="Models\SectionsViewModels\CurrentProjectInfoBoxViewModel.cs" />
+    <Compile Include="Models\SectionsViewModels\LanguagesInfoBoxViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\ResourcesFirstRowSectionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -759,6 +763,7 @@
     <Content Include="Views\Shared\InnerPartials\ContextsInfoBox.cshtml" />
     <Content Include="Views\Sections\Default.cshtml" />
     <Content Include="Views\Sections\ResourcesFirstRowSection.cshtml" />
+    <Content Include="Views\Sections\ContextsFirstRowSection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

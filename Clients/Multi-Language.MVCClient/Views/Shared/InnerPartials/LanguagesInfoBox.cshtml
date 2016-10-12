@@ -1,16 +1,29 @@
-﻿
+﻿@model Multi_Language.MVCClient.Models.SectionsViewModels.LanguagesInfoBoxViewModel
+@{
+    var percentage = Model.ActiveCount * 100.0 / Model.CurrentCount;
+}
 <!-- Apply any bg-* class to to the info-box to color it -->
 <div class="info-box bg-blue-gradient">
-  <span class="info-box-icon"><i class="fa fa-comments-o"></i></span>
+  <span class="info-box-icon"><i class="fa fa-language"></i></span>
   <div class="info-box-content">
-    <span class="info-box-text">Likes</span>
-    <span class="info-box-number">41,410</span>
+    <span class="info-box-text">Created Languages</span>
+    <span class="info-box-number">@Model.CurrentCount</span>
     <!-- The progress section is optional -->
     <div class="progress">
-      <div class="progress-bar" style="width: 70%"></div>
+      <div class="progress-bar" style="width: @percentage%"></div>
     </div>
     <span class="progress-description">
-      70% Increase in 30 Days
+      Active @Model.ActiveCount
+        @Ajax.RawActionLinkWithoutIcon("Create New", "fa-language", "Create", "Languages",
+           null, new AjaxOptions { }, new { @class = "btn btn-primary btn-xs pull-right", onmousedown="ChangeSidebarLanguagesActive()" })
     </span>
   </div><!-- /.info-box-content -->
 </div><!-- /.info-box -->
+
+
+<script>
+    function ChangeSidebarLanguagesActive() {
+        $(".sidebar-menu li").removeClass("active");
+    $('.sidebar-menu li a[href$="/Languages"').parent().addClass("active");
+    }
+</script>

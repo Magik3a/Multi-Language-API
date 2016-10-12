@@ -1,15 +1,15 @@
-﻿
+﻿@model Multi_Language.MVCClient.Models.SectionsViewModels.ResourcesFirstRowSectionViewModel
 <div class="row">
     <div class="col-md-4">
         @Html.Partial("InnerPartials/CurrentProjectInfoBox")
 
     </div>
     <div class="col-md-4">
-        @Html.Partial("InnerPartials/LanguagesInfoBox")
+        @Html.Partial("InnerPartials/LanguagesInfoBox", Model.Languages)
 
     </div>
     <div class="col-md-4">
-        @Html.Partial("InnerPartials/ContextsInfoBox")
+        @Html.Partial("InnerPartials/ContextsInfoBox", Model.Contexts)
 
     </div>
 </div>

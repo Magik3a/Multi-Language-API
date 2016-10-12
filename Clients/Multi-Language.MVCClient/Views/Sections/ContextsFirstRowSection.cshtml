@@ -1,0 +1,12 @@
+﻿@model Multi_Language.MVCClient.Models.SectionsViewModels.ContextsFirstRowSectionViewModel
+
+<div class="row">
+    <div class="col-md-6">
+        @Html.Partial("InnerPartials/CurrentProjectInfoBox")
+
+    </div>
+    <div class="col-md-6">
+        @Html.Partial("InnerPartials/LanguagesInfoBox", Model.Languages)
+
+    </div>
+</div>

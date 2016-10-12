@@ -16,7 +16,22 @@ namespace Multi_Language.MVCClient.Controllers
             if (id == "Resources")
             {
                 var model = new ResourcesFirstRowSectionViewModel();
-                return PartialView("ResourcesFirstRowSection");
+                model.Languages.CurrentCount = 9;
+                model.Languages.ActiveCount = 3;
+
+                model.Contexts.CurrentCount = 40;
+                model.Contexts.Translated = 25;
+                return PartialView("ResourcesFirstRowSection", model);
+            }
+
+            if (id == "Contexts")
+            {
+                var model = new ContextsFirstRowSectionViewModel();
+                model.Languages.CurrentCount = 9;
+                model.Languages.ActiveCount = 3;
+
+                return PartialView("ContextsFirstRowSection", model);
+
             }
             return PartialView("Default");
         }
