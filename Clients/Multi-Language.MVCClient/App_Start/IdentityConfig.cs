@@ -13,6 +13,7 @@ using Microsoft.Owin.Security;
 using Multi_Language.MVCClient.Models;
 using Multi_language.Models;
 using Multi_language.Data;
+using System.Security.Principal;
 
 namespace Multi_Language.MVCClient
 {
@@ -42,7 +43,7 @@ namespace Multi_Language.MVCClient
         {
         }
 
-        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context) 
+        public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options, IOwinContext context)
         {
             var manager = new ApplicationUserManager(new UserStore<AppUser>(context.Get<MultiLanguageDbContext>()));
             // Configure validation logic for usernames
@@ -83,7 +84,7 @@ namespace Multi_Language.MVCClient
             var dataProtectionProvider = options.DataProtectionProvider;
             if (dataProtectionProvider != null)
             {
-                manager.UserTokenProvider = 
+                manager.UserTokenProvider =
                     new DataProtectorTokenProvider<AppUser>(dataProtectionProvider.Create("ASP.NET Identity"));
             }
             return manager;
@@ -106,6 +107,14 @@ namespace Multi_Language.MVCClient
         public static ApplicationSignInManager Create(IdentityFactoryOptions<ApplicationSignInManager> options, IOwinContext context)
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
+        }
+    }
+
+    public static class IdentityExtensions
+    {
+        public static string GetActiveProjectName(this IIdentity identity)
+        {
+            return ((ClaimsIdentity)identity).FindFirst("ActiveProject").Value;
         }
     }
 }

@@ -17,6 +17,7 @@ namespace Multi_language.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdPhraseContext { get; set; }
+        
 
         public string UserId { get; set; }
 
@@ -29,6 +30,7 @@ namespace Multi_language.Models
         public DateTime? DateCreated { get; set; }
 
         public virtual AppUser User { get; set; }
+        
 
         public virtual ICollection<Phrases> Phrases { get; set; }
 

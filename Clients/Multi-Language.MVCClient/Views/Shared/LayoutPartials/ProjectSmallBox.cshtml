@@ -24,9 +24,12 @@
     </div>
     <!-- /.box-header -->
     <div class="box-body">
-        The body of the box
+        @User.Identity.GetActiveProjectName()
     </div>
     <!-- /.box-body -->
+    @*<div class="overlay">
+        <i class="fa fa-refresh fa-spin"></i>
+    </div>*@
 </div>
 <!-- /.box -->
 <script>

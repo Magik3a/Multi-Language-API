@@ -14,6 +14,8 @@ namespace Multi_Language.MVCClient.Models
     {
         public int IdLanguage { get; set; }
 
+        public int IdProject { get; set; }
+
         [Required]
         public string Name { get; set; }
 

@@ -215,6 +215,7 @@
     <Compile Include="Models\SectionsViewModels\ContextsInfoBoxViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\CurrentProjectInfoBoxViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\LanguagesInfoBoxViewModel.cs" />
+    <Compile Include="Models\SectionsViewModels\ProjectBoxViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\ResourcesFirstRowSectionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

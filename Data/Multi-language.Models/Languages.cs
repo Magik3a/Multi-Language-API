@@ -10,6 +10,8 @@ namespace Multi_language.Models
         [Key]
         public int IdLanguage { get; set; }
 
+        public int IdProject { get; set; }
+
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
@@ -33,5 +35,8 @@ namespace Multi_language.Models
         public DateTime? DateChanged { get; set; }
 
         public DateTime? DateCreated { get; set; }
+
+        public virtual Projects Project { get; set; }
+
     }
 }

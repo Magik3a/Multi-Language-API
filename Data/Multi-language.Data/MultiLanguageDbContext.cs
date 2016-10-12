@@ -19,6 +19,9 @@ namespace Multi_language.Data
 
         public virtual IDbSet<PhrasesContext> PhraseContext { get; set; }
 
+        public virtual IDbSet<Projects> Projects { get; set; }
+
+
         public static MultiLanguageDbContext Create()
         {
             return new MultiLanguageDbContext();

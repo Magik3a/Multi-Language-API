@@ -62,8 +62,7 @@ desired effect
             <!-- Main content -->
             <section class="content" id="wrapper-page-content">
                 <div class="row">
-                    <div class="col-md-3">
-                       @Html.Partial("LayoutPartials/ProjectSmallBox")
+                    <div class="col-md-3" id="project-box">
                     </div>
 
                 <div id="first-row-content" class="col-md-9">
@@ -120,6 +119,9 @@ desired effect
     <script>
         $(document).ajaxStart(function () { Pace.restart(); });
         $(document).ready(function () {
+            $.get("../../Sections/ProjectBox", function (data) {
+                $("#project-box").append(data);
+            });
             $(".select2").select2();
             $('.dataTable').DataTable();
             $('input[type=checkbox]').iCheck({
