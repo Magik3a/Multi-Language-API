@@ -201,6 +201,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -210,6 +211,7 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PhrasesContextViewModel.cs" />
     <Compile Include="Models\ResourcesViewModels.cs" />
+    <Compile Include="Models\SectionsViewModels\ResourcesFirstRowSectionViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -755,6 +757,8 @@
     <Content Include="Views\Shared\InnerPartials\CurrentProjectInfoBox.cshtml" />
     <Content Include="Views\Shared\InnerPartials\LanguagesInfoBox.cshtml" />
     <Content Include="Views\Shared\InnerPartials\ContextsInfoBox.cshtml" />
+    <Content Include="Views\Sections\Default.cshtml" />
+    <Content Include="Views\Sections\ResourcesFirstRowSection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
