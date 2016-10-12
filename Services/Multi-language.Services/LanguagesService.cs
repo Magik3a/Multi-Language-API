@@ -22,7 +22,6 @@ namespace Multi_language.Services
         {
             return languages.All();
         }
-
         public void Add(Languages Language)
         {
             languages.Add(Language);

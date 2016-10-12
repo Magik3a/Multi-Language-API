@@ -61,7 +61,12 @@ desired effect
 
             <!-- Main content -->
             <section class="content" id="wrapper-page-content">
-                <div id="first-row-content">
+                <div class="row">
+                    <div class="col-md-3">
+                       @Html.Partial("LayoutPartials/ProjectSmallBox")
+                    </div>
+
+                <div id="first-row-content" class="col-md-9">
                     @*<div id="loading">
                             <div class="box box-solid">
                                 <div class="box-header with-border">
@@ -83,6 +88,7 @@ desired effect
 
                     <div id="data"></div>
                 </div>
+                         </div>
                 <!-- Your Page Content Here -->
                 <div id="page-content">
                     @RenderBody()
@@ -112,6 +118,7 @@ desired effect
     @Scripts.Render("~/bundles/theme")
 
     <script>
+        $(document).ajaxStart(function () { Pace.restart(); });
         $(document).ready(function () {
             $(".select2").select2();
             $('.dataTable').DataTable();
@@ -221,7 +228,7 @@ desired effect
                 $("#page-content").fadeIn(200);
                 document.title = e.state.action;
                 $("#first-row-content").fadeTo("fast", 0);
-                    $("#first-row-content").hide(250);
+                $("#first-row-content").hide(250);
                 var url = $(location).attr('href').split('/');
                 LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
             }

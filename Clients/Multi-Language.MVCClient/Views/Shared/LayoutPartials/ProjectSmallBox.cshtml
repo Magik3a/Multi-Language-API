@@ -1,0 +1,36 @@
+﻿ <!-- small box -->
+<div class="small-box bg-red-gradient">
+    <div class="inner">
+        <h3>Project:</h3>
+
+        <p>Some really cool project</p>
+    </div>
+    <div class="icon">
+        <i class="fa fa-pencil-square"></i>
+    </div>
+    <a href="#" class="small-box-footer" onclick="ChangeActiveProject()">
+        Change active project <i class="fa fa-arrow-circle-right"></i>
+    </a>
+
+</div>
+<div class="box box-danger box-solid" id="change-active-project-box" style="display: none;">
+    <div class="box-header with-border">
+        <h3 class="box-title">Choose project</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+        </div>
+        <!-- /.box-tools -->
+    </div>
+    <!-- /.box-header -->
+    <div class="box-body">
+        The body of the box
+    </div>
+    <!-- /.box-body -->
+</div>
+<!-- /.box -->
+<script>
+    function ChangeActiveProject() {
+        $("#change-active-project-box").show(300);
+    }
+</script>

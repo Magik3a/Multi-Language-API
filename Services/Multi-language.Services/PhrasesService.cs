@@ -47,11 +47,12 @@ namespace Multi_language.Services
             return phrases.GetById(IdPhrase);
         }
 
+
         public IQueryable<Phrases> GetByIdContextAndIdLanguage(int IdPhraseContext, int IdLanguage)
         {
             return phrases.All().Where(p => p.IdPhraseContext == IdPhraseContext && p.IdLanguage == IdLanguage);
         }
-        
+
         public void Update(Phrases Phrase)
         {
             phrases.Update(Phrase);

@@ -31,26 +31,28 @@ namespace Multi_Language.MVCClient
                       "~/Scripts/DataTables/jquery.dataTables.js",
                       "~/Scripts/DataTables/dataTables.bootstrap.js",
                       "~/Scripts/jquery.icheck.min.js",
-                      "~/Scripts/select2.js"));
+                      "~/Scripts/select2.js",
+                      "~/Scripts/pace.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       // Bootstrap 3.3.6
                       "~/Content/bootstrap.css",
                       // Font Awesome
-                      "~/Content/css/font-awesome.min.css",
+                      "~/Content/cssbundle/font-awesome.min.css",
                       // Theme style
                       "~/admin-lte/css/AdminLTE.min.css",
 
                       // Plugins styles
                       "~/Content/DataTables/css/dataTables.bootstrap.css",
-                      "~/Content/css/select2.css",
+                      "~/Content/cssbundle/select2.css",
                       "~/Content/iCheck/square/blue.css",
                       /*
                        * AdminLTE Skins. We have chosen the skin-blue for this starter
                        * page. However, you can choose any other skin. Make sure you
                        * apply the skin class to the body tag so the changes take effect.
                        */
-                      "~/admin-lte/css/skins/skin-red.css"));
+                      "~/admin-lte/css/skins/skin-red.css",
+                      "~/Content/pace/themes/orange/pace-theme-loading-bar.css"));
         }
     }
 }

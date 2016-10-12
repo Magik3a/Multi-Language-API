@@ -61,6 +61,7 @@ namespace Multi_Language.MVCClient.Controllers
         // GET: Resources/Create
         public ActionResult Create()
         {
+
             ViewBag.IdLanguage = new SelectList(languagesService.GetAll(), "IdLanguage", "Name");
             ViewBag.IdPhraseContext = new SelectList(contextServices.GetAll(), "IdPhraseContext", "Context");
 
@@ -78,10 +79,11 @@ namespace Multi_Language.MVCClient.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdPhrase,IdPhraseContext,IdLanguage,PhraseText")] ResourcesViewModels model)
         {
+            ViewBag.IdLanguage = new SelectList(languagesService.GetAll(), "IdLanguage", "Name", model.IdLanguage);
+            ViewBag.IdPhraseContext = new SelectList(contextServices.GetAll(), "IdPhraseContext", "Context", model.IdPhraseContext);
+
             if (!ModelState.IsValid)
             {
-                ViewBag.IdLanguage = new SelectList(languagesService.GetAll(), "IdLanguage", "Name", model.IdLanguage);
-                ViewBag.IdPhraseContext = new SelectList(contextServices.GetAll(), "IdPhraseContext", "Context", model.IdPhraseContext);
 
                 SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Add new resource", "You have some validation errors.");
                 if (Request.IsAjaxRequest())
@@ -103,18 +105,18 @@ Please choose different language or edit current translation <a href='{Url.Actio
 
                 return View(model);
             }
-            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added resources", "New resource is created successfully.");
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Add new resource", "New resource is created successfully.");
 
             model.DateChanged = DateTime.Now;
             model.DateCreated = DateTime.Now;
             model.UserId = User.Identity.GetUserId();
 
             phrasesService.Add(Mapper.Map<Phrases>(model));
-
+            model.PhraseText = "";
             if (Request.IsAjaxRequest())
-                return PartialView("Index", phrasesService.GetAll().ProjectTo<ResourcesViewModels>());
+                return PartialView(model);
 
-            return View("Index", phrasesService.GetAll().ProjectTo<ResourcesViewModels>());
+            return View(model);
         }
 
         // GET: Resources/Edit/5

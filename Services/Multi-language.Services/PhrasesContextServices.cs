@@ -40,6 +40,7 @@ namespace Multi_language.Services
             return phrasesContext.GetById(IdPhrasesContext);
         }
 
+
         public void Update(PhrasesContext PhraseContext)
         {
             phrasesContext.Update(PhraseContext);
