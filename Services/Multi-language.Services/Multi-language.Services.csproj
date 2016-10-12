@@ -43,9 +43,11 @@
     <Compile Include="Contracts\ILanguagesService.cs" />
     <Compile Include="Contracts\IPhrasesService.cs" />
     <Compile Include="Contracts\IPhrasesContextServices.cs" />
+    <Compile Include="Contracts\IProjectsServices.cs" />
     <Compile Include="LanguagesService.cs" />
     <Compile Include="PhrasesContextServices.cs" />
     <Compile Include="PhrasesService.cs" />
+    <Compile Include="ProjectsServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

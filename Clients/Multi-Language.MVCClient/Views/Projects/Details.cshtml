@@ -1,0 +1,71 @@
+﻿@model Multi_Language.MVCClient.Models.ProjectsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+
+<!-- Default box -->
+<div class="box box-success">
+    <div class="box-header with-border">
+        <h3 class="box-title">Details</h3>
+
+        <div class="box-tools pull-right">
+            <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fa fa-minus"></i>
+            </button>
+            <button type="button" class="btn btn-box-tool" data-widget="remove" data-toggle="tooltip" title="Remove">
+                <i class="fa fa-times"></i>
+            </button>
+        </div>
+    </div>
+    <div class="box-body">
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ProjectName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ProjectName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateChanged)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateChanged)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateCreated)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateCreated)
+        </dd>
+
+    </dl>
+</div>
+</div>
+    <!-- /.box-body -->
+    <div class="box-footer">
+      @Ajax.RawActionLinkWithoutIcon("Edit", "fa-globe", "Edit", "Projects", new { id = Model.IdProject }, new AjaxOptions { }, new { @class = "" })
+
+    |
+    @Ajax.RawActionLinkWithoutIcon("Back to list", "fa-globe", "Index", "Projects", null, new AjaxOptions { }, null)
+
+    </div>
+    <!-- /.box-footer-->
+</div>
+<!-- /.box -->

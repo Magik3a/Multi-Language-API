@@ -1,10 +1,19 @@
-﻿
+﻿@model IEnumerable<Multi_Language.MVCClient.Models.ProjectsViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
 <!-- Default box -->
 <div class="box box-success">
     <div class="box-header with-border">
-        <h3 class="box-title">Title</h3>
+        <h3 class="box-title">Current projects - @Model.Count()</h3>
 
         <div class="box-tools pull-right">
+            @Ajax.RawActionLinkWithoutIcon("Create New", "fa-globe", "Create", "Projects",
+           null, new AjaxOptions { }, new { @class = "btn btn-success btn-xs" })
+
+
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
                 <i class="fa fa-minus"></i>
             </button>
@@ -14,11 +23,81 @@
         </div>
     </div>
     <div class="box-body">
-        Start creating your amazing application!
+        <table class="table table-bordered table-hover table-striped dataTable">
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProjectName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateChanged)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateCreated)
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tfoot>
+                 <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.User.UserName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.ProjectName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateChanged)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.DateCreated)
+                    </th>
+                    <th></th>
+                </tr>
+            </tfoot>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.UserName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ProjectName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateChanged)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.DateCreated)
+                        </td>
+                        <td>
+                            <div class="btn-group-vertical">
+                                @Ajax.RawActionLinkWithoutIcon("Details", "fa-globe", "Details", "Projects",
+                               new { id = item.IdProject }, new AjaxOptions { }, new { @class = "btn btn-default btn-xs" })
+
+                                @Ajax.RawActionLinkWithoutIcon("Edit", "fa-globe", "Edit", "Projects",
+                               new { id = item.IdProject }, new AjaxOptions { }, new { @class = "btn btn-default btn-xs" })
+
+                                @Ajax.RawActionLinkWithoutIcon("Delete", "fa-globe", "Delete", "Projects",
+                               new { id = item.IdProject }, new AjaxOptions { }, new { @class = "btn btn-default btn-xs" })
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+        </table>
     </div>
     <!-- /.box-body -->
     <div class="box-footer">
-        Footer
+
+        <p>
+            @Ajax.RawActionLinkWithoutIcon("Create New", "fa-globe", "Create", "Projects", null, new AjaxOptions { }, new { @class = "btn btn-success btn-flat" })
+        </p>
     </div>
     <!-- /.box-footer-->
 </div>

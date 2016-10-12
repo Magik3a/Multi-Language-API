@@ -210,6 +210,7 @@
     <Compile Include="Models\LanguagesViewModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\PhrasesContextViewModel.cs" />
+    <Compile Include="Models\ProjectsViewModel.cs" />
     <Compile Include="Models\ResourcesViewModels.cs" />
     <Compile Include="Models\SectionsViewModels\ContextsFirstRowSectionViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\ContextsInfoBoxViewModel.cs" />
@@ -925,7 +926,6 @@
     <Content Include="Views\Shared\LayoutPartials\MainFooter.cshtml" />
     <Content Include="Views\Shared\LayoutPartials\ControlSidebar.cshtml" />
     <Content Include="Views\Languages\Index.cshtml" />
-    <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Languages\Create.cshtml" />
     <Content Include="Views\Languages\Edit.cshtml" />
     <Content Include="Views\Languages\Details.cshtml" />
@@ -948,6 +948,11 @@
     <Content Include="Views\Sections\ContextsFirstRowSection.cshtml" />
     <Content Include="Scripts\pace.min.js.map" />
     <Content Include="Views\Shared\LayoutPartials\ProjectSmallBox.cshtml" />
+    <Content Include="Views\Projects\Create.cshtml" />
+    <Content Include="Views\Projects\Delete.cshtml" />
+    <Content Include="Views\Projects\Details.cshtml" />
+    <Content Include="Views\Projects\Edit.cshtml" />
+    <Content Include="Views\Projects\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -112,7 +112,7 @@ namespace Multi_Language.MVCClient
 
     public static class IdentityExtensions
     {
-        public static string GetActiveProjectName(this IIdentity identity)
+        public static string GetActiveProject(this IIdentity identity)
         {
             return ((ClaimsIdentity)identity).FindFirst("ActiveProject").Value;
         }

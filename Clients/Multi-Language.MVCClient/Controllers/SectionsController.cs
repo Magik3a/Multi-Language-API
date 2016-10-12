@@ -10,11 +10,11 @@ namespace Multi_Language.MVCClient.Controllers
 {
     public class SectionsController : BaseController
     {
-        public async Task<ActionResult> ProjectBox(string id)
+        public async Task<ActionResult> ProjectBox()
         {
             var model = new ProjectBoxViewModel();
 
-            return PartialView("LayoutPartials/ProjectSmallBox");
+            return PartialView("LayoutPartials/ProjectSmallBox", model);
         }
         // GET: Sections
         public async Task<ActionResult> FirstRow(string id)
