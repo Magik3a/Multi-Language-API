@@ -2,17 +2,33 @@
 <!-- small box -->
 <div class="small-box bg-red-gradient">
     <div class="inner">
-        <h3>Project:</h3>
+        <h3>Active project:</h3>
 
-        <p>Some really cool project</p>
+        <p>
+            @if (User.Identity.GetActiveProject() != "0")
+            {
+                @Model.ProjectName
+            }
+            else
+            {
+                <span>You have to create project</span>
+            }
+        </p>
     </div>
     <div class="icon">
         <i class="fa fa-pencil-square"></i>
     </div>
-    <a href="#" class="small-box-footer" onclick="ChangeActiveProject()">
-        Change active project <i class="fa fa-arrow-circle-right"></i>
-    </a>
-
+    @if (User.Identity.GetActiveProject() != "0")
+    {
+        <a href="#" class="small-box-footer" onclick="ChangeActiveProject()">
+            Change active project <i class="fa fa-arrow-circle-right"></i>
+        </a>
+    }
+    else
+    {
+        @Ajax.RawActionLinkWithoutIcon("Create new project", "fa-globe", "Create", "Projects",
+           null, new AjaxOptions { }, new { @class = "small-box-footer" })
+    }
 </div>
 <div class="box box-danger box-solid" id="change-active-project-box" style="display: none;">
     <div class="box-header with-border">
@@ -29,8 +45,8 @@
     </div>
     <!-- /.box-body -->
     @*<div class="overlay">
-        <i class="fa fa-refresh fa-spin"></i>
-    </div>*@
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>*@
 </div>
 <!-- /.box -->
 <script>

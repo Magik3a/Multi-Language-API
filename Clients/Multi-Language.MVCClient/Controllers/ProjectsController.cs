@@ -13,12 +13,29 @@ using AutoMapper.QueryableExtensions;
 using Multi_Language.MVCClient.Models;
 using AutoMapper;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using System.Security.Claims;
 
 namespace Multi_Language.MVCClient.Controllers
 {
     public class ProjectsController : BaseController
     {
         private IProjectsServices projectServices;
+
+        private ApplicationUserManager _userManager;
+
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
         public ProjectsController(IProjectsServices projectServices)
         {
             this.projectServices = projectServices;
@@ -58,10 +75,24 @@ namespace Multi_Language.MVCClient.Controllers
             }
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added project", "New project is created successfully.");
 
+            var userId = User.Identity.GetUserId();
+
             model.DateChanged = DateTime.Now;
             model.DateCreated = DateTime.Now;
-            model.UserId = User.Identity.GetUserId();
+            model.UserId = userId;
             projectServices.Add(Mapper.Map<Projects>(model));
+
+            if(User.Identity.GetActiveProject() == "0")
+            {
+                var projectId = projectServices.GetAll().OrderByDescending(m => m.DateCreated).Where(p => p.UserId == userId).FirstOrDefault().IdProject;
+
+                var user = UserManager.FindById(User.Identity.GetUserId());
+
+                user.ActiveProject = projectId;
+
+                IdentityResult result = UserManager.Update(user);
+                Response.Headers["FirstProjectAdded"] = "yeaaaa";
+            }
 
             if (Request.IsAjaxRequest())
                 return PartialView("Index", projectServices.GetAll().ProjectTo<ProjectsViewModel>());
@@ -150,8 +181,16 @@ namespace Multi_Language.MVCClient.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             projectServices.Delete(id);
-            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added context", "Context is deleted successfully.");
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All projects", "Project is deleted successfully.");
 
+            if(User.Identity.GetActiveProject() == id.ToString())
+            {
+                var user = UserManager.FindById(User.Identity.GetUserId());
+
+                user.ActiveProject = 0;
+
+                IdentityResult result = UserManager.Update(user);
+            }
             if (Request.IsAjaxRequest())
                 return PartialView("Index", projectServices.GetAll().ProjectTo<ProjectsViewModel>());
 

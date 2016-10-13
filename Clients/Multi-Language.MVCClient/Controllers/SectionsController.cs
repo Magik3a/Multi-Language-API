@@ -1,4 +1,5 @@
-﻿using Multi_Language.MVCClient.Models.SectionsViewModels;
+﻿using Multi_language.Services;
+using Multi_Language.MVCClient.Models.SectionsViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,21 @@ namespace Multi_Language.MVCClient.Controllers
 {
     public class SectionsController : BaseController
     {
+        private IProjectsServices projectServices;
+        public SectionsController(IProjectsServices projectServices)
+        {
+            this.projectServices = projectServices;
+        }
+
         public async Task<ActionResult> ProjectBox()
         {
             var model = new ProjectBoxViewModel();
-
+            var activeProject = int.Parse(User.Identity.GetActiveProject());
+            if (activeProject != 0)
+            {
+                ViewBag.AllProjects = new SelectList(projectServices.GetAll(), "IdProject", "ProjectName", activeProject);
+                model.ProjectName = projectServices.GetById(activeProject).ProjectName;
+            }
             return PartialView("LayoutPartials/ProjectSmallBox", model);
         }
         // GET: Sections

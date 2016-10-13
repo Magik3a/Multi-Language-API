@@ -65,29 +65,29 @@ desired effect
                     <div class="col-md-3" id="project-box">
                     </div>
 
-                <div id="first-row-content" class="col-md-9">
-                    @*<div id="loading">
-                            <div class="box box-solid">
-                                <div class="box-header with-border">
-                                    <h3 class="box-title">Loading...</h3>
-                                </div>
-                                <!-- /.box-header -->
-                                <div class="box-body">
-                                    <div class="progress">
-                                        <div id="loading" class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-                                            <span class="sr-only">40% Complete (success)</span>
-                                        </div>
+                    <div id="first-row-content" class="col-md-9">
+                        @*<div id="loading">
+                                <div class="box box-solid">
+                                    <div class="box-header with-border">
+                                        <h3 class="box-title">Loading...</h3>
                                     </div>
+                                    <!-- /.box-header -->
+                                    <div class="box-body">
+                                        <div class="progress">
+                                            <div id="loading" class="progress-bar progress-bar-green" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                                                <span class="sr-only">40% Complete (success)</span>
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                    <!-- /.box-body -->
                                 </div>
-                                <!-- /.box-body -->
-                            </div>
-                            <!-- /.box -->
-                        </div>*@
+                                <!-- /.box -->
+                            </div>*@
 
-                    <div id="data"></div>
+                        <div id="data"></div>
+                    </div>
                 </div>
-                         </div>
                 <!-- Your Page Content Here -->
                 <div id="page-content">
                     @RenderBody()
@@ -119,7 +119,7 @@ desired effect
     <script>
         $(document).ajaxStart(function () { Pace.restart(); });
         $(document).ready(function () {
-            $.get("../../Sections/ProjectBox", function (data) {
+                   $.get({ url: "../../Sections/ProjectBox", cache: false}).then( function (data) {
                 $("#project-box").append(data);
             });
             $(".select2").select2();
@@ -222,6 +222,15 @@ desired effect
         };
         function AjaxClickSuccess(data, status, xhr) {
             $(".content-header h1").html(xhr.getResponseHeader("ContentHeader") + " <small>" + xhr.getResponseHeader("ContentDescription") + "</small>");
+            if (xhr.getResponseHeader("FirstProjectAdded") != null) {
+                $("#project-box").hide(300);
+                $("#project-box").html("");
+                $.get({ url: "../../Sections/ProjectBox", cache: false}).then( function (data) {
+                    $("#project-box").append(data);
+                });
+                $("#project-box").show(300);
+
+            }
         };
 
         window.onpopstate = function (e) {
