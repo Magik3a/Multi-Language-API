@@ -22,19 +22,8 @@ namespace Multi_Language.MVCClient.Controllers
     {
         private IProjectsServices projectServices;
 
-        private ApplicationUserManager _userManager;
 
-        public ApplicationUserManager UserManager
-        {
-            get
-            {
-                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-            }
-            private set
-            {
-                _userManager = value;
-            }
-        }
+        
 
         public ProjectsController(IProjectsServices projectServices)
         {
@@ -81,19 +70,23 @@ namespace Multi_Language.MVCClient.Controllers
             model.DateCreated = DateTime.Now;
             model.UserId = userId;
             projectServices.Add(Mapper.Map<Projects>(model));
+            var projectId = projectServices.GetAll().OrderByDescending(m => m.DateCreated).Where(p => p.UserId == userId).FirstOrDefault().IdProject;
 
-            if(User.Identity.GetActiveProject() == "0")
+            if (User.Identity.GetActiveProject() == "0")
             {
-                var projectId = projectServices.GetAll().OrderByDescending(m => m.DateCreated).Where(p => p.UserId == userId).FirstOrDefault().IdProject;
 
                 var user = UserManager.FindById(User.Identity.GetUserId());
 
                 user.ActiveProject = projectId;
 
                 IdentityResult result = UserManager.Update(user);
-                Response.Headers["FirstProjectAdded"] = "yeaaaa";
+                Response.Headers["ProjectIsChanged"] = projectId.ToString();
             }
+            else
+            {
+                Response.Headers["ProjectDropDownIsChanged"] = projectId.ToString();
 
+            }
             if (Request.IsAjaxRequest())
                 return PartialView("Index", projectServices.GetAll().ProjectTo<ProjectsViewModel>());
 
@@ -134,7 +127,15 @@ namespace Multi_Language.MVCClient.Controllers
             model.UserId = User.Identity.GetUserId();
 
             projectServices.Update(Mapper.Map<Projects>(model));
+            if (User.Identity.GetActiveProject() == model.IdProject.ToString())
+            {
+                Response.Headers["ProjectIsChanged"] = model.IdProject.ToString();
+            }
+            else
+            {
+                Response.Headers["ProjectDropDownIsChanged"] = model.IdProject.ToString();
 
+            }
             if (Request.IsAjaxRequest())
                 return PartialView("Index", projectServices.GetAll().ProjectTo<ProjectsViewModel>());
 
@@ -182,15 +183,29 @@ namespace Multi_Language.MVCClient.Controllers
         {
             projectServices.Delete(id);
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All projects", "Project is deleted successfully.");
+            var userId = User.Identity.GetUserId();
 
-            if(User.Identity.GetActiveProject() == id.ToString())
+            if (User.Identity.GetActiveProject() == id.ToString())
             {
-                var user = UserManager.FindById(User.Identity.GetUserId());
+                var user = UserManager.FindById(userId);
 
                 user.ActiveProject = 0;
 
                 IdentityResult result = UserManager.Update(user);
+
+                Response.Headers["ProjectIsChanged"] = "0";
+
             }
+            if (projectServices.GetAll().Where(p => p.UserId == userId).Count() == 0)
+            {
+                Response.Headers["ProjectIsChanged"] = "0";
+
+            }
+            else
+            {
+                Response.Headers["ProjectDropDownIsChanged"] = "0";
+            }
+
             if (Request.IsAjaxRequest())
                 return PartialView("Index", projectServices.GetAll().ProjectTo<ProjectsViewModel>());
 

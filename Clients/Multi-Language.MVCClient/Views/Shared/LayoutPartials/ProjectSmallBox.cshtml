@@ -1,13 +1,20 @@
 ﻿@model Multi_Language.MVCClient.Models.SectionsViewModels.ProjectBoxViewModel
 <!-- small box -->
-<div class="small-box bg-red-gradient">
+<div class="small-box bg-red-gradient" id="active-project-box">
     <div class="inner">
-        <h3>Active project:</h3>
+        <h4>Active project:</h4>
 
         <p>
-            @if (User.Identity.GetActiveProject() != "0")
+            @if (!String.IsNullOrWhiteSpace(Model.ProjectName))
             {
                 @Model.ProjectName
+
+                @User.Identity.GetActiveProject()
+            }
+            else if (ViewBag.AllProjects != null)
+            {
+                <span>You have to choose active project</span>
+
             }
             else
             {
@@ -18,7 +25,7 @@
     <div class="icon">
         <i class="fa fa-pencil-square"></i>
     </div>
-    @if (User.Identity.GetActiveProject() != "0")
+    @if (ViewBag.AllProjects != null)
     {
         <a href="#" class="small-box-footer" onclick="ChangeActiveProject()">
             Change active project <i class="fa fa-arrow-circle-right"></i>
@@ -30,25 +37,10 @@
            null, new AjaxOptions { }, new { @class = "small-box-footer" })
     }
 </div>
-<div class="box box-danger box-solid" id="change-active-project-box" style="display: none;">
-    <div class="box-header with-border">
-        <h3 class="box-title">Choose project</h3>
 
-        <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-        </div>
-        <!-- /.box-tools -->
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body">
-        @User.Identity.GetActiveProject()
-    </div>
-    <!-- /.box-body -->
-    @*<div class="overlay">
-            <i class="fa fa-refresh fa-spin"></i>
-        </div>*@
-</div>
-<!-- /.box -->
+@if (ViewBag.AllProjects != null)
+{
+}
 <script>
     function ChangeActiveProject() {
         $("#change-active-project-box").show(300);

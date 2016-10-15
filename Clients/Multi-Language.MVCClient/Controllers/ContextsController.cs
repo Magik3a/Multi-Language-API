@@ -56,6 +56,15 @@ namespace Multi_Language.MVCClient.Controllers
 
                 return View(model);
             }
+            if (User.Identity.GetActiveProject() == "0")
+            {
+                SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Add new language", "You have to create project first.");
+                ModelState.AddModelError("", "Create your first project and then you can add contexts.");
+                if (Request.IsAjaxRequest())
+                    return PartialView(model);
+
+                return View(model);
+            }
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added context", "New context is created successfully.");
 
             model.DateChanged = DateTime.Now;

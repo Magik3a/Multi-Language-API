@@ -62,7 +62,7 @@ desired effect
             <!-- Main content -->
             <section class="content" id="wrapper-page-content">
                 <div class="row">
-                    <div class="col-md-3" id="project-box">
+                    <div class="col-md-3" id="project-box" style="min-height: 146px">
                     </div>
 
                     <div id="first-row-content" class="col-md-9">
@@ -119,8 +119,11 @@ desired effect
     <script>
         $(document).ajaxStart(function () { Pace.restart(); });
         $(document).ready(function () {
-                   $.get({ url: "../../Sections/ProjectBox", cache: false}).then( function (data) {
+            $.get({ url: "../../Sections/ProjectBox", cache: false }).then(function (data) {
                 $("#project-box").append(data);
+                $.get({ url: "../../Sections/ProjectBoxDropDowns", cache: false }).then(function (data2) {
+                    $("#project-box").append(data2);
+                });
             });
             $(".select2").select2();
             $('.dataTable').DataTable();
@@ -133,6 +136,20 @@ desired effect
             LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
 
         });
+
+
+        function activeProjectIsChanged(e) {
+            console.log($(e).val());
+            $("#project-box").fadeTo("fast", 0, function () {
+                $("#active-project-box").remove();
+                $.get({ url: "../../Sections/ChangeActiveProject?id=" + $(e).val(), cache: false }).then(function (data) {
+                    $("#project-box").prepend(data);
+                });
+                $("#project-box").fadeTo("fast", 100)
+            });
+
+        };
+
         function AjaxClickBegin(elem) {
             var target = $(elem).parent();
             if (target.is("li")) {
@@ -222,14 +239,28 @@ desired effect
         };
         function AjaxClickSuccess(data, status, xhr) {
             $(".content-header h1").html(xhr.getResponseHeader("ContentHeader") + " <small>" + xhr.getResponseHeader("ContentDescription") + "</small>");
-            if (xhr.getResponseHeader("FirstProjectAdded") != null) {
-                $("#project-box").hide(300);
-                $("#project-box").html("");
-                $.get({ url: "../../Sections/ProjectBox", cache: false}).then( function (data) {
-                    $("#project-box").append(data);
+            if (xhr.getResponseHeader("ProjectIsChanged") != null) {
+                $("#project-box").fadeTo("fast", 0, function () {
+                    $("#project-box").html("");
+                    $.get({ url: "../../Sections/ProjectBox?id=" + xhr.getResponseHeader("ProjectIsChanged"), cache: false }).then(function (data) {
+                        $("#project-box").append(data);
+                    });
+                    $.get({ url: "../../Sections/ProjectBoxDropDowns", cache: false }).then(function (data2) {
+                        $("#project-box").append(data2);
+                    });
+                    $("#project-box").fadeTo("fast", 100)
                 });
-                $("#project-box").show(300);
 
+
+            }
+            if (xhr.getResponseHeader("ProjectDropDownIsChanged") != null) {
+                $("#change-active-project-box").hide(300);
+                console.log("changed");
+                $.get({ url: "../../Sections/ProjectBoxDropDowns", cache: false }).then(function (data2) {
+                    $("#change-active-project-box").remove();
+
+                    $("#project-box").append(data2);
+                });
             }
         };
 

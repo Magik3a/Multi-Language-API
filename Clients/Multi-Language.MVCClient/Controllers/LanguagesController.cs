@@ -52,8 +52,17 @@ namespace Multi_Language.MVCClient.Controllers
 
                 return View(model);
             }
-            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added languages", "New Language is created successfully.");
+            if(User.Identity.GetActiveProject() == "0")
+            {
+                SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Add new language", "You have to create project first.");
+                ModelState.AddModelError("", "Create your first project and then you can add languages.");
+                if (Request.IsAjaxRequest())
+                    return PartialView(model);
 
+                return View(model);
+            }
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added languages", "New Language is created successfully.");
+            model.IdProject = int.Parse(User.Identity.GetActiveProject());
             model.DateChanged = DateTime.Now;
             model.DateCreated = DateTime.Now;
             model.UserName = User.Identity.Name;
