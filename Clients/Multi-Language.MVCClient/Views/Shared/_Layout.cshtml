@@ -144,8 +144,21 @@ desired effect
                 $("#active-project-box").remove();
                 $.get({ url: "../../Sections/ChangeActiveProject?id=" + $(e).val(), cache: false }).then(function (data) {
                     $("#project-box").prepend(data);
+
+                    $("#project-box").fadeTo("fast", 100, function () {
+                    var url = $(location).attr('href');
+
+                    $.get({ url: url, cache: false }).then(function (data) {
+                        $("#page-content").fadeTo("fast", 0, function () {
+                            $("#page-content").html(" ");
+                            $("#page-content").append(data);
+                            $("#page-content").fadeTo("fast", 100);
+                            InitialisePlugins();
+                        });
+                    });
                 });
-                $("#project-box").fadeTo("fast", 100)
+                });
+
             });
 
         };
@@ -176,7 +189,14 @@ desired effect
                     $("#first-row-content").hide(250);
                     LoadFirstRow("../../Sections/FirstRow?id=" + controller);
                 }
-                // initialise plugins if there is any
+                InitialisePlugins();
+                var content = $(".wrapper").html();
+                window.history.pushState({ "html": content, "action": action }, action, '../../' + controller + '/' + action);
+            });
+
+        };
+        function InitialisePlugins() {
+            // initialise plugins if there is any
                 if ($('.dataTable').children().length > 0) {
                     $('.dataTable').DataTable();
                 }
@@ -190,12 +210,7 @@ desired effect
                 if ($(".select2").length > 0) {
                     $(".select2").select2();
                 }
-                var content = $(".wrapper").html();
-                window.history.pushState({ "html": content, "action": action }, action, '../../' + controller + '/' + action);
-            });
-
-        };
-
+        }
         function LoadFirstRow(url) {
             $("#first-row-content").fadeTo("fast", 0, function () {
                 var progressElem = $('#first-row-content');

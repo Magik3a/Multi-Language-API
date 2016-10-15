@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNet.Identity.Owin;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,6 +12,16 @@ namespace Multi_Language.MVCClient.Controllers
     public class BaseController : Controller
     {
         private ApplicationUserManager _userManager;
+
+        public int UserActiveProject
+        {
+            get {
+                var user = UserManager.FindById(User.Identity.GetUserId());
+
+                return user.ActiveProject??0;
+
+            }
+        }
 
         public ApplicationUserManager UserManager
         {

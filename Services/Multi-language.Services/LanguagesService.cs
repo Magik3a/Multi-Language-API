@@ -18,6 +18,11 @@ namespace Multi_language.Services
             return languages.All().Where(s => s.IdLanguage == IdLanguage);
         }
 
+        public IQueryable<Languages> GetByActiveProject(int ProjectId)
+        {
+            return languages.All().Where(l => l.IdProject == ProjectId);
+        }
+
         public IQueryable<Languages> GetAll()
         {
             return languages.All();

@@ -6,7 +6,7 @@
         <h3 class="box-title">Choose project</h3>
 
         <div class="box-tools pull-right">
-            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+            <button type="button" class="btn btn-box-tool" onclick="RemoveBoxProjectDropDowns()"><i class="fa fa-times"></i></button>
         </div>
         <!-- /.box-tools -->
     </div>
@@ -28,3 +28,15 @@
         </div>*@
 </div>
 <!-- /.box -->
+<script>
+    function RemoveBoxProjectDropDowns() {
+        $("#change-active-project-box").hide(300, function () {
+            var height = $("#active-project-box").height();
+            console.log(height);
+            $("#project-box").animate({
+                height: height
+            }, 300);
+            });
+
+    }
+</script>

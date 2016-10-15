@@ -15,6 +15,7 @@ namespace Multi_Language.MVCClient.Controllers
     {
         private ILanguagesService languagesService;
 
+
         public LanguagesController(ILanguagesService languagesService)
         {
             this.languagesService = languagesService;
@@ -22,7 +23,7 @@ namespace Multi_Language.MVCClient.Controllers
 
         public ActionResult Index()
         {
-            var model = languagesService.GetAll().ProjectTo<LanguagesViewModels>();
+            var model = languagesService.GetByActiveProject(UserActiveProject).ProjectTo<LanguagesViewModels>();
 
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added languages", "You can choose wich language to be active or add new one.");
             if (Request.IsAjaxRequest())
@@ -69,9 +70,9 @@ namespace Multi_Language.MVCClient.Controllers
             languagesService.Add(Mapper.Map<Languages>(model));
 
             if (Request.IsAjaxRequest())
-                return PartialView("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
+                return PartialView("Index", languagesService.GetByActiveProject(UserActiveProject).ProjectTo<LanguagesViewModels>());
 
-            return View("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
+            return View("Index", languagesService.GetByActiveProject(UserActiveProject).ProjectTo<LanguagesViewModels>());
         }
 
         [HttpGet]
@@ -110,9 +111,9 @@ namespace Multi_Language.MVCClient.Controllers
             languagesService.Update(Mapper.Map<Languages>(model));
 
             if (Request.IsAjaxRequest())
-                return PartialView("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
+                return PartialView("Index", languagesService.GetByActiveProject(UserActiveProject).ProjectTo<LanguagesViewModels>());
 
-            return View("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
+            return View("Index", languagesService.GetByActiveProject(UserActiveProject).ProjectTo<LanguagesViewModels>());
         }
 
         [HttpGet]
@@ -161,9 +162,9 @@ namespace Multi_Language.MVCClient.Controllers
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added languages", "Language is deleted successfully.");
 
             if (Request.IsAjaxRequest())
-                return PartialView("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
+                return PartialView("Index", languagesService.GetByActiveProject(UserActiveProject).ProjectTo<LanguagesViewModels>());
 
-            return View("Index", languagesService.GetAll().ProjectTo<LanguagesViewModels>());
+            return View("Index", languagesService.GetByActiveProject(UserActiveProject).ProjectTo<LanguagesViewModels>());
         }
     }
 }

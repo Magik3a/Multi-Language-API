@@ -30,8 +30,9 @@ namespace Multi_Language.MVCClient.Controllers
 
             user.ActiveProject = id;
 
-            IdentityResult result = UserManager.Update(user);
+            IdentityResult result = await UserManager.UpdateAsync(user);
 
+            var some = User.Identity.GetActiveProject();
             Response.Headers["ProjectIsChanged"] = id.ToString();
 
             return PartialView("LayoutPartials/ProjectSmallBox", model);

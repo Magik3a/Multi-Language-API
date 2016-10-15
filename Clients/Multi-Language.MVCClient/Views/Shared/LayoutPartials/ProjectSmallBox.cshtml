@@ -9,7 +9,6 @@
             {
                 @Model.ProjectName
 
-                @User.Identity.GetActiveProject()
             }
             else if (ViewBag.AllProjects != null)
             {
@@ -37,12 +36,15 @@
            null, new AjaxOptions { }, new { @class = "small-box-footer" })
     }
 </div>
-
-@if (ViewBag.AllProjects != null)
-{
-}
 <script>
     function ChangeActiveProject() {
-        $("#change-active-project-box").show(300);
+        $("#change-active-project-box").show(300, function () {
+
+            //FIND A BETTER WAY
+        });
+         var height = $("#project-box").height();
+         $("#project-box").animate({
+                height: height + 100
+            }, 300);
     }
 </script>
