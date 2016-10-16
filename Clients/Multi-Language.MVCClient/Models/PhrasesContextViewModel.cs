@@ -13,6 +13,8 @@ namespace Multi_Language.MVCClient.Models
 
         public string UserId { get; set; }
 
+        public int IdProject { get; set; }
+
         [Required]
         public string Context { get; set; }
 

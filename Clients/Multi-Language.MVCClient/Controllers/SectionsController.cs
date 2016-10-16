@@ -13,9 +13,14 @@ namespace Multi_Language.MVCClient.Controllers
     public class SectionsController : BaseController
     {
         private IProjectsServices projectServices;
-        public SectionsController(IProjectsServices projectServices)
+        private ILanguagesService langService;
+        private IPhrasesContextServices phrsContService;
+
+        public SectionsController(IProjectsServices projectServices, ILanguagesService langService, IPhrasesContextServices phrsContService)
         {
             this.projectServices = projectServices;
+            this.langService = langService;
+            this.phrsContService = phrsContService;
         }
 
         public async Task<ActionResult> ChangeActiveProject(int id)
@@ -40,7 +45,7 @@ namespace Multi_Language.MVCClient.Controllers
 
         public async Task<ActionResult> ProjectBoxDropDowns(int? id)
         {
-           var  allProjects = new SelectList(projectServices.GetAll(), "IdProject", "ProjectName", User.Identity.GetActiveProject());
+            var allProjects = new SelectList(projectServices.GetForUser(User.Identity.GetUserId()), "IdProject", "ProjectName", User.Identity.GetActiveProject());
 
             return PartialView("LayoutPartials/ProjectBoxDropDowns", new ProjectsBoxDropDownsViewModels() {
                 ProjectsDropDowns = allProjects
@@ -51,31 +56,31 @@ namespace Multi_Language.MVCClient.Controllers
             var model = new ProjectBoxViewModel();
             var activeProject = int.Parse(User.Identity.GetActiveProject());
             var userId = User.Identity.GetUserId();
-            if(projectServices.GetAll().Where(p => p.UserId == userId).Count() == 0)
+            if(projectServices.GetForUser(userId).Count() == 0)
             {
                 return PartialView("LayoutPartials/ProjectSmallBox", model);
             }
 
             if (id.HasValue && id != 0)
             {
-                ViewBag.AllProjects = new SelectList(projectServices.GetAll(), "IdProject", "ProjectName", id??0);
+                ViewBag.AllProjects = true;
                 model.ProjectName = projectServices.GetById(id??0).ProjectName;
                 return PartialView("LayoutPartials/ProjectSmallBox", model);
 
             }
             if (id == 0)
             {
-                ViewBag.AllProjects = new SelectList(projectServices.GetAll(), "IdProject", "ProjectName");
+                ViewBag.AllProjects = true;
                 return PartialView("LayoutPartials/ProjectSmallBox", model);
             }
             if (activeProject != 0)
             {
-                ViewBag.AllProjects = new SelectList(projectServices.GetAll(), "IdProject", "ProjectName", activeProject);
+                ViewBag.AllProjects = true;
                 model.ProjectName = projectServices.GetById(activeProject).ProjectName;
                 return PartialView("LayoutPartials/ProjectSmallBox", model);
 
             }
-            ViewBag.AllProjects = new SelectList(projectServices.GetAll(), "IdProject", "ProjectName");
+            ViewBag.AllProjects = true;
 
             return PartialView("LayoutPartials/ProjectSmallBox", model);
 
@@ -86,19 +91,20 @@ namespace Multi_Language.MVCClient.Controllers
             if (id == "Resources")
             {
                 var model = new ResourcesFirstRowSectionViewModel();
-                model.Languages.CurrentCount = 9;
-                model.Languages.ActiveCount = 3;
+                model.Languages.CurrentCount = langService.GetByActiveProject(UserActiveProject).Count();
+                model.Languages.ActiveCount = langService.GetActiveByActiveProject(UserActiveProject).Count();
 
-                model.Contexts.CurrentCount = 40;
-                model.Contexts.Translated = 25;
+                model.Contexts.CurrentCount = phrsContService.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).Count();
+                model.Contexts.Translated = phrsContService.GetTranslatedByIdProject(UserActiveProject, User.Identity.GetUserId()).Count();
                 return PartialView("ResourcesFirstRowSection", model);
             }
 
             if (id == "Contexts")
             {
                 var model = new ContextsFirstRowSectionViewModel();
-                model.Languages.CurrentCount = 9;
-                model.Languages.ActiveCount = 3;
+                model.Languages.CurrentCount = langService.GetByActiveProject(UserActiveProject).Count();
+                model.Languages.ActiveCount = langService.GetActiveByActiveProject(UserActiveProject).Count();
+
 
                 return PartialView("ContextsFirstRowSection", model);
 

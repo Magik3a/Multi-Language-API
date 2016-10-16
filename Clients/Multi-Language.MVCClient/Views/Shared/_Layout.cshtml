@@ -139,7 +139,6 @@ desired effect
 
 
         function activeProjectIsChanged(e) {
-            console.log($(e).val());
             $("#project-box").fadeTo("fast", 0, function () {
                 $("#active-project-box").remove();
                 $.get({ url: "../../Sections/ChangeActiveProject?id=" + $(e).val(), cache: false }).then(function (data) {
@@ -152,8 +151,13 @@ desired effect
                         $("#page-content").fadeTo("fast", 0, function () {
                             $("#page-content").html(" ");
                             $("#page-content").append(data);
-                            $("#page-content").fadeTo("fast", 100);
+                            $("#page-content").fadeTo("fast", 100, function () {
+                                urlSplited = url.split('/');
+                                LoadFirstRow("../../Sections/FirstRow?id=" + urlSplited[3]);
+
+                            });
                             InitialisePlugins();
+
                         });
                     });
                 });

@@ -9,6 +9,9 @@ namespace Multi_language.Services
 
         IQueryable<Projects> GetAll();
 
+        IQueryable<Projects> GetForUser(string UserId);
+
+
         void Add(Projects Project);
 
         void Update(Projects Project);

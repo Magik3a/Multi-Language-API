@@ -39,6 +39,12 @@ namespace Multi_language.Services
             return projects.GetById(IdProject);
         }
 
+        public IQueryable<Projects> GetForUser(string UserId)
+        {
+            return projects.All().Where(p => p.UserId == UserId);
+
+        }
+
         public void Update(Projects Project)
         {
             projects.Update(Project);

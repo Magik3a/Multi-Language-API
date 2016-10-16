@@ -9,6 +9,9 @@ namespace Multi_language.Services
 
         IQueryable<Languages> GetByActiveProject(int ProjectId);
 
+        IQueryable<Languages> GetActiveByActiveProject(int ProjectId);
+
+
         IQueryable<Languages> GetAll();
 
         void Add(Languages Language);

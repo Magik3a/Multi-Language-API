@@ -1,6 +1,7 @@
 ﻿using Multi_language.Data;
 using Multi_language.Models;
 using System.Linq;
+using System;
 
 namespace Multi_language.Services
 {
@@ -23,6 +24,11 @@ namespace Multi_language.Services
             return languages.All().Where(l => l.IdProject == ProjectId);
         }
 
+        public IQueryable<Languages> GetActiveByActiveProject(int ProjectId)
+        {
+            return languages.All().Where(l => l.IdProject == ProjectId && l.IsActive == true);
+
+        }
         public IQueryable<Languages> GetAll()
         {
             return languages.All();
@@ -50,5 +56,6 @@ namespace Multi_language.Services
         {
             languages.SaveChanges();
         }
+
     }
 }

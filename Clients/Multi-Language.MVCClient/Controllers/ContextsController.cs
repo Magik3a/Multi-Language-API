@@ -26,7 +26,7 @@ namespace Multi_Language.MVCClient.Controllers
         // GET: Contexts
         public ActionResult Index()
         {
-            var model = contextServices.GetAll().ProjectTo<PhrasesContextViewModel>();
+            var model = contextServices.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).ProjectTo<PhrasesContextViewModel>();
 
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added contexts", "Add context and then you can add translations.");
             if (Request.IsAjaxRequest())
@@ -70,12 +70,13 @@ namespace Multi_Language.MVCClient.Controllers
             model.DateChanged = DateTime.Now;
             model.DateCreated = DateTime.Now;
             model.UserId = User.Identity.GetUserId();
+            model.IdProject = UserActiveProject;
             contextServices.Add(Mapper.Map<PhrasesContext>(model));
 
             if (Request.IsAjaxRequest())
-                return PartialView("Index", contextServices.GetAll().ProjectTo<PhrasesContextViewModel>());
+                return PartialView("Index", contextServices.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).ProjectTo<PhrasesContextViewModel>());
 
-            return View("Index", contextServices.GetAll().ProjectTo<PhrasesContextViewModel>());
+            return View("Index", contextServices.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).ProjectTo<PhrasesContextViewModel>());
         }
 
         [HttpGet]
@@ -115,9 +116,9 @@ namespace Multi_Language.MVCClient.Controllers
             contextServices.Update(Mapper.Map<PhrasesContext>(model));
 
             if (Request.IsAjaxRequest())
-                return PartialView("Index", contextServices.GetAll().ProjectTo<PhrasesContextViewModel>());
+                return PartialView("Index", contextServices.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).ProjectTo<PhrasesContextViewModel>());
 
-            return View("Index", contextServices.GetAll().ProjectTo<PhrasesContextViewModel>());
+            return View("Index", contextServices.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).ProjectTo<PhrasesContextViewModel>());
         }
 
         [HttpGet]
@@ -165,9 +166,9 @@ namespace Multi_Language.MVCClient.Controllers
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added context", "Context is deleted successfully.");
 
             if (Request.IsAjaxRequest())
-                return PartialView("Index", contextServices.GetAll().ProjectTo<PhrasesContextViewModel>());
+                return PartialView("Index", contextServices.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).ProjectTo<PhrasesContextViewModel>());
 
-            return View("Index", contextServices.GetAll().ProjectTo<PhrasesContextViewModel>());
+            return View("Index", contextServices.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).ProjectTo<PhrasesContextViewModel>());
         }
 
     }

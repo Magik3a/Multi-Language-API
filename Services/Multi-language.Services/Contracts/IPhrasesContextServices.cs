@@ -9,11 +9,15 @@ namespace Multi_language.Services
 
         IQueryable<PhrasesContext> GetAll();
 
+        IQueryable<PhrasesContext> GetAllByIdProject(int IdProject, string UserId);
+
+        IQueryable<PhrasesContext> GetTranslatedByIdProject(int IdProject, string UserId);
+
         void Add(PhrasesContext PhraseContext);
 
         void Update(PhrasesContext PhraseContext);
 
         void Delete(int id);
-        
+
     }
 }

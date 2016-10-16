@@ -32,7 +32,7 @@ namespace Multi_Language.MVCClient.Controllers
         // GET: Resources
         public ActionResult Index()
         {
-            var model = phrasesService.GetAll().ProjectTo<ResourcesViewModels>();
+            var model = phrasesService.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).ProjectTo<ResourcesViewModels>();
 
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All added resources", " ");
             if (Request.IsAjaxRequest())
@@ -61,10 +61,7 @@ namespace Multi_Language.MVCClient.Controllers
         // GET: Resources/Create
         public ActionResult Create()
         {
-
-            ViewBag.IdLanguage = new SelectList(languagesService.GetAll(), "IdLanguage", "Name");
-            ViewBag.IdPhraseContext = new SelectList(contextServices.GetAll(), "IdPhraseContext", "Context");
-
+            SetViewBags();
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Add new resource", " ");
             if (Request.IsAjaxRequest())
                 return PartialView();
@@ -79,8 +76,8 @@ namespace Multi_Language.MVCClient.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdPhrase,IdPhraseContext,IdLanguage,PhraseText")] ResourcesViewModels model)
         {
-            ViewBag.IdLanguage = new SelectList(languagesService.GetAll(), "IdLanguage", "Name", model.IdLanguage);
-            ViewBag.IdPhraseContext = new SelectList(contextServices.GetAll(), "IdPhraseContext", "Context", model.IdPhraseContext);
+            ViewBag.IdLanguage = new SelectList(languagesService.GetActiveByActiveProject(UserActiveProject), "IdLanguage", "Name", model.IdLanguage);
+            ViewBag.IdPhraseContext = new SelectList(contextServices.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()), "IdPhraseContext", "Context", model.IdPhraseContext);
 
             if (!ModelState.IsValid)
             {
@@ -91,11 +88,11 @@ namespace Multi_Language.MVCClient.Controllers
 
                 return View(model);
             }
-            var currentPhrases = phrasesService.GetAll().Where(p => p.IdPhraseContext == model.IdPhraseContext && p.IdLanguage == model.IdLanguage);
+            var currentPhrases = phrasesService.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).Where(p => p.IdPhraseContext == model.IdPhraseContext && p.IdLanguage == model.IdLanguage);
             if (currentPhrases.Count() > 0)
             {
-                ViewBag.IdLanguage = new SelectList(languagesService.GetAll(), "IdLanguage", "Name", model.IdLanguage);
-                ViewBag.IdPhraseContext = new SelectList(contextServices.GetAll(), "IdPhraseContext", "Context", model.IdPhraseContext);
+                SetViewBagsWIthActiveValue(model.IdLanguage, model.IdPhraseContext);
+
                 ModelState.AddModelError("", "Translation for this context in this language is already defined.");
 
                 SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Add new resource", $@"Translation for this context in this language is already defined.
@@ -126,14 +123,12 @@ Please choose different language or edit current translation <a href='{Url.Actio
             if (!id.HasValue)
             {
                 SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Edit resource", "Error. Go back to list and choose resource.");
-                ViewBag.IdLanguage = new SelectList(languagesService.GetAll(), "IdLanguage", "Name");
-                ViewBag.IdPhraseContext = new SelectList(contextServices.GetAll(), "IdPhraseContext", "Context");
-
+                SetViewBags();
                 return View(new ResourcesViewModels());
             }
             var model = Mapper.Map<ResourcesViewModels>(phrasesService.GetById(id??0));
-            ViewBag.IdLanguage = new SelectList(languagesService.GetAll(), "IdLanguage", "Name", model.IdLanguage);
-            ViewBag.IdPhraseContext = new SelectList(contextServices.GetAll(), "IdPhraseContext", "Context", model.IdPhraseContext);
+
+            SetViewBagsWIthActiveValue(model.IdLanguage, model.IdPhraseContext);
 
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Edit resource", " ");
             if (Request.IsAjaxRequest())
@@ -149,8 +144,7 @@ Please choose different language or edit current translation <a href='{Url.Actio
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdPhrase,IdPhraseContext,IdLanguage,PhraseText,DateCreated")] ResourcesViewModels model)
         {
-            ViewBag.IdLanguage = new SelectList(languagesService.GetAll(), "IdLanguage", "Name");
-            ViewBag.IdPhraseContext = new SelectList(contextServices.GetAll(), "IdPhraseContext", "Context");
+            SetViewBags();
 
             if (!ModelState.IsValid)
             {
@@ -204,5 +198,23 @@ Please choose different language or edit current translation <a href='{Url.Actio
             return View("Index", phrasesService.GetAll().ProjectTo<ResourcesViewModels>());
         }
 
+        private void SetViewBags()
+        {
+
+            ViewBag.IdLanguage = new SelectList(
+                languagesService.GetActiveByActiveProject(UserActiveProject), "IdLanguage", "Name");
+            ViewBag.IdPhraseContext = new SelectList(
+                contextServices.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()), "IdPhraseContext", "Context");
+
+        }
+
+        private void SetViewBagsWIthActiveValue(int IdLanguage, int IdPhraseContext)
+        {
+            ViewBag.IdLanguage = new SelectList(
+                languagesService.GetActiveByActiveProject(UserActiveProject), "IdLanguage", "Name", IdLanguage);
+            ViewBag.IdPhraseContext = new SelectList(
+                contextServices.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()), "IdPhraseContext", "Context", IdPhraseContext);
+
+        }
     }
 }

@@ -13,11 +13,13 @@ namespace Multi_language.Services
 
         IQueryable<Phrases> GetAllByIdLanguage(int IdLanguage);
 
+        IQueryable<Phrases> GetAllByIdProject(int IdProject, string UserId);
+
         void Add(Phrases Phrase);
 
         void Update(Phrases Phrase);
 
         void Delete(int id);
-        
+
     }
 }

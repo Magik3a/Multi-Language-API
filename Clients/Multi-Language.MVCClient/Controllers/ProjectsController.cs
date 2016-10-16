@@ -32,7 +32,7 @@ namespace Multi_Language.MVCClient.Controllers
         // GET: Contexts
         public ActionResult Index()
         {
-            var model = projectServices.GetAll().ProjectTo<ProjectsViewModel>();
+            var model = projectServices.GetForUser(User.Identity.GetUserId()).ProjectTo<ProjectsViewModel>();
 
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "All projects", " ");
             if (Request.IsAjaxRequest())
@@ -70,7 +70,7 @@ namespace Multi_Language.MVCClient.Controllers
             model.DateCreated = DateTime.Now;
             model.UserId = userId;
             projectServices.Add(Mapper.Map<Projects>(model));
-            var projectId = projectServices.GetAll().OrderByDescending(m => m.DateCreated).Where(p => p.UserId == userId).FirstOrDefault().IdProject;
+            var projectId = projectServices.GetForUser(User.Identity.GetUserId()).OrderByDescending(m => m.DateCreated).Where(p => p.UserId == userId).FirstOrDefault().IdProject;
 
             if (User.Identity.GetActiveProject() == "0")
             {
@@ -88,9 +88,9 @@ namespace Multi_Language.MVCClient.Controllers
 
             }
             if (Request.IsAjaxRequest())
-                return PartialView("Index", projectServices.GetAll().ProjectTo<ProjectsViewModel>());
+                return PartialView("Index", projectServices.GetForUser(User.Identity.GetUserId()).ProjectTo<ProjectsViewModel>());
 
-            return View("Index", projectServices.GetAll().ProjectTo<ProjectsViewModel>());
+            return View("Index", projectServices.GetForUser(User.Identity.GetUserId()).ProjectTo<ProjectsViewModel>());
         }
 
         [HttpGet]
@@ -137,9 +137,9 @@ namespace Multi_Language.MVCClient.Controllers
 
             }
             if (Request.IsAjaxRequest())
-                return PartialView("Index", projectServices.GetAll().ProjectTo<ProjectsViewModel>());
+                return PartialView("Index", projectServices.GetForUser(User.Identity.GetUserId()).ProjectTo<ProjectsViewModel>());
 
-            return View("Index", projectServices.GetAll().ProjectTo<ProjectsViewModel>());
+            return View("Index", projectServices.GetForUser(User.Identity.GetUserId()).ProjectTo<ProjectsViewModel>());
         }
 
         [HttpGet]
@@ -196,7 +196,7 @@ namespace Multi_Language.MVCClient.Controllers
                 Response.Headers["ProjectIsChanged"] = "0";
 
             }
-            if (projectServices.GetAll().Where(p => p.UserId == userId).Count() == 0)
+            if (projectServices.GetForUser(User.Identity.GetUserId()).Count() == 0)
             {
                 Response.Headers["ProjectIsChanged"] = "0";
 
@@ -207,9 +207,9 @@ namespace Multi_Language.MVCClient.Controllers
             }
 
             if (Request.IsAjaxRequest())
-                return PartialView("Index", projectServices.GetAll().ProjectTo<ProjectsViewModel>());
+                return PartialView("Index", projectServices.GetForUser(User.Identity.GetUserId()).ProjectTo<ProjectsViewModel>());
 
-            return View("Index", projectServices.GetAll().ProjectTo<ProjectsViewModel>());
+            return View("Index", projectServices.GetForUser(User.Identity.GetUserId()).ProjectTo<ProjectsViewModel>());
         }
 
     }
