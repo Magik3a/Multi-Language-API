@@ -1,17 +1,18 @@
-﻿
+﻿@model Multi_Language.MVCClient.Models.SectionsViewModels.CurrentProjectInfoBoxViewModel
+
 <!-- Apply any bg-* class to to the info-box to color it -->
 <div class="info-box bg-green-gradient">
   <span class="info-box-icon"><i class="fa fa-globe"></i></span>
   <div class="info-box-content">
     <span class="info-box-text">Projects</span>
-    <span class="info-box-number">41,410</span>
+    <span class="info-box-number">@Model.ProjectCount</span>
     <!-- The progress section is optional -->
     <div class="progress">
       <div class="progress-bar" style="width: 100%"></div>
     </div>
     <span class="progress-description">
       Go add new one
-         @Ajax.RawActionLinkWithoutIcon("Create New", "fa-language", "Create", "Languages",
+         @Ajax.RawActionLinkWithoutIcon("Create New", "fa-globe", "Create", "Projects",
            null, new AjaxOptions { }, new { @class = "btn btn-success btn-xs pull-right", onmousedown="ChangeSidebarProjectsActive()" })
     </span>
   </div><!-- /.info-box-content -->

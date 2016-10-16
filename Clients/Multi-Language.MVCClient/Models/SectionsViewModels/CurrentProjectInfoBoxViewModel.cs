@@ -7,5 +7,6 @@ namespace Multi_Language.MVCClient.Models.SectionsViewModels
 {
     public class CurrentProjectInfoBoxViewModel
     {
+        public int ProjectCount { get; set; }
     }
 }

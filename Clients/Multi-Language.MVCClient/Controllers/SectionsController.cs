@@ -96,6 +96,8 @@ namespace Multi_Language.MVCClient.Controllers
 
                 model.Contexts.CurrentCount = phrsContService.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).Count();
                 model.Contexts.Translated = phrsContService.GetTranslatedByIdProject(UserActiveProject, User.Identity.GetUserId()).Count();
+
+                model.Projects.ProjectCount = projectServices.GetForUser(User.Identity.GetUserId()).Count();
                 return PartialView("ResourcesFirstRowSection", model);
             }
 
@@ -105,8 +107,17 @@ namespace Multi_Language.MVCClient.Controllers
                 model.Languages.CurrentCount = langService.GetByActiveProject(UserActiveProject).Count();
                 model.Languages.ActiveCount = langService.GetActiveByActiveProject(UserActiveProject).Count();
 
+                model.Projects.ProjectCount = projectServices.GetForUser(User.Identity.GetUserId()).Count();
 
                 return PartialView("ContextsFirstRowSection", model);
+
+            }
+
+            if (id == "Languages")
+            {
+                var model = new CurrentProjectInfoBoxViewModel();
+                model.ProjectCount = projectServices.GetForUser(User.Identity.GetUserId()).Count();
+                return PartialView("InnerPartials/CurrentProjectInfoBox", model);
 
             }
             return PartialView("Default");

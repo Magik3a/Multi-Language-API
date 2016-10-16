@@ -9,11 +9,13 @@ namespace Multi_Language.MVCClient.Models.SectionsViewModels
     {
         public LanguagesInfoBoxViewModel Languages;
         public ContextsInfoBoxViewModel Contexts;
+        public CurrentProjectInfoBoxViewModel Projects;
 
         public ResourcesFirstRowSectionViewModel()
         {
             Languages = new LanguagesInfoBoxViewModel();
             Contexts = new ContextsInfoBoxViewModel();
+            Projects = new CurrentProjectInfoBoxViewModel();
         }
     }
 }

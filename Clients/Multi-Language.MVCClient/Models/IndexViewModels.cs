@@ -1,21 +1,22 @@
-﻿using System;
+﻿using Multi_Language.MVCClient.Models.SectionsViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Multi_Language.MVCClient.Models.SectionsViewModels
+namespace Multi_Language.MVCClient.Models
 {
-    public class ContextsFirstRowSectionViewModel
+    public class IndexViewModels
     {
         public LanguagesInfoBoxViewModel Languages;
+        public ContextsInfoBoxViewModel Contexts;
         public CurrentProjectInfoBoxViewModel Projects;
 
-
-        public ContextsFirstRowSectionViewModel()
+        public IndexViewModels()
         {
             Languages = new LanguagesInfoBoxViewModel();
+            Contexts = new ContextsInfoBoxViewModel();
             Projects = new CurrentProjectInfoBoxViewModel();
-
         }
     }
 }
