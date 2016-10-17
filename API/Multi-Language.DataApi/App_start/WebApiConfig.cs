@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.Http.Formatting;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace Multi_Language.DataApi
 {
@@ -12,7 +13,6 @@ namespace Multi_Language.DataApi
     {
         public static void Register(HttpConfiguration config)
         {
-
             // Web API routes
             config.MapHttpAttributeRoutes();
 

@@ -2,6 +2,7 @@
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
+using Multi_Language.DataApi.Providers;
 using Owin;
 using System;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 [assembly: OwinStartup(typeof(Multi_Language.DataApi.Startup))]
 namespace Multi_Language.DataApi
@@ -29,6 +31,7 @@ namespace Multi_Language.DataApi
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             app.UseWebApi(config);
+            SwaggerConfig.Register(config);
         }
 
         public void ConfigureOAuth(IAppBuilder app)
@@ -43,8 +46,8 @@ namespace Multi_Language.DataApi
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
-                Provider = new SimpleAuthorizationServerProvider(),
-                RefreshTokenProvider = new SimpleRefreshTokenProvider()
+                Provider = new AuthorizationServerProvider(),
+                RefreshTokenProvider = new RefreshTokenProvider()
             };
 
             // Token Generation

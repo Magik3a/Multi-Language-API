@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Consants\ValidationConstants.cs" />
+    <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Infrastructure\Mapping\ICustomMapping.cs" />
     <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

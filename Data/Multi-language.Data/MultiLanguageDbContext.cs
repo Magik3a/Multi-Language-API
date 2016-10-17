@@ -21,6 +21,9 @@ namespace Multi_language.Data
 
         public virtual IDbSet<Projects> Projects { get; set; }
 
+        public virtual IDbSet<RefreshToken> RefreshTokens { get; set; }
+
+        public virtual IDbSet<Client> Clients { get; set; }
 
         public static MultiLanguageDbContext Create()
         {

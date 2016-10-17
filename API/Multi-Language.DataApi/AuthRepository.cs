@@ -43,9 +43,9 @@ namespace Multi_Language.DataApi
             return user;
         }
 
-        public AppUser FindClient(string clientId)
+        public Client FindClient(string clientId)
         {
-            var client = _ctx.Users.Find(clientId);
+            var client = _ctx.Clients.Find(clientId);
 
             return client;
         }
@@ -67,7 +67,7 @@ namespace Multi_Language.DataApi
 
         public async Task<bool> RemoveRefreshToken(string refreshTokenId)
         {
-            var refreshToken = await _ctx.RefreshTokens.FindAsync(refreshTokenId);
+            var refreshToken =  _ctx.RefreshTokens.Find(refreshTokenId);
 
             if (refreshToken != null)
             {

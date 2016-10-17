@@ -69,6 +69,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Common\Multi-Language.Common\Multi-language.Common.csproj">
+      <Project>{1F83B9E5-A3FC-4AF0-97C2-13CB73469DB4}</Project>
+      <Name>Multi-language.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Multi-language.Models\Multi-language.Models.csproj">
       <Project>{0D1685CC-7100-4D48-9988-00C0C4B0FACD}</Project>
       <Name>Multi-language.Models</Name>
