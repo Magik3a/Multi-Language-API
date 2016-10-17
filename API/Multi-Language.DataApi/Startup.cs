@@ -2,12 +2,15 @@
 using Microsoft.Owin.Security.Facebook;
 using Microsoft.Owin.Security.Google;
 using Microsoft.Owin.Security.OAuth;
+using Multi_Language.DataApi.App_Start;
 using Multi_Language.DataApi.Providers;
+using Ninject;
 using Owin;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
@@ -24,14 +27,22 @@ namespace Multi_Language.DataApi
 
         public void Configuration(IAppBuilder app)
         {
+
+            AutoMapperConfig.RegisterMappings(Assembly.Load(Assembly.GetExecutingAssembly().FullName));
+
             HttpConfiguration config = new HttpConfiguration();
 
             ConfigureOAuth(app);
 
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            app.UseWebApi(config);
+            config.DependencyResolver = new NinjectResolver(NinjectWebCommon.CreateKernel());
+
             SwaggerConfig.Register(config);
+
+            app.UseWebApi(config);
+
+
         }
 
         public void ConfigureOAuth(IAppBuilder app)
