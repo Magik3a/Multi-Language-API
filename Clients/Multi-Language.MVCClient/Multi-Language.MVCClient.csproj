@@ -529,6 +529,7 @@
     <Content Include="Content\ionicons\ionicons.min.css">
       <DependentUpon>ionicons.css</DependentUpon>
     </Content>
+    <Content Include="Content\pace.css" />
     <Content Include="Content\pace\templates\pace-theme-barber-shop.tmpl.css" />
     <Content Include="Content\pace\templates\pace-theme-big-counter.tmpl.css" />
     <Content Include="Content\pace\templates\pace-theme-bounce.tmpl.css" />

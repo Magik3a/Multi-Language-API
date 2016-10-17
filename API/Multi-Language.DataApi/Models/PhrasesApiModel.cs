@@ -4,21 +4,24 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using AutoMapper;
 
 namespace Multi_Language.DataApi.Models
 {
-    public class PhrasesApiModel: IMapFrom<Phrases>
+    public class PhrasesApiModel: IMapFrom<Phrases>, ICustomMapping
     {
+        public int IdProject { get; set; }
+
+        public string LanguageInitials { get; set; }
+
         public int IdPhraseContext { get; set; }
-
-        public string UserId { get; set; }
-
-        public int IdLanguage { get; set; }
 
         public string PhraseText { get; set; }
 
-        public DateTime? DateChanged { get; set; }
-
-        public DateTime? DateCreated { get; set; }
+        public void CreateMappings(IMapperConfigurationExpression config)
+        {
+            config.CreateMap<Phrases, PhrasesApiModel>()
+                .ForMember(p =>  p.IdProject , opt => opt.MapFrom(p => p.PhraseContext.IdProject));
+        }
     }
 }

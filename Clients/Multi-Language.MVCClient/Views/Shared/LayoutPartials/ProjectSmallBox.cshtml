@@ -8,7 +8,7 @@
             @if (!String.IsNullOrWhiteSpace(Model.ProjectName))
             {
                 @Model.ProjectName
-
+                <br />
             }
             else if (ViewBag.AllProjects != null)
             {
@@ -24,11 +24,21 @@
     <div class="icon">
         <i class="fa fa-pencil-square"></i>
     </div>
+    @{
+        var url = System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"];
+        url = url + "/Project/" + User.Identity.GetActiveProject();
+    }
     @if (ViewBag.AllProjects != null)
     {
-        <a href="#" class="small-box-footer" onclick="ChangeActiveProject()">
-            Change active project <i class="fa fa-arrow-circle-right"></i>
+
+        <a class="small-box-footer" href="@url" title="Open project content" target="_blank">
+            Go to URL <i class="fa fa-arrow-circle-right"></i>
         </a>
+            <a href="#" class="small-box-footer" onclick="ChangeActiveProject()">
+                Change active project <i class="fa fa-arrow-circle-down"></i>
+            </a>
+
+
     }
     else
     {
@@ -42,9 +52,9 @@
 
             //FIND A BETTER WAY
         });
-         var height = $("#project-box").height();
-         $("#project-box").animate({
-                height: height + 100
-            }, 300);
+        var height = $("#project-box").height();
+        $("#project-box").animate({
+            height: height + 120
+        }, 300);
     }
 </script>

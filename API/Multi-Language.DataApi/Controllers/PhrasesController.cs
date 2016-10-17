@@ -13,7 +13,7 @@ using System.Web.Http.Description;
 
 namespace Multi_Language.DataApi.Controllers
 {
-    [RoutePrefix("api/Resources")]
+    [RoutePrefix("")]
 
     public class PhrasesController : ApiController
     {
@@ -42,15 +42,76 @@ namespace Multi_Language.DataApi.Controllers
         }
 
         /// <summary>
-        /// Get exact phase by id and language.
+        /// Get exact phase by language.
         /// </summary>
-        [ResponseType(typeof(PhrasesApiModel))]
-        public IHttpActionResult Get(int id, string language)
+        [Route("Project/{idProject}")]
+        [ResponseType(typeof(IEnumerable<PhrasesApiModel>))]
+        public IHttpActionResult GetForProject(int idProject)
         {
-            var idLanguage = langService.GetAll().Where(l => l.Culture == language).FirstOrDefault().IdLanguage;
-            var phrase = phrasesService.GetByIdContextAndIdLanguage(id, idLanguage).ProjectTo<PhrasesApiModel>().FirstOrDefault();
+            var phrase = phrasesService.GetAllByIdProject(idProject, "").ProjectTo<PhrasesApiModel>().ToList();
 
             return Ok(phrase);
+        }
+
+        /// <summary>
+        /// Get exact phase by language.
+        /// </summary>
+        [Route("Project/{idProject}/Initials/{initials}")]
+        [ResponseType(typeof(IEnumerable<PhrasesApiModel>))]
+        public IHttpActionResult GetForLanguage(int idProject, string initials)
+        {
+            var language = langService.GetByInitials(idProject, initials).FirstOrDefault();
+            if (language != null)
+            {
+                return Ok(phrasesService.GetAllByIdLanguage(language.IdLanguage).ProjectTo<PhrasesApiModel>().ToList());
+
+            }
+            return NotFound();
+
+        }
+
+        /// <summary>
+        /// Get exact phase by language.
+        /// </summary>
+        [Route("Project/{idProject}/Initials/{initials}")]
+        [ResponseType(typeof(IEnumerable<PhrasesApiModel>))]
+        public IHttpActionResult GetForInitials(int idProject, string initials)
+        {
+            var language = langService.GetByInitials(idProject, initials).FirstOrDefault();
+            if (language != null)
+            {
+                return Ok(phrasesService.GetAllByIdLanguage(language.IdLanguage).ProjectTo<PhrasesApiModel>().ToList());
+            }
+            return NotFound();
+
+        }
+
+        /// <summary>
+        /// Get exact phase by language.
+        /// </summary>
+        [Route("Project/{idProject}/Context/{idContext}")]
+        [ResponseType(typeof(IEnumerable<PhrasesApiModel>))]
+        public IHttpActionResult GetForContext(int idProject, int idContext)
+        {
+            return Ok(phrasesService.GetAllByIdProjectAndIdContext(idProject, idContext).ProjectTo<PhrasesApiModel>().ToList());
+
+        }
+
+        /// <summary>
+        /// Get exact phase by id and language.
+        /// </summary>
+        [Route("Project/{idProject}/Initials/{initials}/Phrase/{idPhrase}")]
+        [ResponseType(typeof(string))]
+        public IHttpActionResult GetPhrase(int idProject, string initials, int idPhrase)
+        {
+            var language = langService.GetByInitials(idProject, initials).FirstOrDefault();
+            if (language != null)
+            {
+                return Ok(phrasesService.GetTextPhrase(idPhrase, language.IdLanguage));
+
+            }
+
+            return NotFound();
         }
 
 

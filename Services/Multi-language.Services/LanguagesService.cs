@@ -57,5 +57,10 @@ namespace Multi_language.Services
             languages.SaveChanges();
         }
 
+        public IQueryable<Languages> GetByInitials(int IdProject, string Initials)
+        {
+            return languages.All().Where(l => l.IdProject == IdProject && l.Initials == Initials);
+
+        }
     }
 }

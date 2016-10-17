@@ -22,7 +22,7 @@
         </div>
     </div>
     <div class="box-body">
-        <table class="table table-bordered table-hover table-striped dataTable">
+        <table class="table table-bordered table-hover table-striped dataTable table-responsive">
             <thead>
                 <tr>
                     <th>
@@ -99,7 +99,13 @@
                             @Html.DisplayFor(modelItem => item.DateCreated)
                         </td>
                         <td>
-                            <div class="btn-group-vertical">
+                            @{
+                                var url = System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"];
+                                url = url + "/Project/" + item.PhraseContext.IdProject + "/Initials/" + item.Language.Initials + "/Phrase/" + item.IdPhraseContext;
+                            }
+                            <div class="btn-group-sm  pull-right">
+                                <a href="@url" title="Open link" target="_blank" class="btn btn-info btn-xs">Go to URL</a>
+
                                 @Ajax.RawActionLinkWithoutIcon("Details", "fa-cubes", "Details", "Resources", new { id = item.IdPhrase }, new AjaxOptions { }, new { @class = "btn btn-default btn-xs" })
 
                                 @Ajax.RawActionLinkWithoutIcon("Edit", "fa-cubes", "Edit", "Resources", new { id = item.IdPhrase }, new AjaxOptions { }, new { @class = "btn btn-default btn-xs" })

@@ -99,7 +99,13 @@
                             @Html.DisplayFor(modelItem => item.DateCreated)
                         </td>
                         <td>
-                            <div class="btn-group-vertical">
+                             @{
+                                var url = System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"];
+                                url = url + "/Project/" + item.IdProject + "/Initials/" + item.Initials;
+                            }
+                            <div class="btn-group-sm  pull-right">
+                                <a href="@url" title="Open link" target="_blank" class="btn btn-info btn-xs">Go to URL</a>
+
                                 @Ajax.RawActionLinkWithoutIcon("Details", "fa-language", "Details", "Languages",
                                new { id = item.IdLanguage }, new AjaxOptions { }, new { @class = "btn btn-default btn-xs" })
 

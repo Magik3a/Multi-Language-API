@@ -173,6 +173,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -190,7 +191,6 @@
     <Compile Include="App_start\SwaggerConfig.cs" />
     <Compile Include="App_start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountConroller.cs" />
-    <Compile Include="Controllers\OrdersController.cs" />
     <Compile Include="Controllers\PhrasesController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
     <Compile Include="Models\ExternalLoginModels.cs" />

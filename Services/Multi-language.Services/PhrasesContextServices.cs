@@ -48,8 +48,9 @@ namespace Multi_language.Services
 
         public IQueryable<PhrasesContext> GetAllByIdProject(int IdProject, string UserId)
         {
-            return phrasesContext.All().Where(pc => pc.IdProject == IdProject && pc.UserId == UserId);
+            return phrasesContext.All().Where(pc => pc.IdProject == IdProject);
         }
+
 
         public IQueryable<PhrasesContext> GetTranslatedByIdProject(int IdProject, string UserId)
         {

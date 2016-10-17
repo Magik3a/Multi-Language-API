@@ -52,7 +52,8 @@ namespace Multi_Language.MVCClient
                        * apply the skin class to the body tag so the changes take effect.
                        */
                       "~/admin-lte/css/skins/skin-red.css",
-                      "~/Content/pace/themes/orange/pace-theme-loading-bar.css"));
+                      "~/Content/pace/themes/white/pace-theme-flash.css",
+                      "~/Content/pace.css"));
         }
     }
 }

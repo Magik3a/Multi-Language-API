@@ -11,6 +11,7 @@ namespace Multi_language.Services
 
         IQueryable<Languages> GetActiveByActiveProject(int ProjectId);
 
+        IQueryable<Languages> GetByInitials(int IdProject, string Initials);
 
         IQueryable<Languages> GetAll();
 

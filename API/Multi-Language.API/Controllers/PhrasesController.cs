@@ -42,25 +42,12 @@ namespace Multi_Language.API.Controllers
         /// Get exact phase by language.
         /// </summary>
         [ResponseType(typeof(IEnumerable<PhrasesApiModel>))]
-        public IHttpActionResult Get(int id)
+        public IHttpActionResult Get(int idProject)
         {
-            var phrase = phrasesService.GetAllByIdLanguage(id).ProjectTo<PhrasesApiModel>().ToList();
+            var phrase = phrasesService.GetAllByIdLanguage(idProject).ProjectTo<PhrasesApiModel>().ToList();
 
             return Ok(phrase);
         }
-
-        /// <summary>
-        /// Get exact phase by id and language.
-        /// </summary>
-        [ResponseType(typeof(PhrasesApiModel))]
-        public IHttpActionResult Get(int id, string language)
-        {
-            var idLanguage = langService.GetAll().Where(l => l.Culture == language).FirstOrDefault().IdLanguage;
-            var phrase = phrasesService.GetByIdContextAndIdLanguage(id, idLanguage).ProjectTo<PhrasesApiModel>().FirstOrDefault();
-
-            return Ok(phrase);
-        }
-
 
         /// <summary>
         /// Add new phrase

@@ -9,7 +9,6 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
-
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
@@ -62,7 +61,7 @@ desired effect
             <!-- Main content -->
             <section class="content" id="wrapper-page-content">
                 <div class="row">
-                    <div class="col-md-3" id="project-box" style="min-height: 146px">
+                    <div class="col-md-3" id="project-box" style="min-height: 166px">
                     </div>
 
                     <div id="first-row-content" class="col-md-9">
@@ -117,7 +116,9 @@ desired effect
     @Scripts.Render("~/bundles/theme")
 
     <script>
-        $(document).ajaxStart(function () { Pace.restart(); });
+        $(document).ajaxStart(function () {
+            Pace.restart();
+        });
         $(document).ready(function () {
             $.get({ url: "../../Sections/ProjectBox", cache: false }).then(function (data) {
                 $("#project-box").append(data);

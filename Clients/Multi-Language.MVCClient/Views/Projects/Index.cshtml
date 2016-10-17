@@ -26,6 +26,9 @@
         <table class="table table-bordered table-hover table-striped dataTable">
             <thead>
                 <tr>
+                      <th>
+                        @Html.DisplayNameFor(model => model.IdProject)
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.User.UserName)
                     </th>
@@ -43,6 +46,9 @@
             </thead>
             <tfoot>
                  <tr>
+                     <th>
+                        @Html.DisplayNameFor(model => model.IdProject)
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.User.UserName)
                     </th>
@@ -62,6 +68,9 @@
                 @foreach (var item in Model)
             {
                     <tr>
+                           <td>
+                            @Html.DisplayFor(modelItem => item.IdProject)
+                        </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.User.UserName)
                         </td>
@@ -75,7 +84,13 @@
                             @Html.DisplayFor(modelItem => item.DateCreated)
                         </td>
                         <td>
-                            <div class="btn-group-vertical">
+                            <div class="btn-group-sm  pull-right">
+                                @{
+                                    var url = System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"];
+                                    url = url + "/Project/" + item.IdProject;
+                                }
+                                 <a href="@url" title="Open link" target="_blank" class="btn btn-info btn-xs">Go to URL</a>
+
                                 @Ajax.RawActionLinkWithoutIcon("Details", "fa-globe", "Details", "Projects",
                                new { id = item.IdProject }, new AjaxOptions { }, new { @class = "btn btn-default btn-xs" })
 

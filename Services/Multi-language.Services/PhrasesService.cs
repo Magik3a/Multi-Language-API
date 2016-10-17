@@ -42,9 +42,16 @@ namespace Multi_language.Services
             return phrases.All().Where(p => p.IdLanguage == IdLanguage);
         }
 
+
         public IQueryable<Phrases> GetAllByIdProject(int IdProject, string UserId)
         {
-            return phrases.All().Where(pc => pc.PhraseContext.IdProject == IdProject && pc.UserId == UserId);
+            return phrases.All().Where(pc => pc.PhraseContext.IdProject == IdProject);
+        }
+
+
+        public IQueryable<Phrases> GetAllByIdProjectAndIdContext(int IdProject, int IdContext)
+        {
+            return phrases.All().Where(pc => pc.PhraseContext.IdProject == IdProject && pc.IdPhraseContext == IdContext);
         }
 
         public Phrases GetById(int IdPhrase)
@@ -53,9 +60,13 @@ namespace Multi_language.Services
         }
 
 
-        public IQueryable<Phrases> GetByIdContextAndIdLanguage(int IdPhraseContext, int IdLanguage)
+        public string GetTextPhrase(int IdPhraseContext, int IdLanguage)
         {
-            return phrases.All().Where(p => p.IdPhraseContext == IdPhraseContext && p.IdLanguage == IdLanguage);
+            var phrase = phrases.All().Where(
+            p => p.IdPhraseContext == IdPhraseContext
+            && p.IdLanguage == IdLanguage).FirstOrDefault();
+
+            return (phrase != null)?phrase.PhraseText:"";
         }
 
         public void Update(Phrases Phrase)
