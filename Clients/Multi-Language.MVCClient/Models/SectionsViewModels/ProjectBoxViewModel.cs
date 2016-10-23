@@ -8,6 +8,8 @@ namespace Multi_Language.MVCClient.Models.SectionsViewModels
 {
     public class ProjectBoxViewModel
     {
+        public int IdProject { get; set; }
+
         public string ProjectName { get; set; }
 
     }

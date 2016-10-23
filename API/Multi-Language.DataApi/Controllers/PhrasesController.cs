@@ -37,8 +37,24 @@ namespace Multi_Language.DataApi.Controllers
         public IHttpActionResult Get()
         {
             var phrase = phrasesService.GetAll().ProjectTo<PhrasesApiModel>().ToList();
-
             return Ok(phrase);
+        }
+
+        public class Header
+        {
+            public string sender { get; set; }
+        }
+
+        public class Body
+        {
+            public string @class { get; set; }
+            public string type { get; set; }
+        }
+
+        public class RootObject
+        {
+            public Header header { get; set; }
+            public Body body { get; set; }
         }
 
         /// <summary>
@@ -70,21 +86,6 @@ namespace Multi_Language.DataApi.Controllers
 
         }
 
-        /// <summary>
-        /// Get exact phase by language.
-        /// </summary>
-        [Route("Project/{idProject}/Initials/{initials}")]
-        [ResponseType(typeof(IEnumerable<PhrasesApiModel>))]
-        public IHttpActionResult GetForInitials(int idProject, string initials)
-        {
-            var language = langService.GetByInitials(idProject, initials).FirstOrDefault();
-            if (language != null)
-            {
-                return Ok(phrasesService.GetAllByIdLanguage(language.IdLanguage).ProjectTo<PhrasesApiModel>().ToList());
-            }
-            return NotFound();
-
-        }
 
         /// <summary>
         /// Get exact phase by language.

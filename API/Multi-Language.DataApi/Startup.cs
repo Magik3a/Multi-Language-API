@@ -37,9 +37,7 @@ namespace Multi_Language.DataApi
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
             config.DependencyResolver = new NinjectResolver(NinjectWebCommon.CreateKernel());
-
             SwaggerConfig.Register(config);
-
             app.UseWebApi(config);
 
 

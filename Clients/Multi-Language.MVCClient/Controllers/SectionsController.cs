@@ -39,7 +39,7 @@ namespace Multi_Language.MVCClient.Controllers
 
             var some = User.Identity.GetActiveProject();
             Response.Headers["ProjectIsChanged"] = id.ToString();
-
+            model.IdProject = UserActiveProject;
             return PartialView("LayoutPartials/ProjectSmallBox", model);
         }
 
@@ -65,6 +65,8 @@ namespace Multi_Language.MVCClient.Controllers
             {
                 ViewBag.AllProjects = true;
                 model.ProjectName = projectServices.GetById(id??0).ProjectName;
+                model.IdProject = UserActiveProject;
+
                 return PartialView("LayoutPartials/ProjectSmallBox", model);
 
             }
@@ -77,6 +79,8 @@ namespace Multi_Language.MVCClient.Controllers
             {
                 ViewBag.AllProjects = true;
                 model.ProjectName = projectServices.GetById(activeProject).ProjectName;
+                model.IdProject = UserActiveProject;
+
                 return PartialView("LayoutPartials/ProjectSmallBox", model);
 
             }

@@ -11,26 +11,7 @@ namespace Multi_Language.DataApi
         {
             // Web API routes
             config.MapHttpAttributeRoutes();
-
-
-            //config.Routes.MapHttpRoute(
-            //    name: "DefaultApi2",
-            //    routeTemplate: "api/{idProject}",
-            //    defaults: new {
-            //        controller = "Phrases",
-            //        action="Get",
-            //        idProject = RouteParameter.Optional
-            //    }
-            //);
-
-            //config.Routes.MapHttpRoute(
-            //    name: "DefaultApi3",
-            //    routeTemplate: "api/{idProject}/{initials}/{idPhrase}",
-            //    defaults: new
-            //    {
-            //        controller = "Phrases"
-            //    }
-            //);
+            
 
             config.Routes.MapHttpRoute(
                 name: "DefaultApi",
