@@ -194,6 +194,7 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
+    <Compile Include="Areas\Utilities\Controllers\BackupsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ContextsController.cs" />
@@ -698,6 +699,7 @@
     <Content Include="Content\pace\themes\yellow\pace-theme-loading-bar.css" />
     <Content Include="Content\pace\themes\yellow\pace-theme-mac-osx.css" />
     <Content Include="Content\pace\themes\yellow\pace-theme-minimal.css" />
+    <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -726,6 +728,9 @@
     <Content Include="Content\fonts\ionicons.woff" />
     <Content Include="Content\fonts\ionicons.ttf" />
     <Content Include="Content\fonts\ionicons.eot" />
+    <Content Include="Areas\MultiLanguage\Views\web.config" />
+    <Content Include="Areas\Utilities\Views\web.config" />
+    <Content Include="Areas\Utilities\Views\Backups\Index.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -742,6 +747,10 @@
     <Content Include="fonts\ionicons.ttf" />
     <Content Include="fonts\ionicons.woff" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="Scripts\jquery-1.10.2.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.js" />
+    <Content Include="Scripts\jquery-1.10.2.min.map" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.js" />
     <Content Include="Scripts\DataTables\autoFill.bootstrap.min.js" />
@@ -961,6 +970,11 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Areas\MultiLanguage\Controllers\" />
+    <Folder Include="Areas\MultiLanguage\Models\" />
+    <Folder Include="Areas\MultiLanguage\Views\Shared\" />
+    <Folder Include="Areas\Utilities\Models\" />
+    <Folder Include="Areas\Utilities\Views\Shared\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
