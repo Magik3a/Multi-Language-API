@@ -177,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Web.Debug.config">
@@ -199,9 +200,11 @@
     <Compile Include="App_start\SwaggerConfig.cs" />
     <Compile Include="App_start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountConroller.cs" />
+    <Compile Include="Controllers\BackupController.cs" />
     <Compile Include="Controllers\PhrasesController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
     <Compile Include="Models\ExternalLoginModels.cs" />
+    <Compile Include="Models\FileDataModel.cs" />
     <Compile Include="Models\PhrasesApiModel.cs" />
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -230,6 +233,9 @@
       <Project>{6a9670f4-3d3e-4b7a-8a77-eb087d3c1e33}</Project>
       <Name>Multi-language.Services</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="DBBackups\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -17,7 +17,7 @@ namespace Multi_Language.MVCClient
                 name: "Default",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
-            ).DataTokens.Add("area", "Utilities");
+            );
         }
     }
 }

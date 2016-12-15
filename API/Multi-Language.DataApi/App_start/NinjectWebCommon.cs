@@ -1,6 +1,9 @@
 //[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Multi_Language.DataApi.App_Start.NinjectWebCommon), "Start")]
 //[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Multi_Language.DataApi.App_Start.NinjectWebCommon), "Stop")]
 
+using System.Web.Configuration;
+using Multi_language.Services;
+
 namespace Multi_Language.DataApi.App_Start
 {
     using System;

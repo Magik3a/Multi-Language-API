@@ -194,15 +194,14 @@
     <Compile Include="App_Start\NinjectWebCommon.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
-    <Compile Include="Areas\Utilities\Controllers\BackupsController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
-    <Compile Include="Controllers\ContextsController.cs" />
+    <Compile Include="Controllers\MultiLanguage\ContextsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LanguagesController.cs" />
+    <Compile Include="Controllers\MultiLanguage\LanguagesController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
-    <Compile Include="Controllers\ResourcesController.cs" />
+    <Compile Include="Controllers\MultiLanguage\ResourcesController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -728,9 +727,6 @@
     <Content Include="Content\fonts\ionicons.woff" />
     <Content Include="Content\fonts\ionicons.ttf" />
     <Content Include="Content\fonts\ionicons.eot" />
-    <Content Include="Areas\MultiLanguage\Views\web.config" />
-    <Content Include="Areas\Utilities\Views\web.config" />
-    <Content Include="Areas\Utilities\Views\Backups\Index.cshtml" />
     <None Include="compilerconfig.json" />
     <None Include="compilerconfig.json.defaults">
       <DependentUpon>compilerconfig.json</DependentUpon>
@@ -746,6 +742,7 @@
     <Content Include="fonts\ionicons.eot" />
     <Content Include="fonts\ionicons.ttf" />
     <Content Include="fonts\ionicons.woff" />
+    <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -970,11 +967,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\MultiLanguage\Controllers\" />
-    <Folder Include="Areas\MultiLanguage\Models\" />
-    <Folder Include="Areas\MultiLanguage\Views\Shared\" />
-    <Folder Include="Areas\Utilities\Models\" />
-    <Folder Include="Areas\Utilities\Views\Shared\" />
+    <Folder Include="Controllers\Utilities\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
