@@ -37,6 +37,12 @@ namespace Multi_Language.DataApi.Controllers
                     new FileDataModel(name, Utils.GetFileSizeString(Path.Combine(backupFilePath, name))));
         }
 
+        [Route("getpath", Name = "GetBackupPAth")]
+        public IHttpActionResult GetBackupPath()
+        {
+            return Ok(HttpContext.Current.Server.MapPath(backupFolder).ToString());
+        }
+
         private static IEnumerable<T> Get<T>(string folderPath, string requiredExtension, Func<string, T> parser) where T : class
         {
             try
@@ -164,7 +170,7 @@ namespace Multi_Language.DataApi.Controllers
             {
                 return InternalServerError(e);
             }
-            return Ok();
+            return Ok("ok");
         }
 
         /// <summary>

@@ -18,15 +18,24 @@ namespace Multi_Language.MVCClient.Controllers.Utilities
         public ActionResult Index()
         {
             var model = new List<BackupViewModels>();
-            using (HttpClient client = new HttpClient())
+            try
             {
-                var response = client.GetAsync(ConfigurationManager.AppSettings["MultiLanguageApiUrl"] + "/backup/getall").GetAwaiter().GetResult();
-                if (response.IsSuccessStatusCode)
+                using (HttpClient client = new HttpClient())
                 {
-                    var result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
-                    model = JsonConvert.DeserializeObject<List<BackupViewModels>>(result);
+
+                    var response = client.GetAsync(ConfigurationManager.AppSettings["MultiLanguageApiUrl"] + "/backup/getall").GetAwaiter().GetResult();
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var result = response.Content.ReadAsStringAsync().GetAwaiter().GetResult();
+                        model = JsonConvert.DeserializeObject<List<BackupViewModels>>(result);
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                //TODO send to admin or do something with this
+            }
+
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Backups page", "Create, upload and restore the DataBase");
             if (Request.IsAjaxRequest())
                 return PartialView(model);

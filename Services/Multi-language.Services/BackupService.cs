@@ -64,7 +64,7 @@ namespace Multi_language.Services
             {
                 filename.Append($"{prefix}_");
             }
-            filename.Append("ntfy_");
+            filename.Append("api_");
             if (!string.IsNullOrWhiteSpace(version))
             {
                 filename.Append($"{version}_");
