@@ -203,6 +203,7 @@
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\MultiLanguage\ResourcesController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
+    <Compile Include="Controllers\Utilities\BackupsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -221,6 +222,7 @@
     <Compile Include="Models\SectionsViewModels\ProjectBoxViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\ProjectsBoxDropDownsViewModels.cs" />
     <Compile Include="Models\SectionsViewModels\ResourcesFirstRowSectionViewModel.cs" />
+    <Compile Include="Models\UtilitiesViewModels\BackupViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -964,10 +966,10 @@
     <Content Include="Views\Projects\Edit.cshtml" />
     <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Shared\LayoutPartials\ProjectBoxDropDowns.cshtml" />
+    <None Include="Views\Backups\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Controllers\Utilities\" />
     <Folder Include="Views\Base\" />
   </ItemGroup>
   <ItemGroup>
