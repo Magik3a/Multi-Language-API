@@ -32,11 +32,17 @@ namespace Multi_Language.MVCClient
                       "~/Scripts/DataTables/dataTables.bootstrap.js",
                       "~/Scripts/jquery.icheck.min.js",
                       "~/Scripts/select2.js",
-                      "~/Scripts/pace.js"));
+                      "~/Scripts/pace.js",
+                      "~/Scripts/plugins/sortable.min.js",
+                      "~/Scripts/plugins/purify.min.js",
+                      "~/Scripts/fileinput.min.js",
+                      "~/Content/bootstrap-fileinput/themes/fa/theme.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       // Bootstrap 3.3.6
                       "~/Content/bootstrap.css",
+                      // File input Bootstrap
+                      "~/Content/bootstrap-fileinput/css/fileinput.min.css",
                       // Font Awesome
                       "~/Content/cssbundle/font-awesome.min.css",
                       // Theme style

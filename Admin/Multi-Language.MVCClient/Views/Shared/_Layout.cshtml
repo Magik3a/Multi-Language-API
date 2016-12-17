@@ -133,6 +133,16 @@ desired effect
                 radioClass: 'iradio_square-blue',
                 increaseArea: '20%' // optional
             });
+                // TODO Add drag and drop options
+                $("#input-backups")
+                    .fileinput({
+                        uploadUrl: "http://localhost/file-upload-single/1", // server upload action
+                        uploadAsync: true,
+                        allowedPreviewTypes: false,
+                        allowedFileExtensions: ['bak'],
+                        maxFileCount: 5
+                    });
+
             var url = $(location).attr('href').split('/');
             LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
 
@@ -146,22 +156,22 @@ desired effect
                     $("#project-box").prepend(data);
 
                     $("#project-box").fadeTo("fast", 100, function () {
-                    var url = $(location).attr('href');
+                        var url = $(location).attr('href');
 
-                    $.get({ url: url, cache: false }).then(function (data) {
-                        $("#page-content").fadeTo("fast", 0, function () {
-                            $("#page-content").html(" ");
-                            $("#page-content").append(data);
-                            $("#page-content").fadeTo("fast", 100, function () {
-                                urlSplited = url.split('/');
-                                LoadFirstRow("../../Sections/FirstRow?id=" + urlSplited[3]);
+                        $.get({ url: url, cache: false }).then(function (data) {
+                            $("#page-content").fadeTo("fast", 0, function () {
+                                $("#page-content").html(" ");
+                                $("#page-content").append(data);
+                                $("#page-content").fadeTo("fast", 100, function () {
+                                    urlSplited = url.split('/');
+                                    LoadFirstRow("../../Sections/FirstRow?id=" + urlSplited[3]);
+
+                                });
+                                InitialisePlugins();
 
                             });
-                            InitialisePlugins();
-
                         });
                     });
-                });
                 });
 
             });
@@ -202,19 +212,30 @@ desired effect
         };
         function InitialisePlugins() {
             // initialise plugins if there is any
-                if ($('.dataTable').children().length > 0) {
-                    $('.dataTable').DataTable();
-                }
-                if ($('input[type=checkbox]').length > 0) {
-                    $('input[type=checkbox]').iCheck({
-                        checkboxClass: 'icheckbox_square-blue',
-                        radioClass: 'iradio_square-blue',
-                        increaseArea: '20%' // optional
+            if ($('.dataTable').children().length > 0) {
+                $('.dataTable').DataTable();
+            }
+            if ($('input[type=checkbox]').length > 0) {
+                $('input[type=checkbox]').iCheck({
+                    checkboxClass: 'icheckbox_square-blue',
+                    radioClass: 'iradio_square-blue',
+                    increaseArea: '20%' // optional
+                });
+            }
+            if ($(".select2").length > 0) {
+                $(".select2").select2();
+            }
+            if ($("#input-backups").length > 0) {
+                // TODO Add drag and drop options
+                $("#input-backups")
+                    .fileinput({
+                        uploadUrl: "http://localhost/file-upload-single/1", // server upload action
+                        uploadAsync: true,
+                        allowedPreviewTypes: false,
+                        allowedFileExtensions: ['bak'],
+                        maxFileCount: 5
                     });
-                }
-                if ($(".select2").length > 0) {
-                    $(".select2").select2();
-                }
+            }
         }
         function LoadFirstRow(url) {
             $("#first-row-content").fadeTo("fast", 0, function () {

@@ -29,78 +29,78 @@
     <div class="box-body">
         <table class="table table-bordered table-hover table-striped dataTable">
             <thead>
-            <tr>
-                <th>
-                    File name
-                </th>
-                <th>
-                    File size
-                </th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>
+                        File name
+                    </th>
+                    <th>
+                        File size
+                    </th>
+                    <th></th>
+                </tr>
             </thead>
             <tfoot>
-            <tr>
-                <th>
-                    File name
-                </th>
-                <th>
-                    File size
-                </th>
-                <th></th>
-            </tr>
+                <tr>
+                    <th>
+                        File name
+                    </th>
+                    <th>
+                        File size
+                    </th>
+                    <th></th>
+                </tr>
             </tfoot>
             <tbody>
-            @{
-                int counter = 0;
-            }
-            @foreach (var item in Model)
+                @{
+                    int counter = 0;
+                }
+                @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FileName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FileSize)
-                    </td>
-                    <td>
-                        <div class="btn-group-sm  pull-right">
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FileName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FileSize)
+                        </td>
+                        <td>
+                            <div class="btn-group-sm  pull-right">
 
-                            @Ajax.RawActionLinkWithoutIcon("Download", "fa-globe", "Details", "Projects",
+                                @Ajax.RawActionLinkWithoutIcon("Download", "fa-globe", "Details", "Projects",
                                 new { id = item.FileName }, new AjaxOptions { }, new { @class = "btn btn-success btn-xs" })
 
-                            <button class="btn btn-primary btn-xs"
-                                    data-toggle="collapse" data-target="#restore-@counter" aria-expanded="false" aria-controls="restore-@counter">
-                                Restore
-                            </button>
+                                <button class="btn btn-primary btn-xs"
+                                        data-toggle="collapse" data-target="#restore-@counter" aria-expanded="false" aria-controls="restore-@counter">
+                                    Restore
+                                </button>
 
-                            <button class="btn btn-danger btn-xs" onclick="DeleteBackup(this, '@item.FileName')">Delete</button>
+                                <button class="btn btn-danger btn-xs" onclick="DeleteBackup(this, '@item.FileName')">Delete</button>
 
-
-                        </div>
-                        <div class="clearfix"></div>
-                        <div class="collapse" id="restore-@counter">
-                            <div class="well">
-                                Every change after this backup will be lost. Please confirm:
-                                <div class="btn-group-sm">
-                                    <button class="btn btn-default btn-xs"
-                                            data-toggle="collapse" data-target="#restore-@counter" aria-expanded="false" aria-controls="restore-@counter">
-                                        CLOSE
-                                    </button>
-                                    <button class="btn btn-primary btn-xs" onclick="RestoreBackup(this, '@item.FileName')"
-                                            data-toggle="collapse" data-target="#restore-@counter" aria-expanded="false" aria-controls="restore-@counter">
-                                        CONFIRM
-                                    </button>
-
-                                </div>
 
                             </div>
-                        </div>
-                    </td>
+                            <div class="clearfix"></div>
+                            <div class="collapse" id="restore-@counter">
+                                <div class="well">
+                                    Every change after this backup will be lost. Please confirm:
+                                    <div class="btn-group-sm">
+                                        <button class="btn btn-default btn-xs"
+                                                data-toggle="collapse" data-target="#restore-@counter" aria-expanded="false" aria-controls="restore-@counter">
+                                            CLOSE
+                                        </button>
+                                        <button class="btn btn-primary btn-xs" onclick="RestoreBackup(this, '@item.FileName')"
+                                                data-toggle="collapse" data-target="#restore-@counter" aria-expanded="false" aria-controls="restore-@counter">
+                                            CONFIRM
+                                        </button>
 
-                </tr>
-                counter++;
-            }
+                                    </div>
+
+                                </div>
+                            </div>
+                        </td>
+
+                    </tr>
+                    counter++;
+                }
             </tbody>
 
         </table>
@@ -124,16 +124,15 @@
         </p>
 
 
-            <div class="alert alert-success alert-dismissible col-md-6 pull-right" role="alert" id="restore-alert-success" style="display: none">
-                <button type="button" class="close" onclick="DissmisAlerRestore()"><span aria-hidden="true">&times;</span></button>
-                <strong>Success!</strong> Database restored successfully.
-            </div>
+        <div class="alert alert-success alert-dismissible col-md-6 pull-right" role="alert" id="restore-alert-success" style="display: none">
+            <button type="button" class="close" onclick="DissmisAlerRestore()"><span aria-hidden="true">&times;</span></button>
+            <strong>Success!</strong> Database restored successfully.
+        </div>
 
     </div>
     <!-- /.box-footer-->
 </div>
 <!-- /.box -->
-
 <!-- Modal -->
 <div class="modal fade modal-success" id="backupModal" tabindex="-1" role="dialog" aria-labelledby="backupModalLabel">
     <div class="modal-dialog" role="document">
@@ -165,14 +164,15 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="uploadBackupModal-label">Modal title</h4>
+                <h4 class="modal-title" id="uploadBackupModal-label">Upload backups - you can restore db even from different PC</h4>
             </div>
             <div class="modal-body">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <input id="input-backups" name="input-backups" type="file" multiple class="file-loading">
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-outline" data-dismiss="modal" onclick="UploadBackup(this)">Save changes</button>
+                @*<button type="button" class="btn btn-outline" data-dismiss="modal" onclick="UploadBackup(this)">Save changes</button>*@
             </div>
         </div>
     </div>
@@ -196,8 +196,8 @@
 
     function DeleteBackup(elem, fileName) {
         var parent = $(elem).parents().eq(2);
-        var url = baseAdressApi + '/backup/delete/' + fileName +'/';
-        $(parent).fadeTo(100, 0.4, function() {
+        var url = baseAdressApi + '/backup/delete/' + fileName + '/';
+        $(parent).fadeTo(100, 0.4, function () {
             $.ajax({
                 url: url,
                 type: 'DELETE',
@@ -221,7 +221,7 @@
     function RestoreBackup(elem, fileName) {
         var url = baseAdressApi + '/backup/restore/' + fileName + '/';
 
-        $("#loading-overlay").slideDown(100, function() {
+        $("#loading-overlay").slideDown(100, function () {
             $.ajax({
                 url: url,
                 type: 'POST',

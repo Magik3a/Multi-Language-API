@@ -22,11 +22,12 @@ namespace Multi_Language.DataApi.Controllers
         private readonly IBackupService backupService;
         private string backupFolder = "~/DBBackups";
         private static string backupFilePath;
+        private readonly string dbName = WebConfigurationManager.AppSettings["DatabaseName"];
 
         public BackupController(IBackupService backupService)
         {
             this.backupService = backupService;
-            this.backupService.Initialiaze(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString, WebConfigurationManager.AppSettings["DatabaseName"]);
+            this.backupService.Initialiaze(System.Configuration.ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString, dbName);
             backupFilePath = HttpContext.Current.Server.MapPath(backupFolder);
         }
 
@@ -128,7 +129,7 @@ namespace Multi_Language.DataApi.Controllers
         /// </summary>
         /// <param name="filename">The filename of the backup that should be deleted.</param>
         /// <returns></returns>
-        [HttpGet]
+        [HttpPost]
         [Route("restore/{filename}", Name = "RestoreBackup")]
         public IHttpActionResult RestoreBackup(string filename)
         {
@@ -140,9 +141,7 @@ namespace Multi_Language.DataApi.Controllers
                 return NotFound();
             }
 
-            var backupPath = Path.Combine(backupFolder, filename);
-
-            backupService.Restore(backupPath, "dbName", "logsName");
+            backupService.Restore(serverPath, dbName, dbName + "_log");
             return Ok("Database is restored successfully.");
         }
 
