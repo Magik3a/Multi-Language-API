@@ -66,8 +66,9 @@
                         <td>
                             <div class="btn-group-sm  pull-right">
 
-                                @Ajax.RawActionLinkWithoutIcon("Download", "fa-globe", "Details", "Projects",
-                                new { id = item.FileName }, new AjaxOptions { }, new { @class = "btn btn-success btn-xs" })
+                                <button class="btn btn-success btn-xs" onclick="DownloadBackup(this,  '@item.FileName')">
+                                    Download
+                                </button>
 
                                 <button class="btn btn-primary btn-xs"
                                         data-toggle="collapse" data-target="#restore-@counter" aria-expanded="false" aria-controls="restore-@counter">
@@ -214,8 +215,10 @@
         //$(parent).hide(300);
     };
 
-    function UploadBackup(elem) {
+    function DownloadBackup(elem, fileName) {
+        var url = baseAdressApi + '/backup/download/' + fileName + '/';
 
+        document.getElementById('file-download-frame').src = url;
     };
 
     function RestoreBackup(elem, fileName) {
