@@ -103,12 +103,12 @@ namespace Multi_Language.DataApi.Controllers
 
             var provider = new MultipartMemoryStreamProvider();
             await Request.Content.ReadAsMultipartAsync(provider);
-
+            //TODO get all uploaded files
             var fileName = provider.Contents[0].Headers.ContentDisposition.FileName.Trim('\"');
             var buffer = await provider.Contents[0].ReadAsByteArrayAsync();
             if (fileName.EndsWith("bak"))
             {
-                string filePath = Path.Combine(backupFolder, fileName);
+                string filePath = Path.Combine(backupFilePath, fileName);
                 //TODO: check if there is not yet a file with same name...
                 try
                 {

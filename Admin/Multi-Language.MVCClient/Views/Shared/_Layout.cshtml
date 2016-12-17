@@ -114,209 +114,218 @@ desired effect
 
     <!-- Theme and plugins -->
     @Scripts.Render("~/bundles/theme")
-
-    <script>
-        $(document).ajaxStart(function () {
-            Pace.restart();
+<style>
+    .kv-file-zoom{
+        display: none;
+    }
+</style>
+<script>
+    var baseAdressApi = '@System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"]';
+    $(document).ajaxStart(function () {
+        Pace.restart();
+    });
+    $(document).ready(function () {
+        $.get({ url: "../../Sections/ProjectBox", cache: false }).then(function (data) {
+            $("#project-box").append(data);
+            $.get({ url: "../../Sections/ProjectBoxDropDowns", cache: false }).then(function (data2) {
+                $("#project-box").append(data2);
+            });
         });
-        $(document).ready(function () {
-            $.get({ url: "../../Sections/ProjectBox", cache: false }).then(function (data) {
-                $("#project-box").append(data);
-                $.get({ url: "../../Sections/ProjectBoxDropDowns", cache: false }).then(function (data2) {
-                    $("#project-box").append(data2);
+        $(".select2").select2();
+        $('.dataTable').DataTable();
+        $('input[type=checkbox]').iCheck({
+            checkboxClass: 'icheckbox_square-blue',
+            radioClass: 'iradio_square-blue',
+            increaseArea: '20%' // optional
+        });
+        // TODO Add drag and drop options
+        $("#input-backups")
+            .fileinput({
+                uploadUrl: baseAdressApi + "/backup/upload", // server upload action
+                uploadAsync: true,
+                allowedPreviewTypes: false,
+                allowedFileExtensions: ['bak'],
+                showUploadedThumbs: false,
+                browseOnZoneClick: true,
+                maxFileCount: 5
+            });
+
+        var url = $(location).attr('href').split('/');
+        LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
+
+    });
+
+
+    function activeProjectIsChanged(e) {
+        $("#project-box").fadeTo("fast", 0, function () {
+            $("#active-project-box").remove();
+            $.get({ url: "../../Sections/ChangeActiveProject?id=" + $(e).val(), cache: false }).then(function (data) {
+                $("#project-box").prepend(data);
+
+                $("#project-box").fadeTo("fast", 100, function () {
+                    var url = $(location).attr('href');
+
+                    $.get({ url: url, cache: false }).then(function (data) {
+                        $("#page-content").fadeTo("fast", 0, function () {
+                            $("#page-content").html(" ");
+                            $("#page-content").append(data);
+                            $("#page-content").fadeTo("fast", 100, function () {
+                                urlSplited = url.split('/');
+                                LoadFirstRow("../../Sections/FirstRow?id=" + urlSplited[3]);
+
+                            });
+                            InitialisePlugins();
+
+                        });
+                    });
                 });
             });
-            $(".select2").select2();
+
+        });
+
+    };
+
+    function AjaxClickBegin(elem) {
+        var target = $(elem).parent();
+        if (target.is("li")) {
+            $(".sidebar-menu li").removeClass("active");
+
+        }
+        $("#page-content").fadeTo(0, 0, function () {
+            if (target.is("li")) {
+                $(elem).append("<span id='mainSidebarLoader'><i class='fa fa-refresh fa-spin pull-right'></i></span>");
+                target.addClass("active");
+            }
+        });
+
+    };
+    function AjaxClickComplete(action, controller, icon) {
+        $("#page-content").fadeTo("fast", 1, function () {
+            $("#mainSidebarLoader").remove();
+            $("#breadcrumb-parent").html("<i class='fa " + icon + "'></i>" + controller);
+            $("#breadcrumb-child").html(action);
+            var url = $(location).attr('href').split('/');
+            if (url[3] != controller && action === "Index") {
+
+                $("#first-row-content").fadeTo("fast", 0);
+                $("#first-row-content").hide(250);
+                LoadFirstRow("../../Sections/FirstRow?id=" + controller);
+            }
+            InitialisePlugins();
+            var content = $(".wrapper").html();
+            window.history.pushState({ "html": content, "action": action }, action, '../../' + controller + '/' + action);
+        });
+
+    };
+    function InitialisePlugins() {
+        // initialise plugins if there is any
+        if ($('.dataTable').children().length > 0) {
             $('.dataTable').DataTable();
+        }
+        if ($('input[type=checkbox]').length > 0) {
             $('input[type=checkbox]').iCheck({
                 checkboxClass: 'icheckbox_square-blue',
                 radioClass: 'iradio_square-blue',
                 increaseArea: '20%' // optional
             });
-                // TODO Add drag and drop options
-                $("#input-backups")
-                    .fileinput({
-                        uploadUrl: "http://localhost/file-upload-single/1", // server upload action
-                        uploadAsync: true,
-                        allowedPreviewTypes: false,
-                        allowedFileExtensions: ['bak'],
-                        maxFileCount: 5
-                    });
-
-            var url = $(location).attr('href').split('/');
-            LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
-
-        });
-
-
-        function activeProjectIsChanged(e) {
-            $("#project-box").fadeTo("fast", 0, function () {
-                $("#active-project-box").remove();
-                $.get({ url: "../../Sections/ChangeActiveProject?id=" + $(e).val(), cache: false }).then(function (data) {
-                    $("#project-box").prepend(data);
-
-                    $("#project-box").fadeTo("fast", 100, function () {
-                        var url = $(location).attr('href');
-
-                        $.get({ url: url, cache: false }).then(function (data) {
-                            $("#page-content").fadeTo("fast", 0, function () {
-                                $("#page-content").html(" ");
-                                $("#page-content").append(data);
-                                $("#page-content").fadeTo("fast", 100, function () {
-                                    urlSplited = url.split('/');
-                                    LoadFirstRow("../../Sections/FirstRow?id=" + urlSplited[3]);
-
-                                });
-                                InitialisePlugins();
-
-                            });
-                        });
-                    });
-                });
-
-            });
-
-        };
-
-        function AjaxClickBegin(elem) {
-            var target = $(elem).parent();
-            if (target.is("li")) {
-                $(".sidebar-menu li").removeClass("active");
-
-            }
-            $("#page-content").fadeTo(0, 0, function () {
-                if (target.is("li")) {
-                    $(elem).append("<span id='mainSidebarLoader'><i class='fa fa-refresh fa-spin pull-right'></i></span>");
-                    target.addClass("active");
-                }
-            });
-
-        };
-        function AjaxClickComplete(action, controller, icon) {
-            $("#page-content").fadeTo("fast", 1, function () {
-                $("#mainSidebarLoader").remove();
-                $("#breadcrumb-parent").html("<i class='fa " + icon + "'></i>" + controller);
-                $("#breadcrumb-child").html(action);
-                var url = $(location).attr('href').split('/');
-                if (url[3] != controller && action === "Index") {
-
-                    $("#first-row-content").fadeTo("fast", 0);
-                    $("#first-row-content").hide(250);
-                    LoadFirstRow("../../Sections/FirstRow?id=" + controller);
-                }
-                InitialisePlugins();
-                var content = $(".wrapper").html();
-                window.history.pushState({ "html": content, "action": action }, action, '../../' + controller + '/' + action);
-            });
-
-        };
-        function InitialisePlugins() {
-            // initialise plugins if there is any
-            if ($('.dataTable').children().length > 0) {
-                $('.dataTable').DataTable();
-            }
-            if ($('input[type=checkbox]').length > 0) {
-                $('input[type=checkbox]').iCheck({
-                    checkboxClass: 'icheckbox_square-blue',
-                    radioClass: 'iradio_square-blue',
-                    increaseArea: '20%' // optional
-                });
-            }
-            if ($(".select2").length > 0) {
-                $(".select2").select2();
-            }
-            if ($("#input-backups").length > 0) {
-                // TODO Add drag and drop options
-                $("#input-backups")
-                    .fileinput({
-                        uploadUrl: "http://localhost/file-upload-single/1", // server upload action
-                        uploadAsync: true,
-                        allowedPreviewTypes: false,
-                        allowedFileExtensions: ['bak'],
-                        maxFileCount: 5
-                    });
-            }
         }
-        function LoadFirstRow(url) {
-            $("#first-row-content").fadeTo("fast", 0, function () {
-                var progressElem = $('#first-row-content');
-                var URL = url;
-                // $("#loading").hide();
-                $.ajax({
-                    type: 'GET',
-                    dataType: 'html',
-                    url: URL,
-                    cache: false,
-                    error: function (xhr, ajaxOptions, thrownError) {
-                        console.log(xhr.responseText);
-                        console.log(thrownError);
-                    },
-                    xhr: function () {
-                        var xhr = new window.XMLHttpRequest();
-                        //Download progress
-                        xhr.addEventListener("progress", function (evt) {
-                            console.log(evt.lengthComputable);
-                            if (evt.lengthComputable) {
-                                var percentComplete = evt.loaded / evt.total;
-                                console.log(percentComplete);
-                                progressElem.html(Math.round(percentComplete * 100) + "%");
-                            }
-                        }, false);
-                        return xhr;
-                    },
-                    beforeSend: function () {
-                        //  $('#loading').show();
-                    },
-                    complete: function () {
-                        //   $("#loading").hide();
-                    },
-                    success: function (json) {
-                        $("#first-row-content").html(json);
-                        $("#first-row-content").show(250);
-                        $("#first-row-content").fadeTo("fast", 100);
-                    }
+        if ($(".select2").length > 0) {
+            $(".select2").select2();
+        }
+        if ($("#input-backups").length > 0) {
+            // TODO Add drag and drop options
+            $("#input-backups")
+                .fileinput({
+                    uploadUrl: baseAdressApi + "/backup/upload", // server upload action
+                    uploadAsync: true,
+                    actionZoom: '',
+                    allowedPreviewTypes: false,
+                    allowedFileExtensions: ['bak'],
+                    browseOnZoneClick: true,
+                    maxFileCount: 5
                 });
+        }
+    }
+    function LoadFirstRow(url) {
+        $("#first-row-content").fadeTo("fast", 0, function () {
+            var progressElem = $('#first-row-content');
+            var URL = url;
+            // $("#loading").hide();
+            $.ajax({
+                type: 'GET',
+                dataType: 'html',
+                url: URL,
+                cache: false,
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.responseText);
+                    console.log(thrownError);
+                },
+                xhr: function () {
+                    var xhr = new window.XMLHttpRequest();
+                    //Download progress
+                    xhr.addEventListener("progress", function (evt) {
+                        console.log(evt.lengthComputable);
+                        if (evt.lengthComputable) {
+                            var percentComplete = evt.loaded / evt.total;
+                            console.log(percentComplete);
+                            progressElem.html(Math.round(percentComplete * 100) + "%");
+                        }
+                    }, false);
+                    return xhr;
+                },
+                beforeSend: function () {
+                    //  $('#loading').show();
+                },
+                complete: function () {
+                    //   $("#loading").hide();
+                },
+                success: function (json) {
+                    $("#first-row-content").html(json);
+                    $("#first-row-content").show(250);
+                    $("#first-row-content").fadeTo("fast", 100);
+                }
             });
-        };
-        function AjaxClickSuccess(data, status, xhr) {
-            $(".content-header h1").html(xhr.getResponseHeader("ContentHeader") + " <small>" + xhr.getResponseHeader("ContentDescription") + "</small>");
-            if (xhr.getResponseHeader("ProjectIsChanged") != null) {
-                $("#project-box").fadeTo("fast", 0, function () {
-                    $("#project-box").html("");
-                    $.get({ url: "../../Sections/ProjectBox?id=" + xhr.getResponseHeader("ProjectIsChanged"), cache: false }).then(function (data) {
-                        $("#project-box").append(data);
-                    });
-                    $.get({ url: "../../Sections/ProjectBoxDropDowns", cache: false }).then(function (data2) {
-                        $("#project-box").append(data2);
-                    });
-                    $("#project-box").fadeTo("fast", 100)
+        });
+    };
+    function AjaxClickSuccess(data, status, xhr) {
+        $(".content-header h1").html(xhr.getResponseHeader("ContentHeader") + " <small>" + xhr.getResponseHeader("ContentDescription") + "</small>");
+        if (xhr.getResponseHeader("ProjectIsChanged") != null) {
+            $("#project-box").fadeTo("fast", 0, function () {
+                $("#project-box").html("");
+                $.get({ url: "../../Sections/ProjectBox?id=" + xhr.getResponseHeader("ProjectIsChanged"), cache: false }).then(function (data) {
+                    $("#project-box").append(data);
                 });
-
-
-            }
-            if (xhr.getResponseHeader("ProjectDropDownIsChanged") != null) {
-                $("#change-active-project-box").hide(300);
-                console.log("changed");
                 $.get({ url: "../../Sections/ProjectBoxDropDowns", cache: false }).then(function (data2) {
-                    $("#change-active-project-box").remove();
-
                     $("#project-box").append(data2);
                 });
-            }
-        };
+                $("#project-box").fadeTo("fast", 100)
+            });
 
-        window.onpopstate = function (e) {
-            if (e.state) {
-                $(".wrapper").html(e.state.html);
-                $("#page-content").fadeIn(200);
-                document.title = e.state.action;
-                $("#first-row-content").fadeTo("fast", 0);
-                $("#first-row-content").hide(250);
-                var url = $(location).attr('href').split('/');
-                LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
-            }
-        };
-    </script>
+
+        }
+        if (xhr.getResponseHeader("ProjectDropDownIsChanged") != null) {
+            $("#change-active-project-box").hide(300);
+            console.log("changed");
+            $.get({ url: "../../Sections/ProjectBoxDropDowns", cache: false }).then(function (data2) {
+                $("#change-active-project-box").remove();
+
+                $("#project-box").append(data2);
+            });
+        }
+    };
+
+    window.onpopstate = function (e) {
+        if (e.state) {
+            $(".wrapper").html(e.state.html);
+            $("#page-content").fadeIn(200);
+            document.title = e.state.action;
+            $("#first-row-content").fadeTo("fast", 0);
+            $("#first-row-content").hide(250);
+            var url = $(location).attr('href').split('/');
+            LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
+        }
+    };
+</script>
     @RenderSection("scripts", required: false)
 </body>
 </html>
