@@ -57,6 +57,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApplicationRole.cs" />
     <Compile Include="ApplicationTypes.cs" />
     <Compile Include="AppUser.cs" />
     <Compile Include="Client.cs" />

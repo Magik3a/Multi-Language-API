@@ -204,6 +204,7 @@
     <Compile Include="Controllers\MultiLanguage\ResourcesController.cs" />
     <Compile Include="Controllers\SectionsController.cs" />
     <Compile Include="Controllers\Utilities\BackupsController.cs" />
+    <Compile Include="Controllers\Utilities\SystemController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -1007,6 +1008,7 @@
     <Content Include="Views\Projects\Index.cshtml" />
     <Content Include="Views\Shared\LayoutPartials\ProjectBoxDropDowns.cshtml" />
     <Content Include="Views\Backups\Index.cshtml" />
+    <Content Include="Views\System\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

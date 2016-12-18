@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
+using Multi_language.Common.Enums;
+using Multi_language.Common.Helpers;
 using Multi_Language.MVCClient.Models;
 
 namespace Multi_Language.MVCClient.Controllers
@@ -70,6 +72,7 @@ namespace Multi_Language.MVCClient.Controllers
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
+                Permissions = EnumHelper<ERoleLevels>.GetDisplayValue((ERoleLevels)Enum.Parse(typeof(ERoleLevels), UserManager.GetRoles(userId).FirstOrDefault())),
                 BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
             };
 

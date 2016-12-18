@@ -11,6 +11,8 @@ using Multi_language.Services;
 using System.Threading.Tasks;
 using System.Web.Configuration;
 using Multi_language.Common;
+using Multi_language.Common.Enums;
+using Multi_language.Common.Helpers;
 using Multi_Language.DataApi.Models;
 
 namespace Multi_Language.DataApi.Controllers
@@ -38,7 +40,7 @@ namespace Multi_Language.DataApi.Controllers
                     new FileDataModel(name, Utils.GetFileSizeString(Path.Combine(backupFilePath, name))));
         }
 
-        [Route("getpath", Name = "GetBackupPAth")]
+        [Route("getpath", Name = "GetBackupPath")]
         public IHttpActionResult GetBackupPath()
         {
             return Ok(HttpContext.Current.Server.MapPath(backupFolder).ToString());
@@ -67,6 +69,7 @@ namespace Multi_Language.DataApi.Controllers
         /// Create a new backup from the current configuration.
         /// </summary>
         /// <returns></returns>
+        [AuthorizeEnum(ERoleLevels.BackupPermissions, ERoleLevels.AdminPermissions)]
         [Route("create/{fileSuffix?}", Name = "CreateBackup")]
         public IHttpActionResult CreateBackup(string fileSuffix = "")
         {
@@ -95,6 +98,7 @@ namespace Multi_Language.DataApi.Controllers
         /// <returns></returns>
         //TODO move to FileController... + handle filename exists...
         [Route("upload", Name = "UploadBackup")]
+        [AuthorizeEnum(ERoleLevels.BackupPermissions, ERoleLevels.AdminPermissions)]
         [HttpPost]
         public async Task<IHttpActionResult> UploadBackup()
         {
@@ -130,6 +134,7 @@ namespace Multi_Language.DataApi.Controllers
         /// <param name="filename">The filename of the backup that should be deleted.</param>
         /// <returns></returns>
         [HttpPost]
+        [AuthorizeEnum(ERoleLevels.BackupPermissions, ERoleLevels.AdminPermissions)]
         [Route("restore/{filename}", Name = "RestoreBackup")]
         public IHttpActionResult RestoreBackup(string filename)
         {
@@ -146,6 +151,7 @@ namespace Multi_Language.DataApi.Controllers
         }
 
         [Route("delete/{filename}", Name = "DeleteBackupFile")]
+        [AuthorizeEnum(ERoleLevels.BackupPermissions, ERoleLevels.AdminPermissions)]
         [HttpDelete]
         public IHttpActionResult DeleteBackup(string filename)
         {
@@ -225,3 +231,4 @@ namespace Multi_Language.DataApi.Controllers
 
     }
 }
+

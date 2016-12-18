@@ -1,3 +1,5 @@
+using Multi_language.Common.Enums;
+
 namespace Multi_language.Data.Migrations
 {
     using Microsoft.AspNet.Identity;
@@ -19,22 +21,48 @@ namespace Multi_language.Data.Migrations
 
         protected override void Seed(Multi_language.Data.MultiLanguageDbContext context)
         {
+            var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(context));
+            foreach (var roleEnum in Enum.GetValues(typeof(ERoleLevels)))
+            {
+                if (!roleManager.RoleExists(roleEnum.ToString()))
+                {
+                    var roleToInsert = new ApplicationRole()
+                    {
+                        Name = roleEnum.ToString(),
+                        Level = (Int16)roleEnum.GetHashCode()
+                    };
+                    roleManager.Create(roleToInsert);
+                }
+            }
             if (!(context.Users.Any(u => u.UserName == "svetlin.krastanov90@gmail.com")))
             {
                 var userStore = new UserStore<AppUser>(context);
                 var userManager = new UserManager<AppUser>(userStore);
-                var userToInsert = new AppUser { UserName = "svetlin.krastanov90@gmail.com", PhoneNumber = "0888017004", Email = "svetlin.krastanov90@gmail.com" };
+                var userToInsert = new AppUser
+                {
+                    UserName = "svetlin.krastanov90@gmail.com",
+                    PhoneNumber = "0888017004",
+                    Email = "svetlin.krastanov90@gmail.com"
+                };
                 userManager.Create(userToInsert, "svetlin90");
+                userManager.AddToRole(userToInsert.Id, ERoleLevels.AdminPermissions.ToString());
+
             }
             if (!(context.Users.Any(u => u.UserName == "testuser@s2kdesign.com")))
             {
                 var userStore = new UserStore<AppUser>(context);
                 var userManager = new UserManager<AppUser>(userStore);
-                var userToInsert = new AppUser { UserName = "testuser@s2kdesign.com", PhoneNumber = "0888017004", Email = "testuser@s2kdesign.com" };
+                var userToInsert = new AppUser {
+                    UserName = "testuser@s2kdesign.com",
+                    PhoneNumber = "0888017004",
+                    Email = "testuser@s2kdesign.com"
+                };
                 userManager.Create(userToInsert, "password");
+                userManager.AddToRole(userToInsert.Id, ERoleLevels.UserPermissions.ToString());
+
             }
 
-            if (context.Clients.Count() == 0)
+            if (!context.Clients.Any())
             {
                 context.Clients.Add(new Client()
                 {

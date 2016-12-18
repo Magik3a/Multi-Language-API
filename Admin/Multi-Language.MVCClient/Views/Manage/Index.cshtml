@@ -1,4 +1,11 @@
-﻿@model Multi_Language.MVCClient.Models.IndexViewModel
+﻿@using System.Data.Entity
+@using Microsoft.AspNet.Identity
+@using Microsoft.AspNet.Identity.EntityFramework
+@using Multi_language.Common.Enums
+@using Multi_language.Common.Helpers
+@using Multi_language.Data
+@using Multi_language.Models
+@model Multi_Language.MVCClient.Models.IndexViewModel
 @{
     ViewBag.Title = "Manage";
 }
@@ -19,11 +26,18 @@
         <p class="text-success">@ViewBag.StatusMessage</p>
         <div>
             <dl class="dl-horizontal">
+                <dt>
+                    Permissions
+                </dt>
+                <dd>
+                    [@Model.Permissions]
+
+                </dd>
                 <dt>Password:</dt>
                 <dd>
                     [
                     @if (Model.HasPassword)
-            {
+                    {
                         @Html.ActionLink("Change your password", "ChangePassword")
                     }
                     else
