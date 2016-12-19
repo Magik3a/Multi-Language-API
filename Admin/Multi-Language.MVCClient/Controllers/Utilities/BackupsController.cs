@@ -7,13 +7,21 @@ using System.Net.Http.Headers;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Multi_Language.MVCClient.ApiInfrastructure;
 using Multi_Language.MVCClient.Models.UtilitiesViewModels;
+using Multi_language.ApiHelper;
 using Newtonsoft.Json;
 
 namespace Multi_Language.MVCClient.Controllers.Utilities
 {
     public class BackupsController : BaseController
     {
+        private readonly ITokenContainer tokenContainer;
+
+        public BackupsController(ITokenContainer tokenContainer)
+        {
+            this.tokenContainer = tokenContainer;
+        }
         // GET: Backup
         public ActionResult Index()
         {
@@ -22,7 +30,11 @@ namespace Multi_Language.MVCClient.Controllers.Utilities
             {
                 using (HttpClient client = new HttpClient())
                 {
+                    var bearerToken = tokenContainer.ApiToken.ToString();
+                    // TODO Add validation for bearer token
 
+                    client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", bearerToken);
+                    ViewBag.BearerToken = bearerToken;
                     var response = client.GetAsync(ConfigurationManager.AppSettings["MultiLanguageApiUrl"] + "/backup/getall").GetAwaiter().GetResult();
                     if (response.IsSuccessStatusCode)
                     {

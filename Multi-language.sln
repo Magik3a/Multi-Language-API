@@ -29,6 +29,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Clients", "Clients", "{3270
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multi-Language.Client.AngularJS", "Clients\Multi-Language.Client.AngularJS\Multi-Language.Client.AngularJS.csproj", "{B8946C80-A0DA-4259-B10D-86A58ACB73F1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multi_language.ApiHelper", "Common\Multi_Language.ApiHelper\Multi_language.ApiHelper.csproj", "{0304B5A9-0FAB-4DEE-8B7E-D5DD99EB0D62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{B8946C80-A0DA-4259-B10D-86A58ACB73F1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B8946C80-A0DA-4259-B10D-86A58ACB73F1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B8946C80-A0DA-4259-B10D-86A58ACB73F1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0304B5A9-0FAB-4DEE-8B7E-D5DD99EB0D62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0304B5A9-0FAB-4DEE-8B7E-D5DD99EB0D62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0304B5A9-0FAB-4DEE-8B7E-D5DD99EB0D62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0304B5A9-0FAB-4DEE-8B7E-D5DD99EB0D62}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -75,5 +81,6 @@ Global
 		{A6871C37-8B3F-454A-B9D8-97B5FED44DDE} = {DC9C9A3C-E02E-4CD0-A68E-3155BDFF3146}
 		{F873398A-CFFD-46FE-BDD1-292D1AACE0DD} = {8B30F2F7-A067-4B38-9CEF-0A5BE12EFC18}
 		{B8946C80-A0DA-4259-B10D-86A58ACB73F1} = {3270406C-4CA3-4A5C-B2A4-599F6F6BD0E1}
+		{0304B5A9-0FAB-4DEE-8B7E-D5DD99EB0D62} = {687D5968-800B-4AF7-ABC5-3502DE8E6B59}
 	EndGlobalSection
 EndGlobal

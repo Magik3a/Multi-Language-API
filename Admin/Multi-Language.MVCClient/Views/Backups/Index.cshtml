@@ -180,6 +180,8 @@
 </div>
 <script>
     var baseAdressApi = '@System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"]';
+
+    var token = '@ViewBag.BearerToken';
     function CreateBackup(elem) {
         var url = baseAdressApi + '/backup/create/' + $('#suffix').val();
         $.ajax({
@@ -190,8 +192,9 @@
                 $('.sidebar-menu li a:contains("Backups")').click();
             },
             error: function (xhr, textStatus, errorThrown) {
-                console.log(errorThrown);
-            }
+                alert(xhr.responseText);
+            },
+            beforeSend: function (xhr, settings) { xhr.setRequestHeader('Authorization', 'Bearer ' + token); }
         });
     };
 
@@ -207,9 +210,10 @@
                     $(parent).hide(300);
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    alert(textStatus);
+                    alert(xhr.responseText);
                     $(parent).fadeTo(100, 1);
-                }
+                },
+                beforeSend: function (xhr, settings) { xhr.setRequestHeader('Authorization', 'Bearer ' + token); }
             });
         });
         //$(parent).hide(300);
@@ -234,9 +238,10 @@
                     $("#restore-alert-success").slideDown(300);
                 },
                 error: function (xhr, textStatus, errorThrown) {
-                    alert(textStatus);
+                    alert(xhr.responseText);
                     $("#loading-overlay").slideUp(100);
-                }
+                },
+                beforeSend: function (xhr, settings) { xhr.setRequestHeader('Authorization', 'Bearer ' + token); }
             });
         });
     };

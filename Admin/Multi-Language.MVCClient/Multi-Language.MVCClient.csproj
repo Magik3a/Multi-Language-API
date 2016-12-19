@@ -187,6 +187,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiInfrastructure\ApiExtensions.cs" />
+    <Compile Include="ApiInfrastructure\ApiModels\LoginApiModel.cs" />
+    <Compile Include="ApiInfrastructure\ApiModels\ProductApiModel.cs" />
+    <Compile Include="ApiInfrastructure\ApiModels\RegisterApiModel.cs" />
+    <Compile Include="ApiInfrastructure\Client\ILoginClient.cs" />
+    <Compile Include="ApiInfrastructure\Client\IProductClient.cs" />
+    <Compile Include="ApiInfrastructure\Client\LoginClient.cs" />
+    <Compile Include="ApiInfrastructure\Client\ProductClient.cs" />
+    <Compile Include="ApiInfrastructure\HttpClientInstance.cs" />
+    <Compile Include="ApiInfrastructure\Responses\CreateProductResponse.cs" />
+    <Compile Include="ApiInfrastructure\Responses\ProductResponse.cs" />
+    <Compile Include="ApiInfrastructure\Responses\RegisterResponse.cs" />
+    <Compile Include="ApiInfrastructure\Responses\TokenResponse.cs" />
+    <Compile Include="ApiInfrastructure\TokenContainer.cs" />
     <Compile Include="App_Start\AutoMapperConfig.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
@@ -1021,6 +1035,10 @@
     <ProjectReference Include="..\..\Common\Multi-Language.Common\Multi-language.Common.csproj">
       <Project>{1f83b9e5-a3fc-4af0-97c2-13cb73469db4}</Project>
       <Name>Multi-language.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Common\Multi_Language.ApiHelper\Multi_language.ApiHelper.csproj">
+      <Project>{0304b5a9-0fab-4dee-8b7e-d5dd99eb0d62}</Project>
+      <Name>Multi_language.ApiHelper</Name>
     </ProjectReference>
     <ProjectReference Include="..\..\Data\Multi-language.Data\Multi-language.Data.csproj">
       <Project>{86614BA5-287D-4082-AA47-F7B0790DCDD9}</Project>

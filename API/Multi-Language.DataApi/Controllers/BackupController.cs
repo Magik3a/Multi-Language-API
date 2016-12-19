@@ -17,7 +17,6 @@ using Multi_Language.DataApi.Models;
 
 namespace Multi_Language.DataApi.Controllers
 {
-
     [RoutePrefix("backup")]
     public class BackupController : ApiController
     {
@@ -36,6 +35,9 @@ namespace Multi_Language.DataApi.Controllers
         [Route("getall", Name = "GetBackupFileList")]
         public IEnumerable<FileDataModel> GetBackupList()
         {
+            var userName = User.Identity.IsAuthenticated;
+
+            var userRole = User.IsInRole(ERoleLevels.AdminPermissions.ToString());
             return Get(backupFolder, "bak", name =>
                     new FileDataModel(name, Utils.GetFileSizeString(Path.Combine(backupFilePath, name))));
         }
@@ -69,7 +71,7 @@ namespace Multi_Language.DataApi.Controllers
         /// Create a new backup from the current configuration.
         /// </summary>
         /// <returns></returns>
-        [AuthorizeEnum(ERoleLevels.BackupPermissions, ERoleLevels.AdminPermissions)]
+        [AuthorizeEnum(ERoleLevels.AdminPermissions)]
         [Route("create/{fileSuffix?}", Name = "CreateBackup")]
         public IHttpActionResult CreateBackup(string fileSuffix = "")
         {

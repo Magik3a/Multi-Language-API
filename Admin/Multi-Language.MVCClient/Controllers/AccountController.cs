@@ -10,6 +10,10 @@ using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using Multi_Language.MVCClient.Models;
 using Multi_language.Models;
+using Multi_language.ApiHelper;
+using Multi_language.ApiHelper.Client;
+using Multi_Language.MVCClient.ApiInfrastructure;
+using Multi_Language.MVCClient.ApiInfrastructure.Client;
 
 namespace Multi_Language.MVCClient.Controllers
 {
@@ -18,9 +22,13 @@ namespace Multi_Language.MVCClient.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
-
+        private readonly ILoginClient loginClient;
+        private readonly ITokenContainer tokenContainer;
         public AccountController()
         {
+            tokenContainer = new TokenContainer();
+            var apiClient = new ApiClient(HttpClientInstance.Instance, tokenContainer);
+            loginClient = new LoginClient(apiClient);
         }
 
         public AccountController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -35,9 +43,9 @@ namespace Multi_Language.MVCClient.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -69,6 +77,7 @@ namespace Multi_Language.MVCClient.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
+
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -80,6 +89,13 @@ namespace Multi_Language.MVCClient.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+
+                    var loginSuccess = await PerformLoginActions(model.Email, model.Password);
+                    if (loginSuccess)
+                    {
+                        // TODO Change the way user is loged in. There is no need for mvc autorization?
+                    }
+
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -90,8 +106,18 @@ namespace Multi_Language.MVCClient.Controllers
                     ModelState.AddModelError("", "Invalid login attempt.");
                     return View(model);
             }
-        }
 
+        }
+        private async Task<bool> PerformLoginActions(string email, string password)
+        {
+            var response = await loginClient.Login(email, password);
+            if (response.StatusIsSuccessful)
+            {
+                tokenContainer.ApiToken = response.Data;
+            }
+
+            return response.StatusIsSuccessful;
+        }
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]
@@ -117,9 +143,9 @@ namespace Multi_Language.MVCClient.Controllers
                 return View(model);
             }
 
-            // The following code protects for brute force attacks against the two factor codes. 
-            // If a user enters incorrect codes for a specified amount of time then the user account 
-            // will be locked out for a specified amount of time. 
+            // The following code protects for brute force attacks against the two factor codes.
+            // If a user enters incorrect codes for a specified amount of time then the user account
+            // will be locked out for a specified amount of time.
             // You can configure the account lockout settings in IdentityConfig
             var result = await SignInManager.TwoFactorSignInAsync(model.Provider, model.Code, isPersistent:  model.RememberMe, rememberBrowser: model.RememberBrowser);
             switch (result)
@@ -157,7 +183,7 @@ namespace Multi_Language.MVCClient.Controllers
                 if (result.Succeeded)
                 {
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
-                    
+
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                     // Send an email with this link
                     // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
@@ -213,7 +239,7 @@ namespace Multi_Language.MVCClient.Controllers
                 // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
                 // Send an email with this link
                 // string code = await UserManager.GeneratePasswordResetTokenAsync(user.Id);
-                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);		
+                // var callbackUrl = Url.Action("ResetPassword", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                 // await UserManager.SendEmailAsync(user.Id, "Reset Password", "Please reset your password by clicking <a href=\"" + callbackUrl + "\">here</a>");
                 // return RedirectToAction("ForgotPasswordConfirmation", "Account");
             }

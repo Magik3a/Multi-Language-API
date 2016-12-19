@@ -8,25 +8,27 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
+using Multi_language.Common.Enums;
+using Multi_language.Common.Helpers;
 
 namespace Multi_Language.DataApi
 {
 
     public class AuthRepository : IDisposable
     {
-        private MultiLanguageDbContext _ctx;
+        private readonly MultiLanguageDbContext _ctx;
 
-        private UserManager<IdentityUser> _userManager;
+        private readonly UserManager<AppUser> _userManager;
 
         public AuthRepository()
         {
             _ctx = new MultiLanguageDbContext();
-            _userManager = new UserManager<IdentityUser>(new UserStore<IdentityUser>(_ctx));
+            _userManager = new UserManager<AppUser>(new UserStore<AppUser>(_ctx));
         }
 
         public async Task<IdentityResult> RegisterUser(UserModel userModel)
         {
-            IdentityUser user = new IdentityUser
+            AppUser user = new AppUser
             {
                 UserName = userModel.UserName
             };
@@ -36,9 +38,9 @@ namespace Multi_Language.DataApi
             return result;
         }
 
-        public async Task<IdentityUser> FindUser(string userName, string password)
+        public async Task<AppUser> FindUser(string userName, string password)
         {
-            IdentityUser user = await _userManager.FindAsync(userName, password);
+            AppUser user = await _userManager.FindAsync(userName, password);
 
             return user;
         }
@@ -53,7 +55,7 @@ namespace Multi_Language.DataApi
         public async Task<bool> AddRefreshToken(RefreshToken token)
         {
 
-            var existingToken = _ctx.RefreshTokens.Where(r => r.Subject == token.Subject && r.ClientId == token.ClientId).SingleOrDefault();
+            var existingToken = _ctx.RefreshTokens.SingleOrDefault(r => r.Subject == token.Subject && r.ClientId == token.ClientId);
 
             if (existingToken != null)
             {
@@ -96,19 +98,26 @@ namespace Multi_Language.DataApi
             return _ctx.RefreshTokens.ToList();
         }
 
-        public async Task<IdentityUser> FindAsync(UserLoginInfo loginInfo)
+        public async Task<AppUser> FindAsync(UserLoginInfo loginInfo)
         {
-            IdentityUser user = await _userManager.FindAsync(loginInfo);
+            AppUser user = await _userManager.FindAsync(loginInfo);
 
             return user;
         }
 
-        public async Task<IdentityResult> CreateAsync(IdentityUser user)
+        public async Task<IdentityResult> CreateAsync(AppUser user)
         {
             var result = await _userManager.CreateAsync(user);
 
             return result;
         }
+
+        public async Task<ERoleLevels> GetRoleAsync(AppUser user)
+        {
+
+            return (ERoleLevels)Enum.Parse(typeof(ERoleLevels), _userManager.GetRoles(user.Id).FirstOrDefault());
+        }
+
 
         public async Task<IdentityResult> AddLoginAsync(string userId, UserLoginInfo login)
         {

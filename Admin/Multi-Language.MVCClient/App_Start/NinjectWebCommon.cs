@@ -1,3 +1,5 @@
+using Multi_Language.MVCClient.ApiInfrastructure;
+
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Multi_Language.MVCClient.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Multi_Language.MVCClient.App_Start.NinjectWebCommon), "Stop")]
 
@@ -7,7 +9,7 @@ namespace Multi_Language.MVCClient.App_Start
     using System.Web;
 
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
+    using Multi_language.ApiHelper;
     using Ninject.Extensions.Conventions;
     using Ninject;
     using Ninject.Web.Common;
@@ -73,6 +75,7 @@ namespace Multi_Language.MVCClient.App_Start
        .To<MultiLanguageDbContext>()
        .InRequestScope();
 
+            kernel.Bind<ITokenContainer>().To<TokenContainer>();
             kernel.Bind(typeof(IRepository<>)).To(typeof(EfGenericRepository<>));
 
 
