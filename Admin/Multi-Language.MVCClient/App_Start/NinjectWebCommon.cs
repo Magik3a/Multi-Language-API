@@ -75,13 +75,21 @@ namespace Multi_Language.MVCClient.App_Start
        .To<MultiLanguageDbContext>()
        .InRequestScope();
 
-            kernel.Bind<ITokenContainer>().To<TokenContainer>();
             kernel.Bind(typeof(IRepository<>)).To(typeof(EfGenericRepository<>));
 
 
             kernel.Bind(b => b.From("Multi-language.Services")
             .SelectAllClasses()
             .BindDefaultInterface());
+
+            kernel.Bind(b => b.From("Multi-Language.MVCClient")
+           .SelectAllClasses()
+           .BindDefaultInterface());
+
+            kernel.Bind(b => b.From("Multi_language.ApiHelper")
+     .SelectAllClasses()
+     .BindDefaultInterface());
+
         }
     }
 }
