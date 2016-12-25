@@ -14,8 +14,11 @@ using Multi_language.ApiHelper.Client;
 using Multi_Language.MVCClient.ApiInfrastructure.Client;
 using Newtonsoft.Json;
 using AutoMapper;
+using Multi_Language.MVCClient.Attributes;
+
 namespace Multi_Language.MVCClient.Controllers.Utilities
 {
+    [Authentication]
     public class BackupsController : BaseController
     {
         private readonly ITokenContainer tokenContainer;
@@ -23,8 +26,7 @@ namespace Multi_Language.MVCClient.Controllers.Utilities
         public BackupsController(ITokenContainer tokenContainer, IBackupClient backupClient)
         {
             this.tokenContainer = tokenContainer;
-            var apiClient = new ApiClient(HttpClientInstance.Instance, tokenContainer);
-            this.backupClient = new BackupClient(apiClient);
+            this.backupClient = backupClient;
         }
         public async Task<ActionResult> Index()
         {
@@ -34,16 +36,43 @@ namespace Multi_Language.MVCClient.Controllers.Utilities
             {
                 model.Add(Mapper.Map<BackupViewModel>(backupApiModel));
             }
-
-            //TODO remove viewbag with token. Use Mvc controllers
-            ViewBag.BearerToken = tokenContainer.ApiToken.ToString();
-
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Backups page", "Create, upload and restore the DataBase");
             if (Request.IsAjaxRequest())
                 return PartialView(model);
 
             return View(model);
         }
+
+        [HttpPost]
+        public async Task<ActionResult> CreateBackup(string suffix = "")
+        {
+            if (!Request.IsAjaxRequest())
+            {
+                var result = new { Success = "False", Message = "Not authorized!" };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+            var backups = await backupClient.CreateBackup(suffix);
+            var model = Mapper.Map<BackupViewModel>(backups.Data);
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> DeleteBackup(string fileName)
+        {
+            if (!Request.IsAjaxRequest() || String.IsNullOrWhiteSpace(fileName) || tokenContainer.ApiToken == null)
+            {
+                var result = new { Success = "False", Message = "Not authorized!" };
+                return Json(result, JsonRequestBehavior.AllowGet);
+            }
+
+            var backups = await backupClient.DeleteBackup(fileName);
+            var model = Mapper.Map<BackupViewModel>(backups.Data);
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+
         //// GET: Backup
         //public ActionResult Index()
         //{

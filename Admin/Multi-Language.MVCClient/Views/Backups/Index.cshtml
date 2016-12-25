@@ -1,11 +1,12 @@
-﻿@model IEnumerable<Multi_Language.MVCClient.Models.UtilitiesViewModels.BackupViewModel>
+﻿@using System.Data.Entity.Core.Mapping
+@model IEnumerable<Multi_Language.MVCClient.Models.UtilitiesViewModels.BackupViewModel>
 @{
     ViewBag.Title = "Backups Page";
 }
 <!-- Default box -->
 <div class="box box-success">
     <div class="box-header with-border">
-        <h3 class="box-title">Current backups - @Model.Count()</h3>
+        <h3 class="box-title">Current backups - <span id="backups-counter">@Model.Count()</span></h3>
 
         <div class="box-tools pull-right">
             <!-- Button trigger modal -->
@@ -74,10 +75,10 @@
                                         data-toggle="collapse" data-target="#restore-@counter" aria-expanded="false" aria-controls="restore-@counter">
                                     Restore
                                 </button>
-
-                                <button class="btn btn-danger btn-xs" onclick="DeleteBackup(this, '@item.FileName')">Delete</button>
-
-
+                                <button class="btn btn-danger btn-xs"
+                                        data-toggle="collapse" data-target="#delete-@counter" aria-expanded="false" aria-controls="delete-@counter">
+                                    Delete
+                                </button>
                             </div>
                             <div class="clearfix"></div>
                             <div class="collapse" id="restore-@counter">
@@ -92,6 +93,27 @@
                                                 data-toggle="collapse" data-target="#restore-@counter" aria-expanded="false" aria-controls="restore-@counter">
                                             CONFIRM
                                         </button>
+
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="collapse" id="delete-@counter">
+                                <div class="well">
+                                    Are you sure you want to delete this backup? Please confirm:
+                                    <div class="btn-group-sm">
+                                        <button class="btn btn-default btn-xs"
+                                                data-toggle="collapse" data-target="#delete-@counter" aria-expanded="false" aria-controls="delete-@counter">
+                                            CLOSE
+                                        </button>
+                                        @Ajax.ActionLink("CONFIRM", "DeleteBackup", "Backups", new { fileName = item.FileName },
+                               new AjaxOptions
+                               {
+                                   HttpMethod = "POST",
+                                   OnComplete = "DeleteBackup(this)"
+                               }, new { @class = "btn btn-danger btn-xs", data_toggle = "collapse", data_target = "#delete-" + counter, aria_expanded = "false", aria_controls = "delete-" + counter })
+
 
                                     </div>
 
@@ -155,6 +177,7 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Close</button>
                 <button type="button" class="btn btn-outline" data-dismiss="modal" onclick="CreateBackup(this)">Save changes</button>
+
             </div>
         </div>
     </div>
@@ -181,42 +204,34 @@
 <script>
     var baseAdressApi = '@System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"]';
 
-    var token = '@ViewBag.BearerToken';
     function CreateBackup(elem) {
-        var url = baseAdressApi + '/backup/create/' + $('#suffix').val();
+        var url = '../../Backups/CreateBackup';
         $.ajax({
             url: url,
             type: 'POST',
+            data: { suffix: $('#suffix').val() },
             dataType: 'json',
             success: function (data, textStatus, xhr) {
                 $('.sidebar-menu li a:contains("Backups")').click();
             },
             error: function (xhr, textStatus, errorThrown) {
                 alert(xhr.responseText);
-            },
-            beforeSend: function (xhr, settings) { xhr.setRequestHeader('Authorization', 'Bearer ' + token); }
+            }
         });
     };
 
-    function DeleteBackup(elem, fileName) {
-        var parent = $(elem).parents().eq(2);
-        var url = baseAdressApi + '/backup/delete/' + fileName + '/';
-        $(parent).fadeTo(100, 0.4, function () {
-            $.ajax({
-                url: url,
-                type: 'DELETE',
-                dataType: 'json',
-                success: function (data, textStatus, xhr) {
-                    $(parent).hide(300);
-                },
-                error: function (xhr, textStatus, errorThrown) {
-                    alert(xhr.responseText);
-                    $(parent).fadeTo(100, 1);
-                },
-                beforeSend: function (xhr, settings) { xhr.setRequestHeader('Authorization', 'Bearer ' + token); }
+    function DeleteBackup(elem) {
+        var parent = $(elem).parents().eq(4);
+
+        //TODO get and show false response
+
+        $("#backups-counter").text($("#backups-counter").text() - 1);
+        $(parent).hide(300,
+            function () {
+                // TODO REFRESH datatable in some way
             });
-        });
-        //$(parent).hide(300);
+        //alert(xhr.responseText);
+        //$(parent).fadeTo(100, 1);
     };
 
     function DownloadBackup(elem, fileName) {
@@ -240,8 +255,7 @@
                 error: function (xhr, textStatus, errorThrown) {
                     alert(xhr.responseText);
                     $("#loading-overlay").slideUp(100);
-                },
-                beforeSend: function (xhr, settings) { xhr.setRequestHeader('Authorization', 'Bearer ' + token); }
+                }
             });
         });
     };

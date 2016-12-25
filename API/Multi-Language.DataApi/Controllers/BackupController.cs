@@ -153,8 +153,8 @@ namespace Multi_Language.DataApi.Controllers
         }
 
         [Route("delete/{filename}", Name = "DeleteBackupFile")]
-        [AuthorizeEnum(ERoleLevels.BackupPermissions, ERoleLevels.AdminPermissions)]
-        [HttpDelete]
+        [AuthorizeEnum(ERoleLevels.AdminPermissions)]
+        [HttpPost]
         public IHttpActionResult DeleteBackup(string filename)
         {
             return DeleteFile(backupFilePath, filename);

@@ -11,7 +11,7 @@ namespace Multi_Language.MVCClient.Models
         public LanguagesInfoBoxViewModel Languages;
         public ContextsInfoBoxViewModel Contexts;
         public CurrentProjectInfoBoxViewModel Projects;
-
+        public string BearerToken { get; set; }
         public IndexViewModels()
         {
             Languages = new LanguagesInfoBoxViewModel();

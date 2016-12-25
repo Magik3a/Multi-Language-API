@@ -17,7 +17,7 @@ namespace Multi_language.Common
             if (roles.Any(r => r.GetType().BaseType != typeof(Enum)))
                 throw new ArgumentException("roles");
 
-            this.Roles = string.Join(",", roles);
+            this.Roles = string.Join("|", roles);
         }
 
     }

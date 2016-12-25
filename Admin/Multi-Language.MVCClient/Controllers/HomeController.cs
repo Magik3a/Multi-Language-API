@@ -6,21 +6,26 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Multi_language.ApiHelper;
+using Multi_Language.MVCClient.Attributes;
 
 namespace Multi_Language.MVCClient.Controllers
 {
     [Authorize]
+    [Authentication]
     public class HomeController : BaseController
     {
         private IProjectsServices projectServices;
         private ILanguagesService langService;
         private IPhrasesContextServices phrsContService;
+        private readonly ITokenContainer tokenContainer;
 
-        public HomeController(IProjectsServices projectServices, ILanguagesService langService, IPhrasesContextServices phrsContService)
+        public HomeController(IProjectsServices projectServices, ILanguagesService langService, IPhrasesContextServices phrsContService, ITokenContainer tokenContainer)
         {
             this.projectServices = projectServices;
             this.langService = langService;
             this.phrsContService = phrsContService;
+            this.tokenContainer = tokenContainer;
         }
 
         public ActionResult Index()
@@ -37,7 +42,7 @@ namespace Multi_Language.MVCClient.Controllers
             model.Contexts.Translated = phrsContService.GetTranslatedByIdProject(UserActiveProject, User.Identity.GetUserId()).Count();
 
             model.Projects.ProjectCount = projectServices.GetForUser(User.Identity.GetUserId()).Count();
-
+            model.BearerToken = tokenContainer.ApiToken?.ToString();
             return View(model);
         }
 

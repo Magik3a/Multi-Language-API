@@ -12,4 +12,14 @@ namespace Multi_Language.MVCClient.ApiInfrastructure.ApiModels
 
         public string FileSize { get; set; }
     }
+
+    public class CreateBackupApiModel : ApiModel
+    {
+        public string suffix { get; set; }
+    }
+
+    public class DeleteBackupApiModel : ApiModel
+    {
+        public string filename { get; set; }
+    }
 }

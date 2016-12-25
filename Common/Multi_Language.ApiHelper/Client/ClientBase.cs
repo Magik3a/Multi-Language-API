@@ -27,11 +27,11 @@ namespace Multi_language.ApiHelper.Client
 
         protected async Task<TResponse> PostEncodedContentWithSimpleResponse<TResponse, TModel>(string url, TModel model)
             where TModel : ApiModel
-            where TResponse : ApiResponse<int>, new()
+            where TResponse : ApiResponse<string>, new()
         {
             using (var apiResponse = await ApiClient.PostJsonEncodedContent(url, model))
             {
-                return await DecodeJsonResponse<TResponse, int>(apiResponse);
+                return await DecodeJsonResponse<TResponse, string>(apiResponse);
             }
         }
 

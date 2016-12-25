@@ -9,9 +9,11 @@ namespace Multi_Language.MVCClient
 {
     public class RouteConfig
     {
+        public const string LoginRouteName = "Login";
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.MapRoute(LoginRouteName, "Login", new { controller = "Account", Action = "LogIn" });
 
             routes.MapRoute(
                 name: "Default",

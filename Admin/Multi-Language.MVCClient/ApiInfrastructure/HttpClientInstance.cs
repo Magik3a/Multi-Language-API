@@ -1,4 +1,6 @@
-﻿namespace Multi_Language.MVCClient.ApiInfrastructure
+﻿using System.Configuration;
+
+namespace Multi_Language.MVCClient.ApiInfrastructure
 {
     using System;
     using System.Net.Http;
@@ -10,7 +12,7 @@
     /// </summary>
     public static class HttpClientInstance
     {
-        private const string BaseUri = "http://localhost:32416/";
+        private static readonly string BaseUri = ConfigurationManager.AppSettings["MultiLanguageApiUrl"];
         private static readonly HttpClient instance = new HttpClient {BaseAddress = new Uri(BaseUri)};
 
         public static HttpClient Instance

@@ -4,6 +4,15 @@
     ViewBag.Title = "Home Page";
 }
 <div class="row">
+    <div class="col-md-12">
+        <div class="alert alert-info alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>Handshake with data API is successful!</strong> Bearer token will be used for authentication in your data API.
+            <hr/>
+            <strong>Bearer token: </strong>
+            @Model.BearerToken
+        </div>
+    </div>
     <div class="col-md-4">
         @Html.Partial("InnerPartials/CurrentProjectInfoBox", Model.Projects)
 

@@ -1,4 +1,6 @@
+using Multi_language.ApiHelper.Client;
 using Multi_Language.MVCClient.ApiInfrastructure;
+using Multi_Language.MVCClient.ApiInfrastructure.Client;
 
 [assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Multi_Language.MVCClient.App_Start.NinjectWebCommon), "Start")]
 [assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Multi_Language.MVCClient.App_Start.NinjectWebCommon), "Stop")]
@@ -82,13 +84,24 @@ namespace Multi_Language.MVCClient.App_Start
             .SelectAllClasses()
             .BindDefaultInterface());
 
-            kernel.Bind(b => b.From("Multi-Language.MVCClient")
-           .SelectAllClasses()
-           .BindDefaultInterface());
+            // TODO Find a way to bind custom interfaces with their default values
+            // kernel.Bind(b => b.From("Multi-Language.MVCClient")
+            //.SelectAllClasses()
+            //.BindDefaultInterface());HttpClientInstance.Instance, tokenContainer
 
-            kernel.Bind(b => b.From("Multi_language.ApiHelper")
-     .SelectAllClasses()
-     .BindDefaultInterface());
+            kernel.Bind<ITokenContainer>().To<TokenContainer>().InSingletonScope();
+
+            kernel.Bind<IApiClient>().To<ApiClient>()
+                .InSingletonScope()
+                .WithConstructorArgument("httpClient", HttpClientInstance.Instance)
+                .WithConstructorArgument("tokenContainer", kernel.Get<ITokenContainer>());
+
+            kernel.Bind<IBackupClient>().To<BackupClient>()
+                .InSingletonScope().WithConstructorArgument("apiClient", kernel.Get<IApiClient>());
+
+            //kernel.Bind(b => b.From("Multi_language.ApiHelper")
+            //     .SelectAllClasses()
+            //     .BindDefaultInterface());
 
         }
     }
