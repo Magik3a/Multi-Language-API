@@ -239,6 +239,7 @@
     <Compile Include="Models\SectionsViewModels\ProjectsBoxDropDownsViewModels.cs" />
     <Compile Include="Models\SectionsViewModels\ResourcesFirstRowSectionViewModel.cs" />
     <Compile Include="Models\UtilitiesViewModels\BackupViewModels.cs" />
+    <Compile Include="Models\UtilitiesViewModels\SystemViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -769,6 +770,8 @@
     <Content Include="Content\bootstrap-fileinput\sass\fileinput.scss" />
     <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\fileinput.js" />
     <Content Include="Scripts\fileinput.min.js" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />

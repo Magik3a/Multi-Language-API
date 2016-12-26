@@ -36,6 +36,7 @@ namespace Multi_Language.MVCClient
                       "~/Scripts/plugins/sortable.min.js",
                       "~/Scripts/plugins/purify.min.js",
                       "~/Scripts/fileinput.min.js",
+                      "~/Scripts/Chart.min.js",
                       "~/Content/bootstrap-fileinput/themes/fa/theme.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

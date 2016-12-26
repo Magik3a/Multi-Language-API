@@ -1,17 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using Multi_Language.MVCClient.Attributes;
+using Multi_Language.MVCClient.Models.UtilitiesViewModels;
 
 namespace Multi_Language.MVCClient.Controllers.Utilities
 {
-    public class SystemController : Controller
+    [Authentication]
+    public class SystemController : BaseController
     {
         // GET: System
         public ActionResult Index()
         {
-            return View();
+            var  model = new SystemViewModels();
+
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "System info page", "This is server info where Data API is.");
+            if (Request.IsAjaxRequest())
+                return PartialView(model);
+
+            return View(model);
         }
     }
 }
