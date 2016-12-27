@@ -1,5 +1,6 @@
 # Multi-Language-API
-[![Stories in Backlog](https://badge.waffle.io/Magik3a/Multi-Language-API.png?label=In%20Progress&title=In%20Progress)](http://waffle.io/Magik3a/Multi-Language-API)
+[![Stories in Progress](https://badge.waffle.io/Magik3a/Multi-Language-API.png?label=In%20Progress&title=In%20Progress)](http://waffle.io/Magik3a/Multi-Language-API)
+[![Reported Bugs](https://badge.waffle.io/Magik3a/Multi-Language-API.png?label=bug&title=Reported%20Bugs)](http://waffle.io/Magik3a/Multi-Language-API)
 [![Build status](https://ci.appveyor.com/api/projects/status/8q2gd8ldexwl595q?svg=true)](https://ci.appveyor.com/project/Magik3a/multi-language-api)
 
 ## Technologies Used
