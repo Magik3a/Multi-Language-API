@@ -1,5 +1,6 @@
 ﻿using System.Web;
 using System.Web.Mvc;
+using Multi_Language.MVCClient.Attributes;
 
 namespace Multi_Language.MVCClient
 {
@@ -7,7 +8,7 @@ namespace Multi_Language.MVCClient
     {
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
-            filters.Add(new HandleErrorAttribute());
+            filters.Add(new CatchErrorAttribute());
         }
     }
 }

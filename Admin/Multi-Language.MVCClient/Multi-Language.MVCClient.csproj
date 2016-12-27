@@ -209,8 +209,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Attributes\AuthenticationAttribute.cs" />
+    <Compile Include="Attributes\CatchErrorAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\MultiLanguage\ContextsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\MultiLanguage\LanguagesController.cs" />
@@ -768,11 +770,11 @@
     <Content Include="fonts\ionicons.ttf" />
     <Content Include="fonts\ionicons.woff" />
     <Content Include="Content\bootstrap-fileinput\sass\fileinput.scss" />
-    <None Include="Properties\PublishProfiles\Default Settings %282%29.pubxml" />
+    <None Include="Properties\PublishProfiles\adminnetfactuur.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
-    <Content Include="Scripts\ChartJs-Settings.js" />
+    <Content Include="Scripts\Settings\ChartJs-Settings.js" />
     <Content Include="Scripts\fileinput.js" />
     <Content Include="Scripts\fileinput.min.js" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
@@ -958,6 +960,7 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
+    <Content Include="Scripts\Settings\InputFile-Settings.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
@@ -1028,6 +1031,7 @@
     <Content Include="Views\Shared\LayoutPartials\ProjectBoxDropDowns.cshtml" />
     <Content Include="Views\Backups\Index.cshtml" />
     <Content Include="Views\System\Index.cshtml" />
+    <Content Include="Views\Error\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

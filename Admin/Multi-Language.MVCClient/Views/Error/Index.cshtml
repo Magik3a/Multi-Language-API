@@ -1,0 +1,16 @@
+﻿@model HandleErrorInfo
+
+
+
+
+<div class="alert alert-warning alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>Warning!</strong> Exception occurred!
+    <br />
+    <q>Controller: @Model.ControllerName</q>
+    <br/>
+    <q>Action: @Model.ActionName</q>
+    <br />
+    <hr/>
+    <q>Exception:<br /> @Model.Exception</q>
+</div>

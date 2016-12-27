@@ -1,8 +1,8 @@
 ﻿
 @using Multi_language.Common
-
+@model Multi_Language.MVCClient.Models.UtilitiesViewModels.SystemViewModels
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
 
         <div class="box box-default">
             <div class="box-header with-border">
@@ -18,7 +18,7 @@
             </div><!-- /.box-body -->
         </div><!-- /.box -->
     </div>
-    <div class="col-md-6">
+    <div class="col-md-4">
 
         <div class="box box-default">
             <div class="box-header with-border">
@@ -27,30 +27,57 @@
             </div><!-- /.box-header -->
             <div class="box-body">
 
-                    <table class="table table-striped">
-                        <tbody>
-                            <tr>
-                                <td>Up Time</td>
-                                <td>@Utils.GetSystemUpTime()</td>
-                            </tr>
-                            <tr>
-                                <td>Disk space</td>
-                                <td>@Utils.GetDiskSpaceUsedString()</td>
-                            </tr>
-                            <tr>
-                                <td>Client Version</td>
-                                <td>1.0.0.0</td>
-                            </tr>
-                            <tr>
-                                <td>Data API Version</td>
-                                <td>1.0.0.0</td>
-                            </tr>
-                            <tr>
-                                <td>Ip</td>
-                                <td>@Utils.GetLocalIpV4()</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                <table class="table table-striped">
+                    <tbody>
+                    <tr>
+                        <td>Up Time</td>
+                        <td>@Utils.GetSystemUpTime()</td>
+                    </tr>
+                    <tr>
+                        <td>Disk space</td>
+                        <td>@Utils.GetDiskSpaceUsedString()</td>
+                    </tr>
+                    <tr>
+                        <td>Client Version</td>
+                        <td>1.0.0.0</td>
+                    </tr>
+                    <tr>
+                        <td>Data API Version</td>
+                        <td>1.0.0.0</td>
+                    </tr>
+                    <tr>
+                        <td>Ip</td>
+                        <td>@Utils.GetLocalIpV4()</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div><!-- /.box-body -->
+        </div><!-- /.box -->
+    </div>
+
+    <div class="col-md-4">
+
+        <div class="box box-default">
+            <div class="box-header with-border">
+                <h3 class="box-title">Authentication</h3>
+
+            </div><!-- /.box-header -->
+            <div class="box-body">
+
+                <div class="info-box">
+                    <span class="info-box-icon bg-yellow">
+                        <i class="fa fa-key"></i>
+                    </span>
+                    <div class="info-box-content">
+                            <h3 class="no-padding">Bearer token: </h3>
+                            <q>
+                                @Model.BearerToken.Substring(0, 40) ...
+                            </q>
+
+                    </div>
+                </div>
+
+            <button class="btn btn-warning btn-lg">Refresh authentication token</button>
             </div><!-- /.box-body -->
         </div><!-- /.box -->
     </div>

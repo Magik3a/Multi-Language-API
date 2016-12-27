@@ -16,7 +16,7 @@ namespace Multi_language.ApiHelper.Client
             ApiClient = apiClient;
         }
 
-        protected async Task<TResponse> GetJsonDecodedContent<TResponse, TContentResponse>(string uri, params KeyValuePair<string, string>[] requestParameters) 
+        protected async Task<TResponse> GetJsonDecodedContent<TResponse, TContentResponse>(string uri, params KeyValuePair<string, string>[] requestParameters)
             where TResponse : ApiResponse<TContentResponse>, new()
         {
             using (var apiResponse = await ApiClient.GetFormEncodedContent(uri, requestParameters))

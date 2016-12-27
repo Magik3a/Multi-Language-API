@@ -54,5 +54,7 @@ namespace Multi_language.ApiHelper.Client
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", tokenContainer.ApiToken.ToString());
             }
         }
+
+        
     }
 }
