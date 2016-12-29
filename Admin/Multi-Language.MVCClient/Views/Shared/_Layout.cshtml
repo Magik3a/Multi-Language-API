@@ -173,7 +173,32 @@ desired effect
 
         });
 
+        function HomeIndexLinkClicked(elem) {
+            $(".sidebar-menu li").removeClass("active");
+            var url = $(location).attr('href').split('/');
+            if (url[3] === "") {
+                return;
+            }
+            var content = $(".wrapper").html();
 
+            console.log(url);
+            window.history.pushState({ "html": content, "action":  "" },  "", '../../');
+            $("#page-content").fadeTo("fast",
+                0,
+                function() {
+                    $.get("../../",
+                        function(data) {
+                            console.log(data);
+                            $("#page-content").html(data);
+                            $("#page-content").fadeTo("fast", 1);
+                            $("#first-row-content").fadeTo("fast", 0);
+                            $("#first-row-content").hide(250);
+                            LoadFirstRow("../../Sections/FirstRow?id=Index");
+                        });
+                });
+
+            InitialisePlugins();
+        };
         function activeProjectIsChanged(e) {
             $("#project-box").fadeTo("fast", 0, function () {
                 $("#active-project-box").remove();
@@ -320,7 +345,7 @@ desired effect
                     $.get({ url: "../../Sections/ProjectBoxDropDowns", cache: false }).then(function (data2) {
                         $("#project-box").append(data2);
                     });
-                    $("#project-box").fadeTo("fast", 100)
+                    $("#project-box").fadeTo("fast", 100);
                 });
 
 

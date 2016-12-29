@@ -28,7 +28,7 @@ namespace Multi_Language.MVCClient.Attributes
                 //Lets return Json
                 filterContext.Result = new JsonResult()
                 {
-                    Data = filterContext.Exception.Message,
+                    Data = filterContext.Exception,
                     JsonRequestBehavior = JsonRequestBehavior.AllowGet
                 };
 

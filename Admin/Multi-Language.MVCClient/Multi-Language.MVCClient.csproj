@@ -290,6 +290,12 @@
     <Content Include="Content\cssbundle\font-awesome.min.css" />
     <Content Include="Content\cssbundle\select2.css" />
     <Content Include="Content\cssbundle\select2.min.css" />
+    <Content Include="Content\Custom.css">
+      <DependentUpon>Custom.scss</DependentUpon>
+    </Content>
+    <Content Include="Content\Custom.min.css">
+      <DependentUpon>Custom.css</DependentUpon>
+    </Content>
     <Content Include="Content\DataTables\css\autoFill.bootstrap.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap.min.css" />
     <Content Include="Content\DataTables\css\autoFill.bootstrap4.css" />
@@ -725,7 +731,6 @@
     <Content Include="Content\pace\themes\yellow\pace-theme-loading-bar.css" />
     <Content Include="Content\pace\themes\yellow\pace-theme-mac-osx.css" />
     <Content Include="Content\pace\themes\yellow\pace-theme-minimal.css" />
-    <Content Include="Content\Site.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -770,6 +775,7 @@
     <Content Include="fonts\ionicons.ttf" />
     <Content Include="fonts\ionicons.woff" />
     <Content Include="Content\bootstrap-fileinput\sass\fileinput.scss" />
+    <Content Include="Content\Custom.scss" />
     <None Include="Properties\PublishProfiles\adminnetfactuur.pubxml" />
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <Content Include="Scripts\Chart.js" />

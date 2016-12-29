@@ -30,19 +30,32 @@ namespace Multi_Language.MVCClient.Controllers
 
         public ActionResult Index()
         {
+
+            var model = new IndexViewModels
+            {
+                Languages =
+                {
+                    CurrentCount = langService.GetByActiveProject(UserActiveProject).Count(),
+                    ActiveCount = langService.GetActiveByActiveProject(UserActiveProject).Count()
+                },
+                Contexts =
+                {
+                    CurrentCount =
+                        phrsContService.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).Count(),
+                    Translated =
+                        phrsContService.GetTranslatedByIdProject(UserActiveProject, User.Identity.GetUserId()).Count()
+                },
+                Projects = {ProjectCount = projectServices.GetForUser(User.Identity.GetUserId()).Count()},
+                BearerToken = tokenContainer.ApiToken?.ToString()
+            };
+
+
+
+
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Index page", "Index description page");
             if (Request.IsAjaxRequest())
-                return PartialView();
+                return PartialView(model);
 
-            var model = new IndexViewModels();
-            model.Languages.CurrentCount = langService.GetByActiveProject(UserActiveProject).Count();
-            model.Languages.ActiveCount = langService.GetActiveByActiveProject(UserActiveProject).Count();
-
-            model.Contexts.CurrentCount = phrsContService.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).Count();
-            model.Contexts.Translated = phrsContService.GetTranslatedByIdProject(UserActiveProject, User.Identity.GetUserId()).Count();
-
-            model.Projects.ProjectCount = projectServices.GetForUser(User.Identity.GetUserId()).Count();
-            model.BearerToken = tokenContainer.ApiToken?.ToString();
             return View(model);
         }
 

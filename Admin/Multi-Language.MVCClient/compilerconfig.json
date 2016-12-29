@@ -2,5 +2,9 @@
   {
     "outputFile": "Content/ionicons/ionicons.css",
     "inputFile": "Content/ionicons/ionicons.less"
+  },
+  {
+    "outputFile": "Content/Custom.css",
+    "inputFile": "Content/Custom.scss"
   }
 ]

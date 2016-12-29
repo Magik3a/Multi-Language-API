@@ -62,7 +62,8 @@ namespace Multi_Language.MVCClient
                        */
                       "~/admin-lte/css/skins/skin-red.css",
                       "~/Content/pace/themes/white/pace-theme-flash.css",
-                      "~/Content/pace.css"));
+                      "~/Content/pace.css",
+                      "~/Content/Custom.min.css"));
         }
     }
 }
