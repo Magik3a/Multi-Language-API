@@ -1,5 +1,8 @@
-﻿using System.Web.Mvc;
+﻿using System.Threading.Tasks;
+using System.Web.Mvc;
+using AutoMapper;
 using Multi_language.ApiHelper;
+using Multi_Language.MVCClient.ApiInfrastructure.Client;
 using Multi_Language.MVCClient.Attributes;
 using Multi_Language.MVCClient.Models.UtilitiesViewModels;
 
@@ -10,14 +13,20 @@ namespace Multi_Language.MVCClient.Controllers.Utilities
     {
 
         private readonly ITokenContainer tokenContainer;
-        public SystemController(ITokenContainer tokenContainer)
+        private readonly ISystemInfoClient systemInfoClient;
+        public SystemController(ITokenContainer tokenContainer, ISystemInfoClient systemInfoClient)
         {
             this.tokenContainer = tokenContainer;
+            this.systemInfoClient = systemInfoClient;
         }
         // GET: System
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var  model = new SystemViewModels();
+            var systemInfo = await systemInfoClient.GetSystemInfo();
+            var model = new SystemViewModels();
+
+            if (systemInfo.StatusIsSuccessful)
+                model = Mapper.Map<SystemViewModels>(systemInfo.Data);
 
             model.BearerToken = tokenContainer.ApiToken?.ToString();
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "System info page", "This is server info where Data API is.");

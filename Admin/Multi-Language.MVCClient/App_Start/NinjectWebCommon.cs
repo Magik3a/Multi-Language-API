@@ -99,6 +99,8 @@ namespace Multi_Language.MVCClient.App_Start
             kernel.Bind<IBackupClient>().To<BackupClient>()
                 .InSingletonScope().WithConstructorArgument("apiClient", kernel.Get<IApiClient>());
 
+            kernel.Bind<ISystemInfoClient>().To<SystemInfoClient>()
+               .InSingletonScope().WithConstructorArgument("apiClient", kernel.Get<IApiClient>());
             //kernel.Bind(b => b.From("Multi_language.ApiHelper")
             //     .SelectAllClasses()
             //     .BindDefaultInterface());

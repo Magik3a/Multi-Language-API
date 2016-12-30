@@ -31,11 +31,11 @@
                     <tbody>
                     <tr>
                         <td>Up Time</td>
-                        <td>@Utils.GetSystemUpTime()</td>
+                        <td>@Model.UpTime</td>
                     </tr>
                     <tr>
                         <td>Disk space</td>
-                        <td>@Utils.GetDiskSpaceUsedString()</td>
+                        <td>@Model.DiskSpaceUsed</td>
                     </tr>
                     <tr>
                         <td>Client Version</td>
@@ -43,11 +43,11 @@
                     </tr>
                     <tr>
                         <td>Data API Version</td>
-                        <td>1.0.0.0</td>
+                        <td>@Model.DataApiVersion</td>
                     </tr>
                     <tr>
                         <td>Ip</td>
-                        <td>@Utils.GetLocalIpV4()</td>
+                        <td>@Model.Ip</td>
                     </tr>
                     </tbody>
                 </table>
