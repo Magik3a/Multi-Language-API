@@ -14,7 +14,9 @@ using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Hangfire;
 using Microsoft.AspNet.SignalR;
+using GlobalConfiguration = Hangfire.GlobalConfiguration;
 
 [assembly: OwinStartup(typeof(Multi_Language.DataApi.Startup))]
 namespace Multi_Language.DataApi
@@ -53,8 +55,11 @@ namespace Multi_Language.DataApi
                 };
                 map.RunSignalR(hubConfiguration);
             });
+            GlobalConfiguration.Configuration
+               .UseSqlServerStorage("DefaultConnection");
 
-
+            app.UseHangfireDashboard();
+            app.UseHangfireServer();
         }
 
         public void ConfigureOAuth(IAppBuilder app)
