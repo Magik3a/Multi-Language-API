@@ -780,8 +780,10 @@
     <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
-    <Content Include="Scripts\MltApi-AjaxHelpers.js" />
-    <Content Include="Scripts\Settings\ChartJs-Settings.js" />
+    <Content Include="Scripts\MltApi\MltApi-AjaxHelpers.js" />
+    <Content Include="Scripts\MltApi\MltApi-InitPlugins.js" />
+    <Content Include="Scripts\MltApi\MltApi-LayoutHelpers.js" />
+    <Content Include="Scripts\MltApi\Settings\ChartJs-Settings.js" />
     <Content Include="Scripts\fileinput.js" />
     <Content Include="Scripts\fileinput.min.js" />
     <None Include="Scripts\jquery-3.1.0.intellisense.js" />
@@ -967,8 +969,8 @@
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
-    <Content Include="Scripts\Settings\iCheck-Settings.js" />
-    <Content Include="Scripts\Settings\InputFile-Settings.js" />
+    <Content Include="Scripts\MltApi\Settings\iCheck-Settings.js" />
+    <Content Include="Scripts\MltApi\Settings\InputFile-Settings.js" />
     <Content Include="Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">

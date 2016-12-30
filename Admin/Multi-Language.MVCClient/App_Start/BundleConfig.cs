@@ -37,10 +37,13 @@ namespace Multi_Language.MVCClient
                       "~/Scripts/plugins/purify.min.js",
                       "~/Scripts/fileinput.min.js",
                       "~/Scripts/Chart.min.js",
-                      "~/Scripts/Settings/ChartJs-Settings.js",
-                      "~/Scripts/Settings/iCheck-Settings.js",
-                      "~/Scripts/Settings/InputFile-Settings.js",
-                      "~/Scripts/MltApi-AjaxHelpers.js",
+                      "~/Scripts/MltApi/Settings/ChartJs-Settings.js",
+                      "~/Scripts/MltApi/Settings/iCheck-Settings.js",
+                      "~/Scripts/MltApi/Settings/InputFile-Settings.js",
+                      "~/Scripts/MltApi/MltApi-AjaxHelpers.js",
+                      "~/Scripts/MltApi/MltApi-InitPlugins.js",
+                      "~/Scripts/MltApi/MltApi-LayoutHelpers.js",
+
 
                       "~/Content/bootstrap-fileinput/themes/fa/theme.js"));
 

@@ -27,9 +27,9 @@ $.MltApi.AjaxClickComplete = function (action, controller, icon) {
 
             $("#first-row-content").fadeTo("fast", 0);
             $("#first-row-content").hide(250);
-            LoadFirstRow("../../Sections/FirstRow?id=" + controller);
+            $.MltApi.LoadFirstRow("../../Sections/FirstRow?id=" + controller);
         }
-        InitialisePlugins();
+        $.MltApi.InitialisePlugins();
         var content = $(".wrapper").html();
         window.history.pushState({ "html": content, "action": action }, action, '../../' + controller + '/' + action);
     });

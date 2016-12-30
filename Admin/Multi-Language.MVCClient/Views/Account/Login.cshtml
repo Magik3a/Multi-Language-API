@@ -90,12 +90,12 @@
 
     <!-- Theme and plugins -->
 <script src="~/Scripts/jquery.icheck.min.js"></script>
-    <script src="~/Scripts/Settings/iCheck-Settings.js"></script>
+    <script src="~/Scripts/MltApi/Settings/iCheck-Settings.js"></script>
     @Scripts.Render("~/bundles/jqueryval")
 
 <script>
 
-    InitICheckBoxes($('input'), "red");
+    $.MltApi.InitICheckBoxes($('input'), "red");
 </script>
 </body>
 </html>

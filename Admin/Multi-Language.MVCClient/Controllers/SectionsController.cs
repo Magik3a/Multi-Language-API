@@ -56,7 +56,7 @@ namespace Multi_Language.MVCClient.Controllers
             var model = new ProjectBoxViewModel();
             var activeProject = int.Parse(User.Identity.GetActiveProject());
             var userId = User.Identity.GetUserId();
-            if(projectServices.GetForUser(userId).Count() == 0)
+            if(!projectServices.GetForUser(userId).Any())
             {
                 return PartialView("LayoutPartials/ProjectSmallBox", model);
             }
