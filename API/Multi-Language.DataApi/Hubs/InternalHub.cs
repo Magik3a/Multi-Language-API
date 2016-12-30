@@ -3,7 +3,7 @@ using Microsoft.AspNet.SignalR.Hubs;
 
 namespace Multi_Language.DataApi.Hubs
 {
-    [HubName("Internal")]
+    [HubName("InternalHub")]
     public class InternalHub : Hub
     {
         [Authorize]

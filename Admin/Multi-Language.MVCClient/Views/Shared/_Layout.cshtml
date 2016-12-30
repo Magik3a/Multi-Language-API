@@ -70,7 +70,7 @@ desired effect
                                 </div><!-- /.box-tools -->
                             </div><!-- /.box-header -->
                             <div class="box-body">
-                               Waiting for active project box
+                                Waiting for active project box
                             </div><!-- /.box-body -->
                             <div class="overlay">
                                 <i class="fa fa-refresh fa-spin"></i>
@@ -111,19 +111,25 @@ desired effect
 
     <!-- Theme and plugins -->
     @Scripts.Render("~/bundles/theme")
+
+    //TODO Remove this lines, call web api action
+    @using Multi_language.Common
+    @{
+        var reservedSpace = $"{Utils.GetDiskSpaceUsedPercentage():N1}";
+        var freeSpace = $"{100 - Utils.GetDiskSpaceUsedPercentage():N1}";
+
+        var baseAdressApi = System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"];
+    }
+    <!-- Signalr Configuration and hubs-->
+    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+    <script src="@baseAdressApi/signalr/hubs"></script>
+    <script src="~/Scripts/MltApi/SignalR/InternalHub.js"></script>
     <style>
         .kv-file-zoom {
             display: none;
         }
     </style>
     <script>
-        //TODO Remove this lines, call web api action
-        @using Multi_language.Common
-      @{
-          var reservedSpace = $"{Utils.GetDiskSpaceUsedPercentage():N1}";
-          var freeSpace = $"{100 - Utils.GetDiskSpaceUsedPercentage():N1}";
-      }
-        var baseAdressApi = '@System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"]';
 
         //Initialise scope for project. Keep global scope clean as f....
         $.MltApi = $.MltApi || {};
@@ -143,6 +149,8 @@ desired effect
             var url = $(location).attr('href').split('/');
             $.MltApi.LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
 
+            //Init SignalR hubs after all
+            $.MltApi.InitInternalHub("@baseAdressApi/signalr");
         });
     </script>
     @RenderSection("scripts", required: false)
