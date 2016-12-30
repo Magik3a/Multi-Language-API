@@ -38,7 +38,10 @@ namespace Multi_Language.MVCClient
                       "~/Scripts/fileinput.min.js",
                       "~/Scripts/Chart.min.js",
                       "~/Scripts/Settings/ChartJs-Settings.js",
+                      "~/Scripts/Settings/iCheck-Settings.js",
                       "~/Scripts/Settings/InputFile-Settings.js",
+                      "~/Scripts/MltApi-AjaxHelpers.js",
+
                       "~/Content/bootstrap-fileinput/themes/fa/theme.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
@@ -54,7 +57,7 @@ namespace Multi_Language.MVCClient
                       // Plugins styles
                       "~/Content/DataTables/css/dataTables.bootstrap.css",
                       "~/Content/cssbundle/select2.css",
-                      "~/Content/iCheck/square/blue.css",
+                      "~/Content/iCheck/square/red.css",
                       /*
                        * AdminLTE Skins. We have chosen the skin-blue for this starter
                        * page. However, you can choose any other skin. Make sure you

@@ -33,11 +33,7 @@ public static class HtmlHelperExtensions
     {
         var repID = Guid.NewGuid().ToString();
 
-        ajaxOptions.OnBegin = "AjaxClickBegin(this)";
-        ajaxOptions.OnComplete = $"AjaxClickComplete('{actionName}', '{controllerName}', 'fa {icon}')";
-        ajaxOptions.OnSuccess = "AjaxClickSuccess";
-        ajaxOptions.UpdateTargetId = "page-content";
-        ajaxOptions.InsertionMode = InsertionMode.Replace;
+        InitAjaxOptions(icon, actionName, controllerName, ajaxOptions);
 
         var lnk = ajaxHelper.ActionLink(repID, actionName, controllerName, routeValues, ajaxOptions, htmlAttributes);
 
@@ -52,11 +48,7 @@ public static class HtmlHelperExtensions
     {
         var repID = Guid.NewGuid().ToString();
 
-        ajaxOptions.OnBegin = "AjaxClickBegin(this)";
-        ajaxOptions.OnComplete = $"AjaxClickComplete('{actionName}', '{controllerName}', 'fa {icon}')";
-        ajaxOptions.OnSuccess = "AjaxClickSuccess";
-        ajaxOptions.UpdateTargetId = "page-content";
-        ajaxOptions.InsertionMode = InsertionMode.Replace;
+        InitAjaxOptions(icon, actionName, controllerName, ajaxOptions);
 
         var lnk = ajaxHelper.ActionLink(repID, actionName, controllerName, routeValues, ajaxOptions, htmlAttributes);
 
@@ -73,16 +65,21 @@ public static class HtmlHelperExtensions
         AjaxOptions ajaxOptions,
         object htmlAttributes)
     {
+        InitAjaxOptions(icon, actionName, controllerName, ajaxOptions);
 
-        ajaxOptions.OnBegin = "AjaxClickBegin(this)";
-        ajaxOptions.OnComplete = $"AjaxClickComplete('{actionName}', '{controllerName}', 'fa {icon}')";
-        ajaxOptions.OnSuccess = "AjaxClickSuccess";
-        ajaxOptions.UpdateTargetId = "page-content";
-        ajaxOptions.InsertionMode = InsertionMode.Replace;
-
-        var lnk = ajaxHelper.BeginForm(actionName, controllerName, routeValues, ajaxOptions, htmlAttributes);
-
-        return lnk;
+        return ajaxHelper.BeginForm(actionName, controllerName, routeValues, ajaxOptions, htmlAttributes);
     }
 
+    private static void InitAjaxOptions(
+        string icon,
+        string actionName,
+        string controllerName,
+        AjaxOptions ajaxOptions)
+    {
+        ajaxOptions.OnBegin = "$.MltApi.AjaxClickBegin(this)";
+        ajaxOptions.OnComplete = $"$.MltApi.AjaxClickComplete('{actionName}', '{controllerName}', 'fa {icon}')";
+        ajaxOptions.OnSuccess = "$.MltApi.AjaxClickSuccess";
+        ajaxOptions.UpdateTargetId = "page-content";
+        ajaxOptions.InsertionMode = InsertionMode.Replace;
+    }
 }
