@@ -6,10 +6,10 @@ namespace Multi_Language.DataApi.Hubs
     [HubName("InternalHub")]
     public class InternalHub : Hub
     {
-        [Authorize]
-        public void Hello()
+        public string Send(string name, string message)
         {
-            Clients.All.hello();
+            Clients.All.broadcastMessage(name, message);
+            return null;
         }
     }
 }
