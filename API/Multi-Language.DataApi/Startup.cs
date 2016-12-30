@@ -14,6 +14,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using Microsoft.AspNet.SignalR;
 
 [assembly: OwinStartup(typeof(Multi_Language.DataApi.Startup))]
 namespace Multi_Language.DataApi
@@ -39,6 +40,19 @@ namespace Multi_Language.DataApi
             config.DependencyResolver = new NinjectResolver(NinjectWebCommon.CreateKernel());
             SwaggerConfig.Register(config);
             app.UseWebApi(config);
+            app.Map("/signalr", map =>
+            {
+                map.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions()
+                {
+                    Provider = new QueryStringOAuthBearerProvider()
+                });
+
+                var hubConfiguration = new HubConfiguration
+                {
+                    Resolver = GlobalHost.DependencyResolver,
+                };
+                map.RunSignalR(hubConfiguration);
+            });
 
 
         }

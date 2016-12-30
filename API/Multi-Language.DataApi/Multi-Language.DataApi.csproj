@@ -67,6 +67,14 @@
       <HintPath>..\..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.Core, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.Core.2.2.1\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb, Version=2.2.1.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.2.1\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -227,6 +235,7 @@
     <Compile Include="Controllers\PhrasesController.cs" />
     <Compile Include="Controllers\RefreshTokensController.cs" />
     <Compile Include="Controllers\SystemController.cs" />
+    <Compile Include="Hubs\InternalHub.cs" />
     <Compile Include="Models\ExternalLoginModels.cs" />
     <Compile Include="Models\FileDataModel.cs" />
     <Compile Include="Models\PhrasesApiModel.cs" />
@@ -236,6 +245,7 @@
     <Compile Include="Providers\AuthorizationServerProvider.cs" />
     <Compile Include="Providers\FacebookAuthProvider.cs" />
     <Compile Include="Providers\GoogleAuthProvider.cs" />
+    <Compile Include="Providers\QueryStringOAuthBearerProvider.cs" />
     <Compile Include="Providers\RefreshTokenProvider.cs" />
     <Compile Include="AuthRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
