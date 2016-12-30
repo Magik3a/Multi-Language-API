@@ -27,6 +27,8 @@ namespace Multi_Language.MVCClient
             bundles.Add(new ScriptBundle("~/bundles/theme").Include(
                       "~/admin-lte/js/app.min.js",
                       "~/Scripts/fastclick.js",
+                      "~/Scripts/knockout-3.4.0.js",
+                      "~/Scripts/knockout.mapping-latest.js",
                       "~/Scripts/jquery.slimscroll.js",
                       "~/Scripts/DataTables/jquery.dataTables.js",
                       "~/Scripts/DataTables/dataTables.bootstrap.js",

@@ -16,6 +16,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using Hangfire;
 using Microsoft.AspNet.SignalR;
+using Multi_Language.DataApi.Tasks;
 using GlobalConfiguration = Hangfire.GlobalConfiguration;
 
 [assembly: OwinStartup(typeof(Multi_Language.DataApi.Startup))]
@@ -60,6 +61,8 @@ namespace Multi_Language.DataApi
 
             app.UseHangfireDashboard();
             app.UseHangfireServer();
+
+            RecurringJob.AddOrUpdate(() => ProcessorAndRamUsageTask.CallWebApi(), Cron.Minutely);
         }
 
         public void ConfigureOAuth(IAppBuilder app)
