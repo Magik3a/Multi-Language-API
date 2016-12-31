@@ -46,11 +46,13 @@
     <Compile Include="Contracts\IPhrasesContextServices.cs" />
     <Compile Include="Contracts\IProjectsServices.cs" />
     <Compile Include="Contracts\IBackupService.cs" />
+    <Compile Include="Contracts\ISystemStabilityLoggsService.cs" />
     <Compile Include="LanguagesService.cs" />
     <Compile Include="PhrasesContextServices.cs" />
     <Compile Include="PhrasesService.cs" />
     <Compile Include="ProjectsServices.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SystemStabilityLoggsService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Data\Multi-language.Data\Multi-language.Data.csproj">

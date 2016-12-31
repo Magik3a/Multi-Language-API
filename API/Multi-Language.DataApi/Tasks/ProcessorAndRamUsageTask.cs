@@ -8,19 +8,22 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using Multi_language.Services;
 using Newtonsoft.Json;
 
 namespace Multi_Language.DataApi.Tasks
 {
-    public static class ProcessorAndRamUsageTask
+    public  class ProcessorAndRamUsageTask : IProcessorAndRamUsageTask
     {
         static PerformanceCounter _cpuCounter, _memUsageCounter;
+        private readonly ISystemStabilityLoggsService systemStabilityLoggsService;
 
-        public static void CallWebApi()
+        public ProcessorAndRamUsageTask(ISystemStabilityLoggsService systemStabilityLoggsService)
         {
-            // Hello!
-            Console.WriteLine("CPU Info Client: Reporting your CPU usage today!");
-
+            this.systemStabilityLoggsService = systemStabilityLoggsService;
+        }
+        public  void CallWebApi()
+        {
             try
             {
                 _cpuCounter = new PerformanceCounter();
@@ -30,14 +33,9 @@ namespace Multi_Language.DataApi.Tasks
 
                 _memUsageCounter = new PerformanceCounter("Memory", "Available KBytes");
 
-                // Create a new thread to start polling and sending the data
                 RunPollingThread();
 
-                Console.WriteLine("Press a key to stop and exit");
-
-                Console.WriteLine("Stopping thread..");
-
-
+                SaveInDb();
             }
             catch (Exception)
             {
@@ -45,9 +43,13 @@ namespace Multi_Language.DataApi.Tasks
             }
         }
 
+        private static void SaveInDb()
+        {
+            // throw new NotImplementedException();
+        }
+
         static void RunPollingThread()
         {
-
             double cpuTime;
             ulong memUsage, totalMemory;
 

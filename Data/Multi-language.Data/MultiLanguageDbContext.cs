@@ -25,6 +25,8 @@ namespace Multi_language.Data
 
         public virtual IDbSet<Client> Clients { get; set; }
 
+        public virtual IDbSet<SystemStabilityLogg> SystemStabilityLoggs { get; set; }
+
         public static MultiLanguageDbContext Create()
         {
             return new MultiLanguageDbContext();

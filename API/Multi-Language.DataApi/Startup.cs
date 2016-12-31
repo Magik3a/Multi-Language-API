@@ -14,6 +14,7 @@ using System.Reflection;
 using System.Web;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Web.Mvc;
 using Hangfire;
 using Microsoft.AspNet.SignalR;
 using Multi_Language.DataApi.Tasks;
@@ -40,9 +41,22 @@ namespace Multi_Language.DataApi
 
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
-            config.DependencyResolver = new NinjectResolver(NinjectWebCommon.CreateKernel());
+
+            var ninjectKernel = NinjectWebCommon.CreateKernel();
+            config.DependencyResolver = new NinjectResolver(ninjectKernel);
+
             SwaggerConfig.Register(config);
+
             app.UseWebApi(config);
+
+            ConfigureSignalR(app);
+
+            ConfigureBackgroundTasks(app, ninjectKernel);
+        }
+
+        public void ConfigureSignalR(IAppBuilder app)
+        {
+
             app.Map("/signalr", map =>
             {
                 map.UseOAuthBearerAuthentication(new OAuthBearerAuthenticationOptions()
@@ -56,13 +70,21 @@ namespace Multi_Language.DataApi
                 };
                 map.RunSignalR(hubConfiguration);
             });
+        }
+
+        public void ConfigureBackgroundTasks(IAppBuilder app, IKernel kernel)
+        {
+
             GlobalConfiguration.Configuration
                .UseSqlServerStorage("DefaultConnection");
+
+            GlobalConfiguration.Configuration.UseNinjectActivator(kernel);
 
             app.UseHangfireDashboard();
             app.UseHangfireServer();
 
-            RecurringJob.AddOrUpdate(() => ProcessorAndRamUsageTask.CallWebApi(), Cron.Minutely);
+            var processorAndRamUsageTask = kernel.Get<IProcessorAndRamUsageTask>();
+            RecurringJob.AddOrUpdate(() => processorAndRamUsageTask.CallWebApi(), Cron.Daily);
         }
 
         public void ConfigureOAuth(IAppBuilder app)

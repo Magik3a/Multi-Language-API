@@ -2,7 +2,9 @@
 //[assembly: WebActivatorEx.ApplicationShutdownMethodAttribute(typeof(Multi_Language.DataApi.App_Start.NinjectWebCommon), "Stop")]
 
 using System.Web.Configuration;
+using Hangfire;
 using Multi_language.Services;
+using Multi_Language.DataApi.Tasks;
 
 namespace Multi_Language.DataApi.App_Start
 {
@@ -19,13 +21,14 @@ namespace Multi_Language.DataApi.App_Start
 
     public static class NinjectWebCommon
     {
+        private static StandardKernel kernel;
         /// <summary>
         /// Creates the kernel that will manage your application.
         /// </summary>
         /// <returns>The created kernel.</returns>
         public static IKernel CreateKernel()
         {
-            var kernel = new StandardKernel();
+            kernel = new StandardKernel();
             try
             {
                 RegisterServices(kernel);
@@ -40,6 +43,10 @@ namespace Multi_Language.DataApi.App_Start
             }
         }
 
+        public static IKernel GetKernel()
+        {
+            return kernel;
+        }
 
         /// <summary>
         /// Load your modules or register your services here!
@@ -57,6 +64,10 @@ namespace Multi_Language.DataApi.App_Start
             kernel.Bind(b => b.FromAssemblyContaining<Multi_language.Services.LanguagesService>()
             .SelectAllClasses()
             .BindDefaultInterface());
+
+            kernel.Bind<IProcessorAndRamUsageTask>().To<ProcessorAndRamUsageTask>().WithConstructorArgument("systemStabilityLoggsService", kernel.Get<ISystemStabilityLoggsService>() );
         }
+
+
     }
 }

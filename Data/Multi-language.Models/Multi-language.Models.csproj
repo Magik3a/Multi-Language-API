@@ -67,6 +67,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="PhrasesContext.cs" />
     <Compile Include="RefreshToken.cs" />
+    <Compile Include="SystemStabilityLogg.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
