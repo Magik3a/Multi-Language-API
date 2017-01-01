@@ -7,6 +7,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using Multi_language.ApiHelper;
 
 namespace Multi_Language.MVCClient.Controllers
 {
@@ -15,12 +16,18 @@ namespace Multi_Language.MVCClient.Controllers
         private IProjectsServices projectServices;
         private ILanguagesService langService;
         private IPhrasesContextServices phrsContService;
+        private readonly ITokenContainer tokenContainer;
 
-        public SectionsController(IProjectsServices projectServices, ILanguagesService langService, IPhrasesContextServices phrsContService)
+        public SectionsController(
+            IProjectsServices projectServices,
+            ILanguagesService langService,
+            IPhrasesContextServices phrsContService,
+            ITokenContainer tokenContainer)
         {
             this.projectServices = projectServices;
             this.langService = langService;
             this.phrsContService = phrsContService;
+            this.tokenContainer = tokenContainer;
         }
 
         public async Task<ActionResult> ChangeActiveProject(int id)
@@ -92,6 +99,12 @@ namespace Multi_Language.MVCClient.Controllers
         // GET: Sections
         public async Task<ActionResult> FirstRow(string id)
         {
+            if (id == "Home" || id == "")
+            {
+                var model = new HomeFirstRowSectionViewModel();
+                model.BearerToken = tokenContainer?.ApiToken.ToString();
+                return PartialView("HomeFirstRowSection", model);
+            }
             if (id == "Resources")
             {
                 var model = new ResourcesFirstRowSectionViewModel();

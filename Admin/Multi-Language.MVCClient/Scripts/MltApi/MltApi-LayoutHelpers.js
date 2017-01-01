@@ -18,11 +18,15 @@ $.MltApi.HomeIndexLinkClicked = function (elem) {
                     $("#page-content").fadeTo("fast", 1);
                     $("#first-row-content").fadeTo("fast", 0);
                     $("#first-row-content").hide(250);
-                    $.MltApi.LoadFirstRow("../../Sections/FirstRow?id=Index");
+
+
+                    $.MltApi.InitialisePlugins();
+
+                    $.MltApi.SystemStabilityRefreshInterval = $.MltApi.SystemStabilityRefreshIntervalTimer();
+                    $.MltApi.SystemStabilityLoggsRefreshInterval = $.MltApi.SystemStabilityLoggsRefreshIntervalTimer();
+                    $.MltApi.LoadFirstRow("../../Sections/FirstRow?id=Home");
                 });
         });
-
-    $.MltApi.InitialisePlugins();
 };
 
 

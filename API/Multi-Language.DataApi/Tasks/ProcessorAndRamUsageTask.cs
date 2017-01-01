@@ -97,12 +97,14 @@ namespace Multi_Language.DataApi.Tasks
             }
             finally
             {
-                var totalPercent = ((postData.TotalMemory / postData.MemUsage) * 100);
-                SaveInDb(
-                    postData.MachineName.ToString(),
-                    (postData.MemUsage / 1024),
-                    (postData.TotalMemory / 1024),
-                    postData.Processor );
+                if (DateTime.Now.Minute % 10 ==0 || !systemStabilityLoggsService.GetAll().Any())
+                {
+                    SaveInDb(
+                        postData.MachineName.ToString(),
+                        (postData.MemUsage / 1024),
+                        (postData.TotalMemory / 1024),
+                        postData.Processor);
+                }
             }
 
 

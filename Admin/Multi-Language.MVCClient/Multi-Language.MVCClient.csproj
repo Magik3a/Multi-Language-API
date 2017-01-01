@@ -240,6 +240,7 @@
     <Compile Include="Models\SectionsViewModels\ContextsFirstRowSectionViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\ContextsInfoBoxViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\CurrentProjectInfoBoxViewModel.cs" />
+    <Compile Include="Models\SectionsViewModels\HomeFirstRowSectionViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\LanguagesInfoBoxViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\ProjectBoxViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\ProjectsBoxDropDownsViewModels.cs" />
@@ -1056,6 +1057,7 @@
     <Content Include="Views\System\Index.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Shared\InnerPartials\SystemStabilityBox.cshtml" />
+    <Content Include="Views\Sections\HomeFirstRowSection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

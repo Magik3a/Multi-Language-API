@@ -13,7 +13,7 @@
             padding-right: 0.5em;
         }
 </style>
-<div class="box box-warning">
+<div class="box box-danger">
     <div class="box-header with-border">
         <h3 class="box-title">System Stability Report</h3>
         <div class="box-tools pull-right">
@@ -21,11 +21,12 @@
             <div class="btn-group">
                 <button class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i></button>
                 <ul class="dropdown-menu" role="menu">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Another action</a></li>
-                    <li><a href="#">Something else here</a></li>
+                    <li><a href="#">Refresh now!</a></li>
                     <li class="divider"></li>
-                    <li><a href="#">Separated link</a></li>
+                    <li class="active"><a href="#">24 hours diagram</a></li>
+                    <li><a href="#">12 hours diagram</a></li>
+                    <li><a href="#">6 hours diagram</a></li>
+
                 </ul>
             </div>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
@@ -35,8 +36,18 @@
         <div class="row">
             <div class="col-md-8">
                 <p class="text-center">
-                    <strong>From: @DateTime.Now.AddDays(-1).ToString("dd/mmmm/yyyy HH:MM") - To: @DateTime.Now.ToString("dd/mmmm/yyyy HH:MM")</strong>
+                    <strong>From: @DateTime.Now.AddDays(-1).ToString("dd/MMMMM/yyyy") - To: @DateTime.Now.ToString("dd/MMMMM/yyyy HH:MM")</strong>
                 </p>
+
+                <div class="progress-group">
+                    <span class="progress-text">Chart will be updated every hour.</span>
+                    <div class="progress active progress-sm">
+                        <div class="progress-bar  progress-bar-primary progress-bar-striped nextSystemInfoLoggsReloadingBar " role="progressbar" aria-valuemin="0"
+                             aria-valuemax="100"></div>
+
+                    </div>
+
+                </div>
                 <div class="chart">
                     <!-- Sales Chart Canvas -->
                     @*<canvas id="systemStabilityChart" height="125"></canvas>*@
@@ -51,8 +62,9 @@
 
                 <div class="progress-group">
                     <span class="progress-text">New system stability info is received every minute.</span>
-                    <div class="progress lg">
-                        <div class="progress-bar progress-bar-light-blue progress-bar-striped nextSystemInfoReloadingBar"></div>
+                    <div class="progress active progress-sm">
+                        <div class="progress-bar progress-bar-primary progress-bar-striped  nextSystemInfoReloadingBar" role="progressbar" aria-valuemin="0"
+     aria-valuemax="100"></div>
 
                     </div>
 
@@ -81,7 +93,7 @@
                 <div class="progress-group">
                     <span class="progress-text">CPU</span>
                     <span class="progress-number"><b data-bind="text: cpu" id="cpuPercent">@Model.CpuPercent</b>%</span>
-                    <div class="progress lg">
+                    <div class="progress active">
                         <div class="progress-bar progress-bar-light-blue progress-bar-striped" data-bind="style: { width: cpu()}" style="width: @Model.CpuPercent%"></div>
                     </div>
                 </div><!-- /.progress-group -->
@@ -90,7 +102,7 @@
                 <div class="progress-group">
                     <span class="progress-text">Memory Available </span>
                     <span class="progress-number"><b data-bind="text: memPercent" id="memPercent">@Model.MemoryAvailablePercent</b>%</span>
-                    <div class="progress lg">
+                    <div class="progress active">
                         <div class="progress-bar progress-bar-light-blue progress-bar-striped" data-bind="style: { width: memPercent()}" style="width: @Model.MemoryAvailablePercent%"></div>
                     </div>
                 </div><!-- /.progress-group -->

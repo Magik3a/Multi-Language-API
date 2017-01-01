@@ -1,17 +1,32 @@
 ﻿$.MltApi = $.MltApi || {};
 
-$.MltApi.Interval = setTimer();
-
-function setTimer() {
-    var progressBar = $('.nextSystemInfoReloadingBar'), width = 0;
+$.MltApi.SystemStabilityRefreshIntervalTimer = function() {
+    var d = new Date();
+    var seconds = d.getSeconds();
+    var progressBar = $('.nextSystemInfoReloadingBar'), width = seconds * 1.65;
     progressBar.width(width);
-    i = setInterval(function () {
-        width += 1.65;
-        progressBar.css('width', width + '%');
-    },
-        1000);
+    i = setInterval(function() {
+            width += 0.415;
+            progressBar.css('width', width + '%');
+        },
+        250);
     return i;
-}
+};
+$.MltApi.SystemStabilityLoggsRefreshIntervalTimer = function() {
+    var d = new Date();
+    var minutes = d.getMinutes();
+    console.log(minutes);
+    var progressBar = $('.nextSystemInfoLoggsReloadingBar'), width = minutes * 1.65;
+    progressBar.width(width);
+    i = setInterval(function() {
+            width += 0.018;
+            progressBar.css('width', width + '%');
+        },
+        3000);
+    return i;
+};
+$.MltApi.SystemStabilityRefreshInterval = $.MltApi.SystemStabilityRefreshIntervalTimer();
+$.MltApi.SystemStabilityLoggsRefreshInterval = $.MltApi.SystemStabilityLoggsRefreshIntervalTimer();
 $.MltApi.InitInternalHub = function (signalrAddress) {
 
     // The view model that is bound to our view
@@ -27,7 +42,6 @@ $.MltApi.InitInternalHub = function (signalrAddress) {
 
     // Instantiate the viewmodel..
     var vm = new ViewModel();
-    console.log($("#cpuPercent"));
     // .. and bind it to the view
     ko.applyBindings(vm, $(".computerInfo")[0]);
 
@@ -50,10 +64,10 @@ $.MltApi.InitInternalHub = function (signalrAddress) {
     // Add a handler to receive updates from the server
     hub.client.cpuInfoMessage = function (machineName, cpu, memUsage, memTotal) {
         if ($('.nextSystemInfoReloadingBar').width() > 0) {
-            clearInterval($.MltApi.Interval);
+            clearInterval($.MltApi.SystemStabilityRefreshInterval);
         }
 
-        $.MltApi.Interval = setTimer();
+        $.MltApi.SystemStabilityRefreshInterval = $.MltApi.SystemStabilityRefreshIntervalTimer();
 
         var machine = {
             machineName: machineName,
@@ -76,10 +90,12 @@ $.MltApi.InitInternalHub = function (signalrAddress) {
         } else {
             var index = vm.machines.indexOf(match);
             vm.machines.replace(vm.machines()[index], machineModel);
+
+
         }
     };
 
-    // Start the connectio
+    // Start the connection
     $.connection.hub.start().done(function () {
         vm.connected(true);
     });

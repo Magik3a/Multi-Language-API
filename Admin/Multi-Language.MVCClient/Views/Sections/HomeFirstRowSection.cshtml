@@ -1,0 +1,27 @@
+﻿@model Multi_Language.MVCClient.Models.SectionsViewModels.HomeFirstRowSectionViewModel
+<div class="row">
+    <div class="col-md-6">
+        <div class="callout callout-info">
+
+            <h4><i class="icon fa fa-check"> </i> <strong>SignalR connection is established!</strong> </h4>
+            <hr />
+            <p>Bearer token will be used for authentication in signalr hubs.</p>
+            <hr />
+            @*<strong>Bearer token: </strong>
+            @Model.BearerToken.Substring(0, 40) ...*@
+        </div>
+    </div>
+
+    <div class="col-md-6">
+
+        <div class="callout callout-info">
+            <h4><i class="icon fa fa-check"> </i> <strong>Handshake with data API is successful!</strong> </h4>
+            <hr />
+            <p> Bearer token will be used for authentication in your data API.</p>
+            <hr />
+            @*<strong>Bearer token: </strong>
+            @Model.BearerToken.Substring(0, 40) ...*@
+        </div>
+    </div>
+
+</div>

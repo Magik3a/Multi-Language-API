@@ -6,26 +6,33 @@
 }
 <div class="row">
     <div class="col-md-12">
-        <div class="alert alert-info alert-dismissible" role="alert">
-            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <strong>Handshake with data API is successful!</strong> Bearer token will be used for authentication in your data API.
-            <hr />
-            <strong>Bearer token: </strong>
-            @Model.BearerToken
+
+        <div class="box box-danger">
+            <div class="box-header with-border">
+                <h3 class="box-title">Multi-Language Report</h3>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                </div>
+            </div>
+            <div class="box-body">
+                <div class="col-md-4">
+                    @Html.Partial("InnerPartials/CurrentProjectInfoBox", Model.Projects)
+
+                </div>
+                <div class="col-md-4">
+                    @Html.Partial("InnerPartials/LanguagesInfoBox", Model.Languages)
+
+                </div>
+                <div class="col-md-4">
+                    @Html.Partial("InnerPartials/ContextsInfoBox", Model.Contexts)
+
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-md-4">
-        @Html.Partial("InnerPartials/CurrentProjectInfoBox", Model.Projects)
 
     </div>
-    <div class="col-md-4">
-        @Html.Partial("InnerPartials/LanguagesInfoBox", Model.Languages)
 
-    </div>
-    <div class="col-md-4">
-        @Html.Partial("InnerPartials/ContextsInfoBox", Model.Contexts)
-
-    </div>
 </div>
 
 
@@ -34,5 +41,3 @@
         @Html.Partial("InnerPartials/SystemStabilityBox", Model.SystemStabilityBox)
     </div><!-- /.col -->
 </div><!-- /.row -->
-
-
