@@ -8,6 +8,8 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Web;
+using AutoMapper;
+using Multi_language.Models;
 using Multi_language.Services;
 using Newtonsoft.Json;
 
@@ -35,7 +37,6 @@ namespace Multi_Language.DataApi.Tasks
 
                 RunPollingThread();
 
-                SaveInDb();
             }
             catch (Exception)
             {
@@ -43,12 +44,26 @@ namespace Multi_Language.DataApi.Tasks
             }
         }
 
-        private static void SaveInDb()
+        private void SaveInDb(
+            string machineName,
+            ulong memoryAvailable,
+            ulong memoryTotal,
+            double cpuPercent)
         {
-            // throw new NotImplementedException();
+            var model = new SystemStabilityLogg()
+            {
+                MachineName = machineName,
+                MemoryAvailable = memoryAvailable.ToString("#.##"),
+                MemoryTotal = memoryTotal.ToString("#.##"),
+                CpuPercent = cpuPercent.ToString("#"),
+                MemoryAvailablePercent = (((decimal)memoryAvailable / (decimal)memoryTotal) * 100m).ToString("#"),
+                DateCreated = DateTime.Now
+            };
+
+            systemStabilityLoggsService.Add(model);
         }
 
-        static void RunPollingThread()
+         void RunPollingThread()
         {
             double cpuTime;
             ulong memUsage, totalMemory;
@@ -65,13 +80,31 @@ namespace Multi_Language.DataApi.Tasks
                 TotalMemory = totalMemory
             };
 
-            var json = JsonConvert.SerializeObject(postData);
-            // Post the data to the server
-            var serverUrl = new Uri(ConfigurationManager.AppSettings["ServerUrl"]);
+            try
+            {
+                var json = JsonConvert.SerializeObject(postData);
+                // Post the data to the server
+                var serverUrl = new Uri(ConfigurationManager.AppSettings["ServerUrl"]);
 
-            var client = new WebClient();
-            client.Headers.Add("Content-Type", "application/json");
-            client.UploadString(serverUrl, json);
+                var client = new WebClient();
+                client.Headers.Add("Content-Type", "application/json");
+                client.UploadString(serverUrl, json);
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                throw;
+            }
+            finally
+            {
+                var totalPercent = ((postData.TotalMemory / postData.MemUsage) * 100);
+                SaveInDb(
+                    postData.MachineName.ToString(),
+                    (postData.MemUsage / 1024),
+                    (postData.TotalMemory / 1024),
+                    postData.Processor );
+            }
+
 
         }
 

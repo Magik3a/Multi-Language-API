@@ -3,9 +3,9 @@
 $.MltApi.HomeIndexLinkClicked = function (elem) {
     $(".sidebar-menu li").removeClass("active");
     var url = $(location).attr('href').split('/');
-    if (url[3] === "") {
-        return;
-    }
+    //if (url[3] === "") {
+    //    return;
+    //}
     var content = $(".wrapper").html();
     window.history.pushState({ "html": content, "action": "" }, "", '../../');
     $("#page-content").fadeTo("fast",

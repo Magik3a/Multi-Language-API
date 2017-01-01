@@ -1053,6 +1053,7 @@
     <Content Include="Views\Backups\Index.cshtml" />
     <Content Include="Views\System\Index.cshtml" />
     <Content Include="Views\Error\Index.cshtml" />
+    <Content Include="Views\Shared\InnerPartials\SystemStabilityBox.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -84,7 +84,7 @@ namespace Multi_Language.DataApi
             app.UseHangfireServer();
 
             var processorAndRamUsageTask = kernel.Get<IProcessorAndRamUsageTask>();
-            RecurringJob.AddOrUpdate(() => processorAndRamUsageTask.CallWebApi(), Cron.Daily);
+            RecurringJob.AddOrUpdate(() => processorAndRamUsageTask.CallWebApi(), Cron.Minutely);
         }
 
         public void ConfigureOAuth(IAppBuilder app)

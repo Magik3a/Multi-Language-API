@@ -21,4 +21,8 @@ $.MltApi.InitialisePlugins = function() {
     if ($('#pieChartSystemSpace').length > 0) {
         $.MltApi.InitializeDiskSpaceChart($.MltApi.FreeSpace, $.MltApi.ReservedSpace);
     }
+
+    if ($('#systemStabilityChart').length > 0) {
+        $.MltApi.InitializeSystemStabilityChart();
+    }
 }

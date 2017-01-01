@@ -8,7 +8,7 @@
         <div class="alert alert-info alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>Handshake with data API is successful!</strong> Bearer token will be used for authentication in your data API.
-            <hr/>
+            <hr />
             <strong>Bearer token: </strong>
             @Model.BearerToken
         </div>
@@ -26,3 +26,10 @@
 
     </div>
 </div>
+
+
+<div class="row">
+    <div class="col-md-12">
+        @Html.Partial("InnerPartials/SystemStabilityBox")
+    </div><!-- /.col -->
+</div><!-- /.row -->
