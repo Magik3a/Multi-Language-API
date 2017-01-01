@@ -112,7 +112,6 @@ desired effect
     <!-- Theme and plugins -->
     @Scripts.Render("~/bundles/theme")
 
-    //TODO Remove this lines, call web api action
     @using Multi_language.Common
     @{
         var reservedSpace = $"{Utils.GetDiskSpaceUsedPercentage():N1}";
@@ -130,30 +129,32 @@ desired effect
             display: none;
         }
     </style>
-    <script>
+<script>
 
-        //Initialise scope for project. Keep global scope clean as f....
-        $.MltApi = $.MltApi || {};
+    //Initialise scope for project. Keep global scope clean as f....
+    $.MltApi = $.MltApi || {};
 
-        //Global variables. TODO Consider removing them
-        $.MltApi.FreeSpace = @freeSpace;
-        $.MltApi.ReservedSpace = @reservedSpace;
+    //Global variables. TODO Consider removing them
+    $.MltApi.FreeSpace = @freeSpace;
+    $.MltApi.ReservedSpace = @reservedSpace;
 
-        $(document).ajaxStart(function () {
-            Pace.restart();
-        });
-        $(document).ready(function () {
-            $.MltApi.LoadProjectBox();
+    $(document).ajaxStart(function () {
+        Pace.restart();
+    });
+    $(document).ready(function () {
+        $.MltApi.LoadProjectBox();
 
-            $.MltApi.InitialisePlugins();
+        $.MltApi.InitialisePlugins();
 
-            var url = $(location).attr('href').split('/');
-            $.MltApi.LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
+        var url = $(location).attr('href').split('/');
+        $.MltApi.LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
 
-            //Init SignalR hubs after all
-            $.MltApi.InitInternalHub("@baseAdressApi/signalr");
-        });
-    </script>
-    @RenderSection("scripts", required: false)
+        //Init SignalR hubs after all
+        $.MltApi.InitInternalHub("@baseAdressApi/signalr");
+    });
+</script>
+
+
+@RenderSection("scripts", required: false)
 </body>
 </html>

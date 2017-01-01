@@ -26,5 +26,11 @@ namespace Multi_language.Services
         {
             return systemStabilityLoggRepo.All();
         }
+
+        public IQueryable<SystemStabilityLogg> GetAllBeforeHours(int hours)
+        {
+            var before = DateTime.Now.AddHours(hours);
+            return systemStabilityLoggRepo.All().Where(s => s.DateCreated > before);
+        }
     }
 }

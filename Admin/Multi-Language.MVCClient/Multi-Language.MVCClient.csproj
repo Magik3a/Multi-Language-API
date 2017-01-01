@@ -244,6 +244,7 @@
     <Compile Include="Models\SectionsViewModels\ProjectBoxViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\ProjectsBoxDropDownsViewModels.cs" />
     <Compile Include="Models\SectionsViewModels\ResourcesFirstRowSectionViewModel.cs" />
+    <Compile Include="Models\SectionsViewModels\SystemStabilityBoxViewModel.cs" />
     <Compile Include="Models\UtilitiesViewModels\BackupViewModels.cs" />
     <Compile Include="Models\UtilitiesViewModels\SystemViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -790,6 +791,7 @@
     <Content Include="Scripts\knockout-3.4.0.js" />
     <Content Include="Scripts\knockout.mapping-latest.debug.js" />
     <Content Include="Scripts\knockout.mapping-latest.js" />
+    <Content Include="Scripts\MltApi\Knockout\MltApi-Ko-ChartJS.js" />
     <Content Include="Scripts\MltApi\MltApi-AjaxHelpers.js" />
     <Content Include="Scripts\MltApi\MltApi-InitPlugins.js" />
     <Content Include="Scripts\MltApi\MltApi-LayoutHelpers.js" />

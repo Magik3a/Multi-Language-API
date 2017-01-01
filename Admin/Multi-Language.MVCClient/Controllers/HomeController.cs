@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Multi_language.ApiHelper;
 using Multi_Language.MVCClient.Attributes;
+using WebGrease.Css.Extensions;
 
 namespace Multi_Language.MVCClient.Controllers
 {
@@ -15,22 +16,30 @@ namespace Multi_Language.MVCClient.Controllers
     [Authentication]
     public class HomeController : BaseController
     {
-        private IProjectsServices projectServices;
-        private ILanguagesService langService;
-        private IPhrasesContextServices phrsContService;
+        private readonly IProjectsServices projectServices;
+        private readonly ILanguagesService langService;
+        private readonly IPhrasesContextServices phrsContService;
         private readonly ITokenContainer tokenContainer;
-
-        public HomeController(IProjectsServices projectServices, ILanguagesService langService, IPhrasesContextServices phrsContService, ITokenContainer tokenContainer)
+        private readonly ISystemStabilityLoggsService systemStabilityLoggsService;
+        public HomeController(
+            IProjectsServices projectServices,
+            ILanguagesService langService,
+            IPhrasesContextServices phrsContService,
+            ITokenContainer tokenContainer,
+            ISystemStabilityLoggsService systemStabilityLoggsService)
         {
             this.projectServices = projectServices;
             this.langService = langService;
             this.phrsContService = phrsContService;
             this.tokenContainer = tokenContainer;
+            this.systemStabilityLoggsService = systemStabilityLoggsService;
         }
 
         public ActionResult Index()
         {
-
+            var loggsBefore = -24;
+            var systemStabilityLogs = systemStabilityLoggsService.GetAllBeforeHours(loggsBefore).ToList().GroupBy(x => x.DateCreated.Value.Hour)
+            .Select(grp => grp.First());
             var model = new IndexViewModels
             {
                 Languages =
@@ -46,9 +55,19 @@ namespace Multi_Language.MVCClient.Controllers
                         phrsContService.GetTranslatedByIdProject(UserActiveProject, User.Identity.GetUserId()).Count()
                 },
                 Projects = {ProjectCount = projectServices.GetForUser(User.Identity.GetUserId()).Count()},
+                SystemStabilityBox =
+                {
+                    ProcessorValues = systemStabilityLogs.Select(s => s.CpuPercent).ToList(),
+                    MemoryValues = systemStabilityLogs.Select(s => s.MemoryAvailablePercent).ToList(),
+                    LoggetHours = systemStabilityLogs.Select(s => s.DateCreated.Value.Hour.ToString()).ToList(),
+                    MachineName = systemStabilityLogs.Last().MachineName,
+                    MemoryAvailable = systemStabilityLogs.Last().MemoryAvailable,
+                    MemoryTotal = systemStabilityLogs.Last().MemoryTotal,
+                    MemoryAvailablePercent = systemStabilityLogs.Last().MemoryAvailablePercent,
+                    CpuPercent = systemStabilityLogs.Last().CpuPercent,
+                 },
                 BearerToken = tokenContainer.ApiToken?.ToString()
             };
-
 
 
 

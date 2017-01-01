@@ -1,5 +1,18 @@
-﻿
+﻿@using Newtonsoft.Json
+@model Multi_Language.MVCClient.Models.SectionsViewModels.SystemStabilityBoxViewModel
+<style>
+    ul.pie-legend {
+        list-style: none;
+    }
 
+        ul.pie-legend span {
+            width: 1.2em;
+            height: 1.2em;
+            display: block;
+            float: left;
+            padding-right: 0.5em;
+        }
+</style>
 <div class="box box-warning">
     <div class="box-header with-border">
         <h3 class="box-title">System Stability Report</h3>
@@ -22,46 +35,83 @@
         <div class="row">
             <div class="col-md-8">
                 <p class="text-center">
-                    <strong>Sales: 1 Jan, 2014 - 30 Jul, 2014</strong>
+                    <strong>From: @DateTime.Now.AddDays(-1).ToString("dd/mmmm/yyyy HH:MM") - To: @DateTime.Now.ToString("dd/mmmm/yyyy HH:MM")</strong>
                 </p>
                 <div class="chart">
                     <!-- Sales Chart Canvas -->
-                    <canvas id="systemStabilityChart" height="125"></canvas>
+                    @*<canvas id="systemStabilityChart" height="125"></canvas>*@
+
+                    <canvas id="systemStabilityChart"></canvas>
                 </div><!-- /.chart-responsive -->
             </div><!-- /.col -->
-            <div class="col-md-4">
+            <div class="col-md-4 computerInfoBox">
                 <p class="text-center">
-                    <strong>Goal Completion</strong>
+                    <strong>System Resource Monitor</strong>
                 </p>
+
                 <div class="progress-group">
-                    <span class="progress-text">Add Products to Cart</span>
-                    <span class="progress-number"><b>160</b>/200</span>
-                    <div class="progress sm">
-                        <div class="progress-bar progress-bar-aqua" style="width: 80%"></div>
+                    <span class="progress-text">New system stability info is received every minute.</span>
+                    <div class="progress lg">
+                        <div class="progress-bar progress-bar-light-blue progress-bar-striped nextSystemInfoReloadingBar"></div>
+
+                    </div>
+
+                </div>
+                <!-- ko foreach: machines -->
+
+                <div class="info-box bg-gray-light">
+                    <span class="info-box-icon"><i class="fa fa-laptop"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Machine name</span>
+                        <span data-bind="text: machineName" id="machineName" class="text-bold">@Model.MachineName</span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+
+                <div class="info-box bg-gray-light">
+                    <span class="info-box-icon "><i class="fa fa-server"></i></span>
+                    <div class="info-box-content">
+                        <span class="info-box-text">Memory available (mb)</span>
+                        <span data-bind="text: memUsage" id="memoryAvailable" class="text-bold">@Model.MemoryAvailable</span>
+                        <hr class="no-margin" />
+                        <span class="info-box-text">Memory total (mb)</span>
+                        <span data-bind="text: memTotal" id="memoryTotal" class="text-bold">@Model.MemoryTotal</span>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+
+                <div class="progress-group">
+                    <span class="progress-text">CPU</span>
+                    <span class="progress-number"><b data-bind="text: cpu" id="cpuPercent">@Model.CpuPercent</b>%</span>
+                    <div class="progress lg">
+                        <div class="progress-bar progress-bar-light-blue progress-bar-striped" data-bind="style: { width: cpu()}" style="width: @Model.CpuPercent%"></div>
                     </div>
                 </div><!-- /.progress-group -->
+
+
                 <div class="progress-group">
-                    <span class="progress-text">Complete Purchase</span>
-                    <span class="progress-number"><b>310</b>/400</span>
-                    <div class="progress sm">
-                        <div class="progress-bar progress-bar-red" style="width: 80%"></div>
+                    <span class="progress-text">Memory Available </span>
+                    <span class="progress-number"><b data-bind="text: memPercent" id="memPercent">@Model.MemoryAvailablePercent</b>%</span>
+                    <div class="progress lg">
+                        <div class="progress-bar progress-bar-light-blue progress-bar-striped" data-bind="style: { width: memPercent()}" style="width: @Model.MemoryAvailablePercent%"></div>
                     </div>
                 </div><!-- /.progress-group -->
-                <div class="progress-group">
-                    <span class="progress-text">Visit Premium Page</span>
-                    <span class="progress-number"><b>480</b>/800</span>
-                    <div class="progress sm">
-                        <div class="progress-bar progress-bar-green" style="width: 80%"></div>
-                    </div>
-                </div><!-- /.progress-group -->
-                <div class="progress-group">
-                    <span class="progress-text">Send Inquiries</span>
-                    <span class="progress-number"><b>250</b>/500</span>
-                    <div class="progress sm">
-                        <div class="progress-bar progress-bar-yellow" style="width: 80%"></div>
-                    </div>
-                </div><!-- /.progress-group -->
+                <!-- /ko -->
+
             </div><!-- /.col -->
-        </div><!-- /.row -->
+        </div>
+        <!-- /.row -->
+        @*
+                <canvas id="some-dynamic-doughnut-chart"
+                        data-bind="chart: { type: 'doughnut', data: DynamicDoughnutData, options: { observeChanges: true, throttle: 1000 } }"></canvas>
+
+                <label>Red</label><input type="number" data-bind="value: RedValue" />
+                <label>Green</label><input type="number" data-bind="value: GreenValue" />
+                <label>Yellow</label><input type="number" data-bind="value: YellowValue" />
+            </div>*@
     </div><!-- ./box-body -->
 </div><!-- /.box -->
+
+
+<script>
+    var jsonSystemStabilityChartModel = '@Html.Raw(JsonConvert.SerializeObject(Model))';
+
+</script>

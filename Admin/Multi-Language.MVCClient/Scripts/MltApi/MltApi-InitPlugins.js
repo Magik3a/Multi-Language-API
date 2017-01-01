@@ -23,6 +23,10 @@ $.MltApi.InitialisePlugins = function() {
     }
 
     if ($('#systemStabilityChart').length > 0) {
-        $.MltApi.InitializeSystemStabilityChart();
+
+            $.MltApi.InitializeSystemStabilityChart(jsonSystemStabilityChartModel);
+
+
+
     }
 }

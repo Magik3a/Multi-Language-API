@@ -8,5 +8,7 @@ namespace Multi_language.Services
         void Add(SystemStabilityLogg systemStabilityLogg);
 
         IQueryable<SystemStabilityLogg> GetAll();
+
+        IQueryable<SystemStabilityLogg> GetAllBeforeHours(int hours);
     }
 }
