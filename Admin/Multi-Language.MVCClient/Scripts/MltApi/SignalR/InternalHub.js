@@ -15,7 +15,6 @@ $.MltApi.SystemStabilityRefreshIntervalTimer = function() {
 $.MltApi.SystemStabilityLoggsRefreshIntervalTimer = function() {
     var d = new Date();
     var minutes = d.getMinutes();
-    console.log(minutes);
     var progressBar = $('.nextSystemInfoLoggsReloadingBar'), width = minutes * 1.65;
     progressBar.width(width);
     i = setInterval(function() {

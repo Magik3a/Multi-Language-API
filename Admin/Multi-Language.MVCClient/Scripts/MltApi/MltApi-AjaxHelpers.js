@@ -26,7 +26,9 @@ $.MltApi.AjaxClickComplete = function (action, controller, icon, clearPage) {
             function() {
                 $("#project-box").css("position", "absolute");
             });
-        $("#first-row-content").fadeTo("fast", 0).css("position", "absolute");
+        $("#first-row-content").fadeTo("fast", 0, function() {
+            $("#first-row-content").css("position", "absolute");
+        });
     } else {
 
         $("#project-box").fadeTo("fast", 1).css("position", "");

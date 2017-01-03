@@ -63,8 +63,6 @@ $.MltApi.InitializeDiskSpaceChart = function(freeSpace, usedSpace) {
 
 $.MltApi.InitializeSystemStabilityChart = function (model) {
     var jsonModel = $.parseJSON(model);
-    console.log(jsonModel);
-
         var data = {
             labels: jsonModel.LoggetHours,
             datasets: [

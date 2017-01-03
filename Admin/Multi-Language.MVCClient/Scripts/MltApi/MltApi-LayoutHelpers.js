@@ -89,7 +89,6 @@ $.MltApi.LoadFirstRow = function (url) {
 $.MltApi.LoadProjectBox = function () {
 
     var url = $(location).attr('href').split('/');
-    console.log(url);
     if (url[3] === "Documentation") {
         $("#project-box").fadeTo("fast",
            0,

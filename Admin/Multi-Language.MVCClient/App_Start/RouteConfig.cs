@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Multi_Language.MVCClient.Providers;
 
 namespace Multi_Language.MVCClient
 {
@@ -14,7 +15,7 @@ namespace Multi_Language.MVCClient
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
-            routes.MapMvcAttributeRoutes();
+            routes.MapMvcAttributeRoutes(new CentralizedPrefixProvider(""));
 
             routes.MapRoute(LoginRouteName, "Login", new { controller = "Account", Action = "LogIn" });
 
