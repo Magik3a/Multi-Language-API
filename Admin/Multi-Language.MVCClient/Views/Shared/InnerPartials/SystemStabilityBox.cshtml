@@ -36,13 +36,13 @@
         <div class="row">
             <div class="col-md-8">
                 <p class="text-center">
-                    <strong>From: @DateTime.Now.AddDays(-1).ToString("dd/MMMMM/yyyy") - To: @DateTime.Now.ToString("dd/MMMMM/yyyy HH:MM")</strong>
+                    <strong>From: @DateTime.Now.AddDays(-1).ToString("dd/MMMMM/yyyy") @Model.LoggetHours.FirstOrDefault():00 - To: @DateTime.Now.ToString("dd/MMMMM/yyyy HH:MM")</strong>
                 </p>
 
                 <div class="progress-group">
                     <span class="progress-text">Chart will be updated every hour.</span>
                     <div class="progress active progress-sm">
-                        <div class="progress-bar  progress-bar-primary progress-bar-striped nextSystemInfoLoggsReloadingBar " role="progressbar" aria-valuemin="0"
+                        <div class="progress-bar  progress-bar-primary progress-bar-striped nextSystemInfoLoggsReloadingBar" role="progressbar" aria-valuemin="0"
                              aria-valuemax="100"></div>
 
                     </div>
@@ -63,7 +63,7 @@
                 <div class="progress-group">
                     <span class="progress-text">New system stability info is received every minute.</span>
                     <div class="progress active progress-sm">
-                        <div class="progress-bar progress-bar-primary progress-bar-striped  nextSystemInfoReloadingBar" role="progressbar" aria-valuemin="0"
+                        <div class="progress-bar progress-bar-primary progress-bar-striped  nextSystemInfoReloadingBar"  role="progressbar" aria-valuemin="0"
      aria-valuemax="100"></div>
 
                     </div>

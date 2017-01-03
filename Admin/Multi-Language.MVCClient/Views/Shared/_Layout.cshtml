@@ -45,7 +45,7 @@ desired effect
         @Html.Partial("LayoutPartials/MainSidebar")
 
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+        <div class="content-wrapper" id="main-page-wrapper">
             <!-- Content Header (Page header) -->
             <section class="content-header">
                 <h1>
@@ -145,12 +145,21 @@ desired effect
         $.MltApi.LoadProjectBox();
 
         $.MltApi.InitialisePlugins();
+        //if documentation controller
+        $.MltApi.ExpandAllPanels = function () {
+            $('#accordion .panel-collapse').collapse('toggle');
+        };
+
 
         var url = $(location).attr('href').split('/');
         $.MltApi.LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
 
         //Init SignalR hubs after all
         $.MltApi.InitInternalHub("@baseAdressApi/signalr");
+
+
+        //TODO Remove this
+        $('#accordion .panel-collapse').collapse('toggle');
     });
 </script>
 

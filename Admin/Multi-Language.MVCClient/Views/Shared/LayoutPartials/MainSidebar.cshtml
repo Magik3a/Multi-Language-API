@@ -72,8 +72,20 @@
                 @Ajax.RawActionLink("System", "fa-desktop", "Index", "System", null, new AjaxOptions { }, null)
             </li>
             <li class="header">DOCUMENTATION</li>
-            <li>
-                <a href="#">Integration</a>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-book"></i> <span>Multi-Language</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li>
+                        @Ajax.RawActionLink("Getting started", "fa-circle-o", "GettingStarted", "Documentation/Multilanguage", null, new AjaxOptions {  }, null, true)
+
+                    </li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> Integration</a></li>
+                    <li><a href="#"><i class="fa fa-circle-o"></i> FAQ</a></li>
+
+                </ul>
             </li>
         </ul>
         <!-- /.sidebar-menu -->

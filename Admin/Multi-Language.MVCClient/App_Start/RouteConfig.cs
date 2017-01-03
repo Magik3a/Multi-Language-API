@@ -13,6 +13,9 @@ namespace Multi_Language.MVCClient
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            routes.MapMvcAttributeRoutes();
+
             routes.MapRoute(LoginRouteName, "Login", new { controller = "Account", Action = "LogIn" });
 
             routes.MapRoute(

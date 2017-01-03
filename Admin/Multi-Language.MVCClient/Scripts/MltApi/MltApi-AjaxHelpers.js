@@ -15,9 +15,25 @@ $.MltApi.AjaxClickBegin = function (elem) {
     });
 
 };
+$.MltApi.AjaxClickComplete = function (action, controller, icon, clearPage) {
 
+    //TODO Remove this
+    $('#accordion .panel-collapse').collapse('toggle');
 
-$.MltApi.AjaxClickComplete = function (action, controller, icon) {
+    if (clearPage) {
+        $("#project-box").fadeTo("fast",
+            0,
+            function() {
+                $("#project-box").css("position", "absolute");
+            });
+        $("#first-row-content").fadeTo("fast", 0).css("position", "absolute");
+    } else {
+
+        $("#project-box").fadeTo("fast", 1).css("position", "");
+
+        $("#first-row-content").css("position", "");
+    }
+
     $("#page-content").fadeTo("fast", 1, function () {
         $("#mainSidebarLoader").remove();
         $("#breadcrumb-parent").html("<i class='fa " + icon + "'></i>" + controller);

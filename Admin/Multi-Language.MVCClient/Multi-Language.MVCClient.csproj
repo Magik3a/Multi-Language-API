@@ -216,6 +216,7 @@
     <Compile Include="Attributes\CatchErrorAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\Documentation\DocMultilanguageController.cs" />
     <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\MultiLanguage\ContextsController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -1058,6 +1059,7 @@
     <Content Include="Views\Error\Index.cshtml" />
     <Content Include="Views\Shared\InnerPartials\SystemStabilityBox.cshtml" />
     <Content Include="Views\Sections\HomeFirstRowSection.cshtml" />
+    <Content Include="Views\DocMultilanguage\GettingStarted.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

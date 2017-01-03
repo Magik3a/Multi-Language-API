@@ -19,6 +19,8 @@ $.MltApi.HomeIndexLinkClicked = function (elem) {
                     $("#first-row-content").fadeTo("fast", 0);
                     $("#first-row-content").hide(250);
 
+                    $("#project-box").fadeTo("fast", 1).css("position", "");
+                    $("#first-row-content").css("position", "");
 
                     $.MltApi.InitialisePlugins();
 
@@ -84,7 +86,18 @@ $.MltApi.LoadFirstRow = function (url) {
 };
 
 
-$.MltApi.LoadProjectBox = function() {
+$.MltApi.LoadProjectBox = function () {
+
+    var url = $(location).attr('href').split('/');
+    console.log(url);
+    if (url[3] === "Documentation") {
+        $("#project-box").fadeTo("fast",
+           0,
+           function () {
+               $("#project-box").css("position", "absolute");
+           });
+        return;
+    }
     $.get({ url: "../../Sections/ProjectBox", cache: false }).then(function (data) {
         $("#project-box .box").fadeOut(500,
             function() {
