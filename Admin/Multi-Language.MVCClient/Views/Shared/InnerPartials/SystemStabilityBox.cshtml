@@ -1,33 +1,58 @@
 ﻿@using Newtonsoft.Json
 @model Multi_Language.MVCClient.Models.SectionsViewModels.SystemStabilityBoxViewModel
-<style>
-    ul.pie-legend {
-        list-style: none;
-    }
 
-        ul.pie-legend span {
-            width: 1.2em;
-            height: 1.2em;
-            display: block;
-            float: left;
-            padding-right: 0.5em;
-        }
-</style>
-<div class="box box-danger">
+<div class="box box-danger" id="systemStabilityBox">
+
+    @Html.Hidden("HiddenModel", Html.Raw(JsonConvert.SerializeObject(Model)))
+
+
     <div class="box-header with-border">
         <h3 class="box-title">System Stability Report</h3>
         <div class="box-tools pull-right">
             <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
             <div class="btn-group">
                 <button class="btn btn-box-tool dropdown-toggle" data-toggle="dropdown"><i class="fa fa-wrench"></i></button>
-                <ul class="dropdown-menu" role="menu">
+                <ul class="dropdown-menu" role="menu" id="refreshSystemStabilityBoxMenu">
                     <li><a href="#">Refresh now!</a></li>
                     <li class="divider"></li>
-                    <li class="active"><a href="#">24 hours diagram</a></li>
-                    <li><a href="#">12 hours diagram</a></li>
-                    <li><a href="#">6 hours diagram</a></li>
+                    @*<li class="active"><a href="#" onclick="$.MltApi.ChangeSystemStabilityBox(this)">24 hours diagram</a></li>
+            <li><a href="#" onclick="$.MltApi.ChangeSystemStabilityBox(this)">12 hours diagram</a></li>
+            <li><a href="#" onclick="$.MltApi.ChangeSystemStabilityBox(this)">6 hours diagram</a></li>*@
 
+
+                    <li class="">
+                        @Ajax.ActionLink("24 hours diagram", "GetSystemStabilityBox", "Home", new {hoursBefore = 24},
+                            new AjaxOptions
+                            {
+                                OnBegin = "$.MltApi.ChangeSystemStabilityBoxAjaxBegin(this)",
+                                OnComplete = "$.MltApi.ChangeSystemStabilityBoxAjaxComplete()",
+                                UpdateTargetId = "systemStabilityBox",
+                                InsertionMode = InsertionMode.ReplaceWith
+                            })
+                    </li>
+
+                    <li>
+                        @Ajax.ActionLink("12 hours diagram", "GetSystemStabilityBox", "Home", new {hoursBefore = 12},
+                            new AjaxOptions
+                            {
+                                OnBegin = "$.MltApi.ChangeSystemStabilityBoxAjaxBegin(this)",
+                                OnComplete = "$.MltApi.ChangeSystemStabilityBoxAjaxComplete()",
+                                UpdateTargetId = "systemStabilityBox",
+                                InsertionMode = InsertionMode.ReplaceWith
+                            })
+                    </li>
+                    <li>
+                        @Ajax.ActionLink("6 hours diagram", "GetSystemStabilityBox", "Home", new {hoursBefore = 6},
+                            new AjaxOptions
+                            {
+                                OnBegin = "$.MltApi.ChangeSystemStabilityBoxAjaxBegin(this)",
+                                OnComplete = "$.MltApi.ChangeSystemStabilityBoxAjaxComplete()",
+                                UpdateTargetId = "systemStabilityBox",
+                                InsertionMode = InsertionMode.ReplaceWith
+                            })
+                    </li>
                 </ul>
+
             </div>
             <button class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
         </div>
@@ -63,8 +88,8 @@
                 <div class="progress-group">
                     <span class="progress-text">New system stability info is received every minute.</span>
                     <div class="progress active progress-sm">
-                        <div class="progress-bar progress-bar-primary progress-bar-striped  nextSystemInfoReloadingBar"  role="progressbar" aria-valuemin="0"
-     aria-valuemax="100"></div>
+                        <div class="progress-bar progress-bar-primary progress-bar-striped  nextSystemInfoReloadingBar" role="progressbar" aria-valuemin="0"
+                             aria-valuemax="100"></div>
 
                     </div>
 
@@ -84,7 +109,7 @@
                     <div class="info-box-content">
                         <span class="info-box-text">Memory available (mb)</span>
                         <span data-bind="text: memUsage" id="memoryAvailable" class="text-bold">@Model.MemoryAvailable</span>
-                        <hr class="no-margin" />
+                        <hr class="no-margin"/>
                         <span class="info-box-text">Memory total (mb)</span>
                         <span data-bind="text: memTotal" id="memoryTotal" class="text-bold">@Model.MemoryTotal</span>
                     </div><!-- /.info-box-content -->
@@ -120,10 +145,10 @@
                 <label>Yellow</label><input type="number" data-bind="value: YellowValue" />
             </div>*@
     </div><!-- ./box-body -->
+
+    <script>
+        var jsonSystemStabilityChartModel = '@Html.Raw(JsonConvert.SerializeObject(Model))';
+
+    </script>
 </div><!-- /.box -->
 
-
-<script>
-    var jsonSystemStabilityChartModel = '@Html.Raw(JsonConvert.SerializeObject(Model))';
-
-</script>

@@ -27,6 +27,5 @@ $.MltApi.InitialisePlugins = function() {
             $.MltApi.InitializeSystemStabilityChart(jsonSystemStabilityChartModel);
 
 
-
     }
 }

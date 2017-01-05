@@ -114,8 +114,9 @@ namespace Multi_Language.DataApi
 
         public async Task<ERoleLevels> GetRoleAsync(AppUser user)
         {
+            var role = _userManager.GetRoles(user.Id).FirstOrDefault();
 
-            return (ERoleLevels)Enum.Parse(typeof(ERoleLevels), _userManager.GetRoles(user.Id).FirstOrDefault());
+            return (ERoleLevels)Enum.Parse(typeof(ERoleLevels),role??ERoleLevels.UserPermissions.ToString());
         }
 
 

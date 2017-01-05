@@ -7,7 +7,9 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Multi_language.ApiHelper;
+using Multi_language.Models;
 using Multi_Language.MVCClient.Attributes;
+using Multi_Language.MVCClient.Models.SectionsViewModels;
 using WebGrease.Css.Extensions;
 
 namespace Multi_Language.MVCClient.Controllers
@@ -37,9 +39,6 @@ namespace Multi_Language.MVCClient.Controllers
 
         public ActionResult Index()
         {
-            var loggsBefore = -24;
-            var systemStabilityLogs = systemStabilityLoggsService.GetAllBeforeHours(loggsBefore).ToList().GroupBy(x => x.DateCreated.Value.Hour)
-            .Select(grp => grp.First());
             var model = new IndexViewModels
             {
                 Languages =
@@ -55,17 +54,7 @@ namespace Multi_Language.MVCClient.Controllers
                         phrsContService.GetTranslatedByIdProject(UserActiveProject, User.Identity.GetUserId()).Count()
                 },
                 Projects = {ProjectCount = projectServices.GetForUser(User.Identity.GetUserId()).Count()},
-                SystemStabilityBox =
-                {
-                    ProcessorValues = systemStabilityLogs.Select(s => s.CpuPercent).ToList(),
-                    MemoryValues = systemStabilityLogs.Select(s => s.MemoryAvailablePercent).ToList(),
-                    LoggetHours = systemStabilityLogs.Select(s => s.DateCreated.Value.Hour.ToString()).ToList(),
-                    MachineName = systemStabilityLogs.Last().MachineName,
-                    MemoryAvailable = systemStabilityLogs.Last().MemoryAvailable,
-                    MemoryTotal = systemStabilityLogs.Last().MemoryTotal,
-                    MemoryAvailablePercent = systemStabilityLogs.Last().MemoryAvailablePercent,
-                    CpuPercent = systemStabilityLogs.Last().CpuPercent,
-                 },
+                SystemStabilityBox = GetSystemStabilityLoggsViewModel(),
                 BearerToken = tokenContainer.ApiToken?.ToString()
             };
 
@@ -76,6 +65,46 @@ namespace Multi_Language.MVCClient.Controllers
                 return PartialView(model);
 
             return View(model);
+        }
+
+        public SystemStabilityBoxViewModel GetSystemStabilityLoggsViewModel(int hoursBefore = 24)
+        {
+            var loggsBefore = -hoursBefore;
+
+            // Default 24 hours
+            TimeSpan interval = new TimeSpan(1, 0, 0);
+
+            if (hoursBefore == 6)
+               interval = new TimeSpan(0, 10, 0);
+
+            if (hoursBefore == 12)
+                interval = new TimeSpan(0, 30, 0);
+
+            if (hoursBefore == 24)
+                interval = new TimeSpan(1, 0, 0);
+
+            var systemStabilityLogs = systemStabilityLoggsService.GetAllBeforeHours(loggsBefore).ToList().GroupBy(x => x.DateCreated?.Ticks / interval.Ticks)
+            .Select(grp => grp.First());
+
+            var systemStabilityLoggs = systemStabilityLogs as IList<SystemStabilityLogg> ?? systemStabilityLogs.ToList();
+
+            return new SystemStabilityBoxViewModel()
+            {
+                ForThePastHours = hoursBefore,
+                ProcessorValues = systemStabilityLoggs.Select(s => s.CpuPercent).ToList(),
+                MemoryValues = systemStabilityLoggs.Select(s => s.MemoryAvailablePercent).ToList(),
+                LoggetHours = systemStabilityLoggs.Select(s => s.DateCreated?.Hour.ToString() + ":" + s.DateCreated?.Minute.ToString()).ToList(),
+                MachineName = systemStabilityLoggs.Last().MachineName,
+                MemoryAvailable = systemStabilityLoggs.Last().MemoryAvailable,
+                MemoryTotal = systemStabilityLoggs.Last().MemoryTotal,
+                MemoryAvailablePercent = systemStabilityLoggs.Last().MemoryAvailablePercent,
+                CpuPercent = systemStabilityLoggs.Last().CpuPercent
+            };
+        }
+
+        public ActionResult GetSystemStabilityBox(int? hoursBefore)
+        {
+            return PartialView("InnerPartials/SystemStabilityBox", GetSystemStabilityLoggsViewModel(hoursBefore??24));
         }
 
         public ActionResult About()

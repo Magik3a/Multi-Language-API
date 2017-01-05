@@ -30,7 +30,8 @@ namespace Multi_Language.MVCClient.Models.SectionsViewModels
 
         public string MemoryAvailablePercent { get; set; }
 
-
         public DateTime? DateCreated { get; set; }
+
+        public int ForThePastHours { get; set; }
     }
 }

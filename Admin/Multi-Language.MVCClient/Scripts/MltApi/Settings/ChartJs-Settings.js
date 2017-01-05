@@ -62,7 +62,18 @@ $.MltApi.InitializeDiskSpaceChart = function(freeSpace, usedSpace) {
 
 
 $.MltApi.InitializeSystemStabilityChart = function (model) {
+
     var jsonModel = $.parseJSON(model);
+    var forThePastHours = jsonModel.ForThePastHours;
+
+    $(".refreshSystemStabilityBoxMenu li").removeClass("active");
+    if (forThePastHours === 6)
+        $("#refreshSystemStabilityBoxMenu").children().eq(4).addClass("active");
+    else if (forThePastHours === 12)
+        $("#refreshSystemStabilityBoxMenu").children().eq(3).addClass("active");
+    else
+        $("#refreshSystemStabilityBoxMenu").children().eq(2).addClass("active");
+
         var data = {
             labels: jsonModel.LoggetHours,
             datasets: [
@@ -98,4 +109,19 @@ $.MltApi.InitializeSystemStabilityChart = function (model) {
         console.log("chart initialized");
 
 
+};
+
+$.MltApi.ChangeSystemStabilityBoxAjaxBegin = function (elem) {
+    var target = $(elem).parent();
+
+    $(".systemStabilityBox").hide(500);
+
+};
+
+
+$.MltApi.ChangeSystemStabilityBoxAjaxComplete = function () {
+    $.MltApi.InitializeSystemStabilityChart($('#HiddenModel').val());
+
+    $.MltApi.SystemStabilityRefreshInterval = $.MltApi.SystemStabilityRefreshIntervalTimer();
+    $.MltApi.SystemStabilityLoggsRefreshInterval = $.MltApi.SystemStabilityLoggsRefreshIntervalTimer();
 };
