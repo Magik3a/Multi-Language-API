@@ -37,7 +37,7 @@ public static class HtmlHelperExtensions
 
         var lnk = ajaxHelper.ActionLink(repID, actionName, controllerName, routeValues, ajaxOptions, htmlAttributes);
 
-        linkText = $"<i class='fa {icon}' aria-hidden='true'></i>{linkText}";
+        linkText = $"<i class='fa {icon}' aria-hidden='true'></i><span>{linkText}</span>";
 
 
         return MvcHtmlString.Create(lnk.ToString().Replace(repID, linkText));

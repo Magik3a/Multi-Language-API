@@ -17,9 +17,6 @@ $.MltApi.AjaxClickBegin = function (elem) {
 };
 $.MltApi.AjaxClickComplete = function (action, controller, icon, clearPage) {
 
-    //TODO Remove this
-    $('#accordion .panel-collapse').collapse('toggle');
-
     if (clearPage) {
         $("#project-box").fadeTo("fast",
             0,

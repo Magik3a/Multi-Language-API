@@ -794,7 +794,7 @@
     <Content Include="Content\bootstrap-fileinput\sass\fileinput.scss" />
     <Content Include="Content\Custom.scss" />
     <None Include="Properties\PublishProfiles\adminnetfactuur.pubxml" />
-    <None Include="Properties\PublishProfiles\Default Settings.pubxml" />
+    <None Include="Properties\PublishProfiles\admins2kdesign.pubxml" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\Chart.min.js" />
     <Content Include="Scripts\jquery.signalR-2.2.1.js" />
@@ -807,6 +807,7 @@
     <Content Include="Scripts\MltApi\MltApi-AjaxHelpers.js" />
     <Content Include="Scripts\MltApi\MltApi-InitPlugins.js" />
     <Content Include="Scripts\MltApi\MltApi-LayoutHelpers.js" />
+    <Content Include="Scripts\MltApi\PagesHelpers\MltApi-DocMultiLanguage.js" />
     <Content Include="Scripts\MltApi\Settings\ChartJs-Settings.js" />
     <Content Include="Scripts\fileinput.js" />
     <Content Include="Scripts\fileinput.min.js" />
@@ -1070,6 +1071,10 @@
     <Content Include="Views\Shared\InnerPartials\SystemStabilityBox.cshtml" />
     <Content Include="Views\Sections\HomeFirstRowSection.cshtml" />
     <Content Include="Views\DocMultilanguage\GettingStarted.cshtml" />
+    <Content Include="Views\DocMultilanguage\GettingStartedPartials\CreateProjectPartial.cshtml" />
+    <Content Include="Views\DocMultilanguage\GettingStartedPartials\CreateLanguagesPartial.cshtml" />
+    <Content Include="Views\DocMultilanguage\GettingStartedPartials\CreateContextsPartial.cshtml" />
+    <Content Include="Views\DocMultilanguage\GettingStartedPartials\CreateTranslationsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
