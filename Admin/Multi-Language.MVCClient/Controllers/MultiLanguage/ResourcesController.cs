@@ -81,6 +81,7 @@ namespace Multi_Language.MVCClient.Controllers
 
             if (!ModelState.IsValid)
             {
+                Response.Headers["InvalidModel"] = "false";
 
                 SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Add new resource", "You have some validation errors.");
                 if (Request.IsAjaxRequest())

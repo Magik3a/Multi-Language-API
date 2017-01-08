@@ -8,7 +8,12 @@
     </div>
     <div class="box-body">
 
-        @using (Ajax.BeginForm("Create", "Contexts", null, new AjaxOptions { }, null))
+        @using (Ajax.BeginForm("Create", "Contexts", null, new AjaxOptions
+        {
+            OnBegin = "$.MltApi.DocMultilanguage.FormSubmitedBegin(this)",
+            OnSuccess = "$.MltApi.DocMultilanguage.FormSubmitedSuccessfully(data, status, xhr)",
+            UpdateTargetId = "s"
+        }, null))
         {
             @Html.AntiForgeryToken()
 
@@ -37,3 +42,23 @@
     <!-- /.box-footer-->
 </div>
 <!-- /.box -->
+
+
+<div class="info-box bg-green box-ajax-success" style="display: none">
+    <span class="info-box-icon"><i class="fa fa-thumbs-o-up"></i></span>
+
+    <div class="info-box-content">
+        <span class="info-box-text">
+            <strong>Success!</strong>
+        </span>
+
+        <small>You created new project</small>
+        <hr class="no-padding" style="margin: 0 0 5px 0" />
+        <button class="btn btn-success right text-uppercase collapsed"
+                 data-toggle="collapse" data-parent="#accordion" href="#collapseFour" aria-expanded="false">
+            Continue with next step
+        </button>
+    </div>
+    <!-- /.info-box-content -->
+
+</div>

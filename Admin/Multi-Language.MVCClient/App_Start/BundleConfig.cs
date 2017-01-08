@@ -48,7 +48,7 @@ namespace Multi_Language.MVCClient
                       "~/Scripts/MltApi/Settings/iCheck-Settings.js",
                       "~/Scripts/MltApi/Settings/InputFile-Settings.js",
 
-
+                      "~/Scripts/MltApi/PagesHelpers/MltApi-DocMultiLanguage.js",
                       "~/Content/bootstrap-fileinput/themes/fa/theme.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

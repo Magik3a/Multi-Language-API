@@ -20,10 +20,10 @@ namespace Multi_Language.MVCClient.Controllers
 {
     public class ProjectsController : BaseController
     {
-        private IProjectsServices projectServices;
+        private readonly IProjectsServices projectServices;
 
 
-        
+
 
         public ProjectsController(IProjectsServices projectServices)
         {
@@ -56,6 +56,9 @@ namespace Multi_Language.MVCClient.Controllers
         {
             if (!ModelState.IsValid)
             {
+                // TODO Return error code instead of header
+                //Response.StatusCode = 404;
+                Response.Headers["InvalidModel"] = "false";
                 SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Add new project", "You have some validation errors.");
                 if (Request.IsAjaxRequest())
                     return PartialView(model);
@@ -70,22 +73,26 @@ namespace Multi_Language.MVCClient.Controllers
             model.DateCreated = DateTime.Now;
             model.UserId = userId;
             projectServices.Add(Mapper.Map<Projects>(model));
-            var projectId = projectServices.GetForUser(User.Identity.GetUserId()).OrderByDescending(m => m.DateCreated).Where(p => p.UserId == userId).FirstOrDefault().IdProject;
-
-            if (User.Identity.GetActiveProject() == "0")
+            var firstOrDefault = projectServices.GetForUser(User.Identity.GetUserId()).OrderByDescending(m => m.DateCreated).FirstOrDefault(p => p.UserId == userId);
+            if (firstOrDefault != null)
             {
+                var projectId = firstOrDefault.IdProject;
 
-                var user = UserManager.FindById(User.Identity.GetUserId());
+                if (User.Identity.GetActiveProject() == "0")
+                {
 
-                user.ActiveProject = projectId;
+                    var user = UserManager.FindById(User.Identity.GetUserId());
 
-                IdentityResult result = UserManager.Update(user);
-                Response.Headers["ProjectIsChanged"] = projectId.ToString();
-            }
-            else
-            {
-                Response.Headers["ProjectDropDownIsChanged"] = projectId.ToString();
+                    user.ActiveProject = projectId;
 
+                    IdentityResult result = UserManager.Update(user);
+                    Response.Headers["ProjectIsChanged"] = projectId.ToString();
+                }
+                else
+                {
+                    Response.Headers["ProjectDropDownIsChanged"] = projectId.ToString();
+
+                }
             }
             if (Request.IsAjaxRequest())
                 return PartialView("Index", projectServices.GetForUser(User.Identity.GetUserId()).ProjectTo<ProjectsViewModel>());

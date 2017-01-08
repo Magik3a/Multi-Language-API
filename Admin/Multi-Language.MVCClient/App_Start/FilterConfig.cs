@@ -9,6 +9,7 @@ namespace Multi_Language.MVCClient
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new CatchErrorAttribute());
+            filters.Add(new ValidationActionFilterAttribute());
         }
     }
 }

@@ -47,6 +47,9 @@ namespace Multi_Language.MVCClient.Controllers
         {
             if (!ModelState.IsValid)
             {
+
+                Response.Headers["InvalidModel"] = "false";
+
                 SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Add new language", "You have some validation errors.");
                 if (Request.IsAjaxRequest())
                     return PartialView(model);

@@ -222,6 +222,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Attributes\AuthenticationAttribute.cs" />
     <Compile Include="Attributes\CatchErrorAttribute.cs" />
+    <Compile Include="Attributes\ValidationActionFilterAttribute.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Documentation\DocMultilanguageController.cs" />
