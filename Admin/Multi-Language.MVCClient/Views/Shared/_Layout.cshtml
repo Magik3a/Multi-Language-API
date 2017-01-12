@@ -101,6 +101,8 @@ desired effect
         <div class="control-sidebar-bg"></div>
     </div>
 
+    @Html.Partial("LayoutPartials/LockScreen")
+
     <iframe id="file-download-frame" style="display:none;"></iframe>
 
     <!-- jQuery -->
@@ -122,45 +124,45 @@ desired effect
     <!-- Signalr Configuration and hubs-->
     <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
     <script src="@baseAdressApi/signalr/hubs"></script>
-<script src="~/Scripts/MltApi/SignalR/InternalHub.js"></script>
+    <script src="~/Scripts/MltApi/SignalR/InternalHub.js"></script>
 
     <style>
         .kv-file-zoom {
             display: none;
         }
     </style>
-<script>
+    <script>
 
-    //Initialise scope for project. Keep global scope clean as f....
-    $.MltApi = $.MltApi || {};
+        //Initialise scope for project. Keep global scope clean as f....
+        $.MltApi = $.MltApi || {};
 
-    //Global variables. TODO Consider removing them
-    $.MltApi.FreeSpace = @freeSpace;
-    $.MltApi.ReservedSpace = @reservedSpace;
+        //Global variables. TODO Consider removing them
+        $.MltApi.FreeSpace = @freeSpace;
+        $.MltApi.ReservedSpace = @reservedSpace;
 
-    $(document).ajaxStart(function () {
-        Pace.restart();
-    });
-    $(document).ready(function () {
-        $.MltApi.LoadProjectBox();
+        $(document).ajaxStart(function () {
+            Pace.restart();
+        });
+        $(document).ready(function () {
+            $.MltApi.LoadProjectBox();
 
-        $.MltApi.InitialisePlugins();
-        //if documentation controller
-        $.MltApi.ExpandAllPanels = function () {
-            $('#accordion .panel-collapse').collapse('toggle');
-        };
-
-
-        var url = $(location).attr('href').split('/');
-        $.MltApi.LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
-
-        //Init SignalR hubs after all
-        $.MltApi.InitInternalHub("@baseAdressApi/signalr");
-
-    });
-</script>
+            $.MltApi.InitialisePlugins();
+            //if documentation controller
+            $.MltApi.ExpandAllPanels = function () {
+                $('#accordion .panel-collapse').collapse('toggle');
+            };
 
 
-@RenderSection("scripts", required: false)
+            var url = $(location).attr('href').split('/');
+            $.MltApi.LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
+
+            //Init SignalR hubs after all
+            $.MltApi.InitInternalHub("@baseAdressApi/signalr");
+
+        });
+    </script>
+
+
+    @RenderSection("scripts", required: false)
 </body>
 </html>

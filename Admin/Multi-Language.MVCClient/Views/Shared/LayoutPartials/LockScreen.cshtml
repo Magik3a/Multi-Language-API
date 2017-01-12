@@ -1,0 +1,51 @@
+﻿
+    <!-- Automatic element centering -->
+<div class="lockscreen-wrapper" style="display: none">
+    <div class="lockscreen-logo">
+        <a href="../"><b>Multi-Language</b>API</a>
+    </div>
+    <!-- User name -->
+    <div class="lockscreen-name">@User.Identity.Name</div>
+    <br />
+    <!-- START LOCK SCREEN ITEM -->
+    <div class="lockscreen-item">
+        <!-- lockscreen image -->
+        <div class="lockscreen-image">
+            <img src="~/Images/user2-160x160.jpg" alt="User Image">
+        </div>
+        <!-- /.lockscreen-image -->
+        <!-- lockscreen credentials (contains the form) -->
+      @using (Ajax.BeginForm("LoginAndRefreshToken", "Account", new { username = User.Identity.Name }, new AjaxOptions
+      {
+          OnSuccess = "$.MltApi.AjaxLoginFromLockScreenSuccess(data, status, xhr)"
+      }, new { @class = "lockscreen-credentials" }))
+      {
+        @Html.AntiForgeryToken()
+
+        <div class="input-group">
+            <input type="password" class="form-control" placeholder="password" name="password">
+
+            <div class="input-group-btn">
+                <button type="submit" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
+            </div>
+        </div>
+      }
+
+        <!-- /.lockscreen credentials -->
+
+    </div>
+    <!-- /.lockscreen-item -->
+
+    <div class="alert alert-danger" style="display: none" id="externalLoginError"></div>
+    <div class="help-block text-center">
+        Enter your password to retrieve your session
+    </div>
+    <div class="text-center">
+        @Html.ActionLink("Or sign in as a different user", "Login","Account")
+    </div>
+    <div class="lockscreen-footer text-center">
+        Copyright @DateTime.Now.Year <b><a href="http://s2kdesign.com" class="text-black">www.s2kdesign.com</a></b><br>
+        All rights reserved
+    </div>
+</div>
+<!-- /.center -->

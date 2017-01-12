@@ -118,6 +118,47 @@ namespace Multi_Language.MVCClient.Controllers
 
             return response.StatusIsSuccessful;
         }
+        private async Task<bool> PerformTokenRefreshActions(string email, string password)
+        {
+            //TODO Make something smart here 
+            var response = await loginClient.GrandResourceOwnerAccess(email, password);
+            if (response.StatusIsSuccessful)
+            {
+                tokenContainer.ApiToken = response.Data;
+            }
+
+            return response.StatusIsSuccessful;
+        }
+        [HttpPost]
+        [AllowAnonymous]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> LoginAndRefreshToken(string username, string password)
+        {
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                return Json(new { status = "Error", message = "Invalid login attempt." }, JsonRequestBehavior.AllowGet);
+            }
+
+            // This doesn't count login failures towards account lockout
+            // To enable password failures to trigger account lockout, change to shouldLockout: true
+            var result = await SignInManager.PasswordSignInAsync(username, password, true, shouldLockout: false);
+
+            switch (result)
+            {
+                case SignInStatus.Success:
+
+                    var loginSuccess = await PerformTokenRefreshActions(username, password);
+                    if (loginSuccess)
+                    {
+                        // TODO Change the way user is loged in. There is no need for mvc autorization?
+                    }
+
+                    return Json(new { status = "Success", message = "Token is brand new!" }, JsonRequestBehavior.AllowGet);
+                case SignInStatus.Failure:
+                default:
+                    return Json(new { status = "Error", message= "Invalid login attempt." }, JsonRequestBehavior.AllowGet);
+            }
+        }
         //
         // GET: /Account/VerifyCode
         [AllowAnonymous]

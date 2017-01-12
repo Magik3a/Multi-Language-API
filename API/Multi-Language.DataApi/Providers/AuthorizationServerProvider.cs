@@ -10,6 +10,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using Hangfire;
+using Hangfire.Storage;
 using Multi_language.Common.Enums;
 using Multi_Language.DataApi.Tasks;
 
@@ -85,7 +86,29 @@ namespace Multi_Language.DataApi.Providers
 
             //TODO Call task with bearer token
             BackgroundJob.Schedule(() => bearerTokenExpirationTask.BearerTokenExpired("asdasdas"), DateTime.Now.AddSeconds(Convert.ToDouble(client.RefreshTokenLifeTime)));
+            using (var connection = JobStorage.Current.GetConnection())
+            {
+                var recurring = connection.GetRecurringJobs().FirstOrDefault(p => p.Id == "BearerTokenExpirationTask.BearerTokenExpired");
 
+                if (recurring == null)
+                {
+                    // recurring job not found
+                    Console.WriteLine("Job has not been created yet.");
+                }
+                else if (!recurring.NextExecution.HasValue)
+                {
+                    // server has not had a chance yet to schedule the job's next execution time, I think.
+
+                    Console.WriteLine("Job has not been scheduled yet. Check again later.");
+                }
+                else
+                {
+                    Console.WriteLine("Job is scheduled to execute at {0}.", recurring.NextExecution);
+
+                    recurring.NextExecution = DateTime.Now.AddSeconds(Convert.ToDouble(client.RefreshTokenLifeTime));
+
+                }
+            }
             return Task.FromResult<object>(null);
         }
 

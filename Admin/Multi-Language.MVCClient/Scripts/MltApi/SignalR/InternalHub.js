@@ -97,6 +97,12 @@ $.MltApi.InitInternalHub = function (signalrAddress) {
     hub.client.tokenIsExpired = function (bool) {
         console
             .log("The whole thing from hangfire > tokenTask > web api > signalR > client is working! Dont know how, but it is a good thing");
+
+        $(".wrapper").slideUp(500, function () {
+            $("body").removeClass();
+            $("body").addClass("hold-transition lockscreen");
+        });
+        $(".lockscreen-wrapper").slideDown(500);
     };
     // Start the connection
     $.connection.hub.start().done(function () {

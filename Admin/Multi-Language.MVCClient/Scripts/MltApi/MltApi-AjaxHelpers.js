@@ -20,10 +20,10 @@ $.MltApi.AjaxClickComplete = function (action, controller, icon, clearPage) {
     if (clearPage) {
         $("#project-box").fadeTo("fast",
             0,
-            function() {
+            function () {
                 $("#project-box").css("position", "absolute");
             });
-        $("#first-row-content").fadeTo("fast", 0, function() {
+        $("#first-row-content").fadeTo("fast", 0, function () {
             $("#first-row-content").css("position", "absolute");
         });
     } else {
@@ -76,4 +76,22 @@ $.MltApi.AjaxClickSuccess = function (data, status, xhr) {
             $("#project-box").append(data2);
         });
     }
+};
+
+$.MltApi.AjaxLoginFromLockScreenSuccess = function (data, status, xhr) {
+    if (data.status === "Error") {
+        $("#externalLoginError").text(data.message);
+        $("#externalLoginError").slideDown(300,
+            function () {
+            });
+        return;
+    }
+    $("#externalLoginError").slideUp(300,
+         function () {
+             $(".wrapper").slideDown(300, function () {
+                 $("body").removeClass();
+                 $("body").addClass("skin-red sidebar-mini");
+             });
+             $(".lockscreen-wrapper").slideUp(300);
+         });
 };

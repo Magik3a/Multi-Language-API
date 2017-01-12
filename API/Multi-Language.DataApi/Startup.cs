@@ -16,6 +16,7 @@ using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Mvc;
 using Hangfire;
+using Hangfire.Console;
 using Microsoft.AspNet.SignalR;
 using Multi_Language.DataApi.Tasks;
 using GlobalConfiguration = Hangfire.GlobalConfiguration;
@@ -77,7 +78,7 @@ namespace Multi_Language.DataApi
         {
 
             GlobalConfiguration.Configuration
-               .UseSqlServerStorage("DefaultConnection");
+               .UseSqlServerStorage("DefaultConnection").UseConsole();
 
             GlobalConfiguration.Configuration.UseNinjectActivator(kernel);
 
