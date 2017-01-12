@@ -110,7 +110,7 @@ namespace Multi_Language.MVCClient.Controllers
         }
         private async Task<bool> PerformLoginActions(string email, string password)
         {
-            var response = await loginClient.Login(email, password);
+            var response = await loginClient.GrandResourceOwnerAccess(email, password);
             if (response.StatusIsSuccessful)
             {
                 tokenContainer.ApiToken = response.Data;

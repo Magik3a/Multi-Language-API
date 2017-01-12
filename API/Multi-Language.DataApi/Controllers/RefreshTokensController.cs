@@ -1,5 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Web.Http;
+using Microsoft.AspNet.SignalR;
+using Multi_Language.DataApi.Hubs;
 
 namespace Multi_Language.DataApi.Controllers
 {
@@ -14,7 +16,7 @@ namespace Multi_Language.DataApi.Controllers
             _repo = new AuthRepository();
         }
 
-        [Authorize(Users = "Admin")]
+        [System.Web.Http.Authorize(Users = "Admin")]
         [Route("")]
         public IHttpActionResult Get()
         {
@@ -33,6 +35,14 @@ namespace Multi_Language.DataApi.Controllers
             }
             return BadRequest("Token Id does not exist");
 
+        }
+
+        [Route("Expires")]
+        public IHttpActionResult Expires(string tokenId)
+        {
+            var context = GlobalHost.ConnectionManager.GetHubContext<InternalHub>();
+            context.Clients.All.tokenIsExpired(true);
+            return Ok();
         }
 
         protected override void Dispose(bool disposing)

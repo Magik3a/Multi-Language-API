@@ -37,7 +37,6 @@ namespace Multi_Language.DataApi
 
             HttpConfiguration config = new HttpConfiguration();
 
-            ConfigureOAuth(app);
 
             WebApiConfig.Register(config);
             app.UseCors(Microsoft.Owin.Cors.CorsOptions.AllowAll);
@@ -46,6 +45,8 @@ namespace Multi_Language.DataApi
             config.DependencyResolver = new NinjectResolver(ninjectKernel);
 
             SwaggerConfig.Register(config);
+
+            ConfigureOAuth(app, ninjectKernel.Get<IBearerTokenExpirationTask>());
 
             app.UseWebApi(config);
 
@@ -85,9 +86,10 @@ namespace Multi_Language.DataApi
 
             var processorAndRamUsageTask = kernel.Get<IProcessorAndRamUsageTask>();
             RecurringJob.AddOrUpdate(() => processorAndRamUsageTask.CallWebApi(), Cron.Minutely);
+
         }
 
-        public void ConfigureOAuth(IAppBuilder app)
+        public void ConfigureOAuth(IAppBuilder app, IBearerTokenExpirationTask bearerTokenExpirationTask)
         {
             //use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(Microsoft.AspNet.Identity.DefaultAuthenticationTypes.ExternalCookie);
@@ -99,7 +101,7 @@ namespace Multi_Language.DataApi
                 AllowInsecureHttp = true,
                 TokenEndpointPath = new PathString("/token"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromMinutes(30),
-                Provider = new AuthorizationServerProvider(),
+                Provider = new AuthorizationServerProvider(bearerTokenExpirationTask),
                 RefreshTokenProvider = new RefreshTokenProvider()
             };
 

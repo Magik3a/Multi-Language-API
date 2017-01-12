@@ -3,7 +3,9 @@
 
 using System.Web.Configuration;
 using Hangfire;
+using Microsoft.Owin.Security.OAuth;
 using Multi_language.Services;
+using Multi_Language.DataApi.Providers;
 using Multi_Language.DataApi.Tasks;
 
 namespace Multi_Language.DataApi.App_Start
@@ -65,6 +67,9 @@ namespace Multi_Language.DataApi.App_Start
             .SelectAllClasses()
             .BindDefaultInterface());
 
+            kernel.Bind<IBearerTokenExpirationTask>().To<BearerTokenExpirationTask>();
+
+            kernel.Bind<IOAuthAuthorizationServerProvider>().To<AuthorizationServerProvider>().WithConstructorArgument("bearerTokenExpirationTask", kernel.Get<IBearerTokenExpirationTask>());
             kernel.Bind<IProcessorAndRamUsageTask>().To<ProcessorAndRamUsageTask>().WithConstructorArgument("systemStabilityLoggsService", kernel.Get<ISystemStabilityLoggsService>() );
         }
 

@@ -9,13 +9,20 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
+using Hangfire;
 using Multi_language.Common.Enums;
+using Multi_Language.DataApi.Tasks;
 
 namespace Multi_Language.DataApi.Providers
 {
 
     public class AuthorizationServerProvider : OAuthAuthorizationServerProvider
     {
+        private readonly IBearerTokenExpirationTask bearerTokenExpirationTask;
+        public AuthorizationServerProvider(IBearerTokenExpirationTask bearerTokenExpirationTask)
+        {
+            this.bearerTokenExpirationTask = bearerTokenExpirationTask;
+        }
         public override Task ValidateClientAuthentication(OAuthValidateClientAuthenticationContext context)
         {
 
@@ -44,7 +51,7 @@ namespace Multi_Language.DataApi.Providers
 
             if (client == null)
             {
-                context.SetError("invalid_clientId", string.Format("Client '{0}' is not registered in the system.", context.ClientId));
+                context.SetError("invalid_clientId", $"Client '{context.ClientId}' is not registered in the system.");
                 return Task.FromResult<object>(null);
             }
 
@@ -75,6 +82,10 @@ namespace Multi_Language.DataApi.Providers
             context.OwinContext.Set<string>("as:clientRefreshTokenLifeTime", client.RefreshTokenLifeTime.ToString());
 
             context.Validated();
+
+            //TODO Call task with bearer token
+            BackgroundJob.Schedule(() => bearerTokenExpirationTask.BearerTokenExpired("asdasdas"), DateTime.Now.AddSeconds(Convert.ToDouble(client.RefreshTokenLifeTime)));
+
             return Task.FromResult<object>(null);
         }
 

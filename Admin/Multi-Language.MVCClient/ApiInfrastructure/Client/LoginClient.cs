@@ -22,7 +22,7 @@ namespace Multi_Language.MVCClient.ApiInfrastructure.Client
             var response = await ApiClient.PostFormEncodedContent(TokenUri, "grant_type".AsPair("password"),
                 "username".AsPair(email), "password".AsPair(password), "client_id".AsPair("ngAuthApp"));
 
-            
+
             var tokenResponse = await CreateJsonResponse<TokenResponse>(response);
             if (!response.IsSuccessStatusCode)
             {
@@ -38,6 +38,31 @@ namespace Multi_Language.MVCClient.ApiInfrastructure.Client
             }
             var grantResourceOwnerAccess = await ApiClient.PostFormEncodedContent(ResourceOwnerAccessUri, "grant_type".AsPair("password"),
                 "username".AsPair(email), "password".AsPair(password), "client_id".AsPair("ngAuthApp"));
+
+            var tokenData = await DecodeContent<dynamic>(response);
+            tokenResponse.Data = tokenData["access_token"];
+            return tokenResponse;
+        }
+
+        public async Task<TokenResponse> GrandResourceOwnerAccess(string email, string password)
+        {
+            var response = await ApiClient.PostFormEncodedContent(ResourceOwnerAccessUri, "grant_type".AsPair("password"),
+               "username".AsPair(email), "password".AsPair(password), "client_id".AsPair("ngAuthApp"));
+            var tokenResponse = await CreateJsonResponse<TokenResponse>(response);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorContent = await DecodeContent<dynamic>(response);
+                tokenResponse.ErrorState = new ErrorStateResponse
+                {
+                    ModelState = new Dictionary<string, string[]>
+                    {
+                        {errorContent["error"], new string[] {errorContent["error_description"]}}
+                    }
+                };
+                return tokenResponse;
+            }
+
 
             var tokenData = await DecodeContent<dynamic>(response);
             tokenResponse.Data = tokenData["access_token"];

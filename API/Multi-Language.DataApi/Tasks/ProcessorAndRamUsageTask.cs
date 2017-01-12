@@ -84,7 +84,7 @@ namespace Multi_Language.DataApi.Tasks
             {
                 var json = JsonConvert.SerializeObject(postData);
                 // Post the data to the server
-                var serverUrl = new Uri(ConfigurationManager.AppSettings["ServerUrl"]);
+                var serverUrl = new Uri(ConfigurationManager.AppSettings["ServerUrl"] + "/api/CpuInfo");
 
                 var client = new WebClient();
                 client.Headers.Add("Content-Type", "application/json");

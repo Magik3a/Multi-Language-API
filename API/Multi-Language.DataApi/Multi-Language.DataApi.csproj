@@ -265,7 +265,9 @@
     <Compile Include="AuthRepository.cs" />
     <Compile Include="Results\ChallengeResult.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Tasks\BearerTokenExpirationTask.cs" />
     <Compile Include="Tasks\Contracts\IProcessorAndRamUsageTask.cs" />
+    <Compile Include="Tasks\Contracts\IBearerTokenExpirationTask.cs" />
     <Compile Include="Tasks\ProcessorAndRamUsageTask.cs" />
   </ItemGroup>
   <ItemGroup>

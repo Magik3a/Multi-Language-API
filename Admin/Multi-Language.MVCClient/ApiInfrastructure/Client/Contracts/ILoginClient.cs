@@ -7,6 +7,9 @@
     public interface ILoginClient
     {
         Task<TokenResponse> Login(string email, string password);
+
+        Task<TokenResponse> GrandResourceOwnerAccess(string email, string password);
+
         Task<RegisterResponse> Register(RegisterViewModel viewModel);
     }
 }
