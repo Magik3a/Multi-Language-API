@@ -87,18 +87,21 @@ namespace Multi_Language.MVCClient.Controllers
             .Select(grp => grp.First());
 
             var systemStabilityLoggs = systemStabilityLogs as IList<SystemStabilityLogg> ?? systemStabilityLogs.ToList();
-
+            if (!systemStabilityLoggs.Any())
+            {
+                return new SystemStabilityBoxViewModel();
+            }
             return new SystemStabilityBoxViewModel()
             {
                 ForThePastHours = hoursBefore,
                 ProcessorValues = systemStabilityLoggs.Select(s => s.CpuPercent).ToList(),
                 MemoryValues = systemStabilityLoggs.Select(s => s.MemoryAvailablePercent).ToList(),
                 LoggetHours = systemStabilityLoggs.Select(s => s.DateCreated?.Hour.ToString() + ":" + s.DateCreated?.Minute.ToString()).ToList(),
-                MachineName = systemStabilityLoggs.Last().MachineName,
-                MemoryAvailable = systemStabilityLoggs.Last().MemoryAvailable,
-                MemoryTotal = systemStabilityLoggs.Last().MemoryTotal,
-                MemoryAvailablePercent = systemStabilityLoggs.Last().MemoryAvailablePercent,
-                CpuPercent = systemStabilityLoggs.Last().CpuPercent
+                MachineName = systemStabilityLoggs.Last()?.MachineName,
+                MemoryAvailable = systemStabilityLoggs.Last()?.MemoryAvailable,
+                MemoryTotal = systemStabilityLoggs.Last()?.MemoryTotal,
+                MemoryAvailablePercent = systemStabilityLoggs.Last()?.MemoryAvailablePercent,
+                CpuPercent = systemStabilityLoggs.Last()?.CpuPercent
             };
         }
 

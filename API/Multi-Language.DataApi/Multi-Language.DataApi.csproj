@@ -243,6 +243,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_start\AutoMapperConfig.cs" />
+    <Compile Include="App_start\HangfireBootsrapper.cs" />
     <Compile Include="App_start\NinjectResolver.cs" />
     <Compile Include="App_start\NinjectWebCommon.cs" />
     <Compile Include="App_start\SwaggerConfig.cs" />
@@ -311,6 +312,8 @@
           <DevelopmentServerPort>35466</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
           <IISUrl>http://localhost:32417/</IISUrl>
+          <OverrideIISAppRootUrl>True</OverrideIISAppRootUrl>
+          <IISAppRootUrl>http://localhost:32417/</IISAppRootUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

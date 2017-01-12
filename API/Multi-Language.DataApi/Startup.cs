@@ -12,21 +12,40 @@ using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
 using System.Web;
+using System.Web.Hosting;
 using System.Web.Http;
 using System.Web.Http.Cors;
 using System.Web.Mvc;
 using Hangfire;
 using Hangfire.Console;
+using Hangfire.Dashboard;
 using Microsoft.AspNet.SignalR;
+using Multi_Language.DataApi.App_start;
 using Multi_Language.DataApi.Tasks;
 using GlobalConfiguration = Hangfire.GlobalConfiguration;
 
 [assembly: OwinStartup(typeof(Multi_Language.DataApi.Startup))]
 namespace Multi_Language.DataApi
 {
-
+    public class ApplicationPreload : IProcessHostPreloadClient
+    {
+        public void Preload(string[] parameters)
+        {
+            HangfireBootstrapper.Instance.Start();
+        }
+    }
     public class Startup
     {
+        protected void Application_Start(object sender, EventArgs e)
+        {
+            HangfireBootstrapper.Instance.Start();
+        }
+
+        protected void Application_End(object sender, EventArgs e)
+        {
+            HangfireBootstrapper.Instance.Stop();
+        }
+
         public static OAuthBearerAuthenticationOptions OAuthBearerOptions { get; private set; }
         public static GoogleOAuth2AuthenticationOptions googleAuthOptions { get; private set; }
         public static FacebookAuthenticationOptions facebookAuthOptions { get; private set; }
@@ -81,8 +100,15 @@ namespace Multi_Language.DataApi
                .UseSqlServerStorage("DefaultConnection").UseConsole();
 
             GlobalConfiguration.Configuration.UseNinjectActivator(kernel);
+            var options = new DashboardOptions
+            {
+                Authorization = new[]
+                {
+                    new LocalRequestsOnlyAuthorizationFilter()
+                }
+            };
 
-            app.UseHangfireDashboard();
+            app.UseHangfireDashboard("/hangfire",options);
             app.UseHangfireServer();
 
             var processorAndRamUsageTask = kernel.Get<IProcessorAndRamUsageTask>();
@@ -129,6 +155,8 @@ namespace Multi_Language.DataApi
             app.UseFacebookAuthentication(facebookAuthOptions);
 
         }
+
+
     }
 
 }

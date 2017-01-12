@@ -85,19 +85,28 @@ namespace Multi_Language.DataApi.Providers
             context.Validated();
 
             //TODO Call task with bearer token
-            BackgroundJob.Schedule(() => bearerTokenExpirationTask.BearerTokenExpired("asdasdas"), DateTime.Now.AddSeconds(Convert.ToDouble(client.RefreshTokenLifeTime)));
             using (var connection = JobStorage.Current.GetConnection())
             {
                 var recurring = connection.GetRecurringJobs().FirstOrDefault(p => p.Id == "BearerTokenExpirationTask.BearerTokenExpired");
 
                 if (recurring == null)
                 {
+                    RecurringJob.AddOrUpdate(() => bearerTokenExpirationTask.BearerTokenExpired("asdasdas"), Cron.MinuteInterval(client.RefreshTokenLifeTime / 60));
                     // recurring job not found
+                    //BackgroundJob.Schedule(() =>
+                    //bearerTokenExpirationTask.BearerTokenExpired("asdasdas"),
+                    //    DateTime.Now.AddSeconds(Convert.ToDouble(client.RefreshTokenLifeTime
+                    //    )));
+                    recurring = connection.GetRecurringJobs().FirstOrDefault(p => p.Id == "BearerTokenExpirationTask.BearerTokenExpired");
+                    recurring.NextExecution = DateTime.Now.AddSeconds(Convert.ToDouble(client.RefreshTokenLifeTime));
+
                     Console.WriteLine("Job has not been created yet.");
                 }
                 else if (!recurring.NextExecution.HasValue)
                 {
                     // server has not had a chance yet to schedule the job's next execution time, I think.
+
+                    recurring.NextExecution = DateTime.Now.AddSeconds(Convert.ToDouble(client.RefreshTokenLifeTime));
 
                     Console.WriteLine("Job has not been scheduled yet. Check again later.");
                 }
