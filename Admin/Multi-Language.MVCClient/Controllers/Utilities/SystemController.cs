@@ -29,6 +29,7 @@ namespace Multi_Language.MVCClient.Controllers.Utilities
                 model = Mapper.Map<SystemViewModels>(systemInfo.Data);
 
             model.BearerToken = tokenContainer.ApiToken?.ToString();
+
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "System info page", "This is server info where Data API is.");
             if (Request.IsAjaxRequest())
                 return PartialView(model);

@@ -982,7 +982,8 @@
     <Content Include="Scripts\locales\uk.js" />
     <Content Include="Scripts\locales\zh-TW.js" />
     <Content Include="Scripts\locales\zh.js" />
-    <Content Include="Scripts\MltApi\SignalR\InternalHub.js" />
+    <Content Include="Scripts\MltApi\SignalR\InternalHub\MltApi-InternalHubRecievers.js" />
+    <Content Include="Scripts\MltApi\SignalR\MltApi-InternalHub.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\pace.js" />
     <Content Include="Scripts\pace.min.js" />
