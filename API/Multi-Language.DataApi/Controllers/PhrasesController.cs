@@ -10,6 +10,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
+using WebApi.OutputCache.V2;
 
 namespace Multi_Language.DataApi.Controllers
 {
@@ -62,6 +63,7 @@ namespace Multi_Language.DataApi.Controllers
         /// </summary>
         [Route("Project/{idProject}")]
         [ResponseType(typeof(IEnumerable<PhrasesApiModel>))]
+        [CacheOutput(ClientTimeSpan = 1200, ServerTimeSpan = 1200)]
         public IHttpActionResult GetForProject(int idProject)
         {
             var phrase = phrasesService.GetAllByIdProject(idProject, "").ProjectTo<PhrasesApiModel>().ToList();
@@ -74,6 +76,7 @@ namespace Multi_Language.DataApi.Controllers
         /// </summary>
         [Route("Project/{idProject}/Initials/{initials}")]
         [ResponseType(typeof(IEnumerable<PhrasesApiModel>))]
+        [CacheOutput(ClientTimeSpan = 1200, ServerTimeSpan = 1200)]
         public IHttpActionResult GetForLanguage(int idProject, string initials)
         {
             var language = langService.GetByInitials(idProject, initials).FirstOrDefault();
@@ -92,6 +95,7 @@ namespace Multi_Language.DataApi.Controllers
         /// </summary>
         [Route("Project/{idProject}/Context/{idContext}")]
         [ResponseType(typeof(IEnumerable<PhrasesApiModel>))]
+        [CacheOutput(ClientTimeSpan = 1200, ServerTimeSpan = 1200)]
         public IHttpActionResult GetForContext(int idProject, int idContext)
         {
             return Ok(phrasesService.GetAllByIdProjectAndIdContext(idProject, idContext).ProjectTo<PhrasesApiModel>().ToList());
@@ -103,6 +107,7 @@ namespace Multi_Language.DataApi.Controllers
         /// </summary>
         [Route("Project/{idProject}/Initials/{initials}/Phrase/{idPhrase}")]
         [ResponseType(typeof(string))]
+        [CacheOutput(ClientTimeSpan = 1200, ServerTimeSpan = 1200)]
         public IHttpActionResult GetPhrase(int idProject, string initials, int idPhrase)
         {
             var language = langService.GetByInitials(idProject, initials).FirstOrDefault();

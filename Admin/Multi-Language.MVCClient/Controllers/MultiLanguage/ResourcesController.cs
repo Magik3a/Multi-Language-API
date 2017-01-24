@@ -90,7 +90,7 @@ namespace Multi_Language.MVCClient.Controllers
                 return View(model);
             }
             var currentPhrases = phrasesService.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()).Where(p => p.IdPhraseContext == model.IdPhraseContext && p.IdLanguage == model.IdLanguage);
-            if (currentPhrases.Count() > 0)
+            if (currentPhrases.Any())
             {
                 SetViewBagsWIthActiveValue(model.IdLanguage, model.IdPhraseContext);
 
@@ -205,7 +205,7 @@ Please choose different language or edit current translation <a href='{Url.Actio
             ViewBag.IdLanguage = new SelectList(
                 languagesService.GetActiveByActiveProject(UserActiveProject), "IdLanguage", "Name");
             ViewBag.IdPhraseContext = new SelectList(
-                contextServices.GetAllByIdProject(UserActiveProject, User.Identity.GetUserId()), "IdPhraseContext", "Context");
+                contextServices.GetUnTranslatedByIdProject(UserActiveProject, User.Identity.GetUserId()), "IdPhraseContext", "Context");
 
         }
 

@@ -59,7 +59,13 @@ namespace Multi_language.Services
             return phrasesContext.All().Where(pc => pc.IdProject == IdProject && pc.UserId == UserId && pc.Phrases.Count() == activeLang);
 
         }
+        public IQueryable<PhrasesContext> GetUnTranslatedByIdProject(int IdProject, string UserId)
+        {
+            var activeLang = langService.GetActiveByActiveProject(IdProject).Count();
 
+            return phrasesContext.All().Where(pc => pc.IdProject == IdProject && pc.UserId == UserId && pc.Phrases.Count() < activeLang);
+
+        }
         public void Update(PhrasesContext PhraseContext)
         {
             phrasesContext.Update(PhraseContext);

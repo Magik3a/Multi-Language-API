@@ -13,6 +13,8 @@ namespace Multi_language.Services
 
         IQueryable<PhrasesContext> GetTranslatedByIdProject(int IdProject, string UserId);
 
+        IQueryable<PhrasesContext> GetUnTranslatedByIdProject(int IdProject, string UserId);
+
         void Add(PhrasesContext PhraseContext);
 
         void Update(PhrasesContext PhraseContext);
