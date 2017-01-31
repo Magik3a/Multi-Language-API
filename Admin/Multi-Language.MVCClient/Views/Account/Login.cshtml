@@ -19,13 +19,15 @@
     <link href="~/Content/iCheck/square/red.css" rel="stylesheet" />
 
     @Html.Action("MetaTags", "Home")
+    <link href="~/Content/AddToHomeScreen/addtohomescreen.css" rel="stylesheet" />
+    <script src="~/Scripts/AddToHomeScreen/addtohomescreen.min.js"></script>
 
 </head>
 
 <body class="hold-transition login-page">
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Multi-API</b>Admin</a>
+            <a href="../../"><b>Multi-API</b>Admin</a>
         </div><!-- /.login-logo -->
         <div class="login-box-body">
             <p class="login-box-msg">
@@ -84,15 +86,20 @@
     </div><!-- /.login-box -->
     <!-- jQuery -->
     @Scripts.Render("~/bundles/jquery")
+    <script>
+        $(function() {
 
+            addToHomescreen();
+        })
+    </script>
     <!-- Bootstrap -->
     @Scripts.Render("~/bundles/bootstrap")
 
     <!-- Theme and plugins -->
 <script src="~/Scripts/jquery.icheck.min.js"></script>
-    <script src="~/Scripts/MltApi/Settings/iCheck-Settings.js"></script>
-    @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/MltApi/Settings/iCheck-Settings.js"></script>
 
+    @Scripts.Render("~/bundles/jqueryval")
 <script>
 
     $.MltApi.InitICheckBoxes($('input'), "red");

@@ -142,11 +142,11 @@
             //Global variables. TODO Consider removing them
             $.MltApi.FreeSpace = @freeSpace;
             $.MltApi.ReservedSpace = @reservedSpace;
-
             $(document).ajaxStart(function () {
                 Pace.restart();
             });
             $(document).ready(function () {
+                $.MltApi.HideHomeLogoText();
                 $.MltApi.LoadProjectBox();
 
                 $.MltApi.InitialisePlugins();

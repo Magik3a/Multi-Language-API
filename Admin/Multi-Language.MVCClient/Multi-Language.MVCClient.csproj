@@ -299,6 +299,7 @@
     <Content Include="admin-lte\css\skins\_all-skins.min.css" />
     <Content Include="admin-lte\js\app.js" />
     <Content Include="admin-lte\js\app.min.js" />
+    <Content Include="Content\AddToHomeScreen\addtohomescreen.css" />
     <Content Include="Content\bootstrap-fileinput\css\fileinput.css" />
     <Content Include="Content\bootstrap-fileinput\css\fileinput.min.css" />
     <Content Include="Content\bootstrap-fileinput\img\loading-sm.gif" />
@@ -810,6 +811,8 @@
     <Content Include="Images\Socials\icons\mstile-70x70.png" />
     <Content Include="Images\Socials\icons\open-graph-1200x630.png" />
     <Content Include="Images\user2-160x160.jpg" />
+    <Content Include="Scripts\AddToHomeScreen\addtohomescreen.js" />
+    <Content Include="Scripts\AddToHomeScreen\addtohomescreen.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\fonts\FontAwesome.otf" />
