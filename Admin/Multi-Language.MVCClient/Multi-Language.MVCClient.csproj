@@ -48,6 +48,10 @@
       <HintPath>..\..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Boilerplate.Web.Mvc5, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fc5550082a9c642c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Boilerplate.Web.Mvc5.1.0.25\lib\net45\Boilerplate.Web.Mvc5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -80,6 +84,7 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -762,6 +767,48 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Images\favicon.ico" />
+    <Content Include="Images\humans.txt" />
+    <Content Include="Images\Socials\banner\Banner-01-ASP-NET-MVC-Boilerplate.png" />
+    <Content Include="Images\Socials\banner\Banner-02-ASP-NET.png" />
+    <Content Include="Images\Socials\banner\Banner-03-VS.png" />
+    <Content Include="Images\Socials\banner\Banner-04-Packages.png" />
+    <Content Include="Images\Socials\banner\Banner-05-Azure.png" />
+    <Content Include="Images\Socials\icons\android-chrome-144x144.png" />
+    <Content Include="Images\Socials\icons\android-chrome-192x192.png" />
+    <Content Include="Images\Socials\icons\android-chrome-36x36.png" />
+    <Content Include="Images\Socials\icons\android-chrome-48x48.png" />
+    <Content Include="Images\Socials\icons\android-chrome-72x72.png" />
+    <Content Include="Images\Socials\icons\android-chrome-96x96.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-114x114.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-120x120.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-144x144.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-152x152.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-180x180.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-57x57.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-60x60.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-72x72.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-76x76.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-precomposed.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-1496x2048.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-1536x2008.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-320x460.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-640x1096.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-640x920.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-748x1024.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-768x1004.png" />
+    <Content Include="Images\Socials\icons\atom-icon-48x48.png" />
+    <Content Include="Images\Socials\icons\atom-logo-96x48.png" />
+    <Content Include="Images\Socials\icons\favicon-16x16.png" />
+    <Content Include="Images\Socials\icons\favicon-192x192.png" />
+    <Content Include="Images\Socials\icons\favicon-32x32.png" />
+    <Content Include="Images\Socials\icons\favicon-96x96.png" />
+    <Content Include="Images\Socials\icons\mstile-150x150.png" />
+    <Content Include="Images\Socials\icons\mstile-310x150.png" />
+    <Content Include="Images\Socials\icons\mstile-310x310.png" />
+    <Content Include="Images\Socials\icons\mstile-70x70.png" />
+    <Content Include="Images\Socials\icons\open-graph-1200x630.png" />
     <Content Include="Images\user2-160x160.jpg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

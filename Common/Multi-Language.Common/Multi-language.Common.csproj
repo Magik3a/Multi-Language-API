@@ -90,6 +90,8 @@
     <Compile Include="Enums\ERoleLevels.cs" />
     <Compile Include="Helpers\EnumHelper.cs" />
     <Compile Include="Helpers\Helper.cs" />
+    <Compile Include="Infrastructure\Manifest\IManifestService.cs" />
+    <Compile Include="Infrastructure\Manifest\ManifestService.cs" />
     <Compile Include="Infrastructure\Mapping\ICustomMapping.cs" />
     <Compile Include="Infrastructure\Mapping\IMapFrom.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

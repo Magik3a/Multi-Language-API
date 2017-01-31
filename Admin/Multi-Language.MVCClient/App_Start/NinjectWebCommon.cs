@@ -1,4 +1,5 @@
 using Multi_language.ApiHelper.Client;
+using Multi_language.Common.Infrastructure.Manifest;
 using Multi_Language.MVCClient.ApiInfrastructure;
 using Multi_Language.MVCClient.ApiInfrastructure.Client;
 
@@ -101,6 +102,10 @@ namespace Multi_Language.MVCClient.App_Start
 
             kernel.Bind<ISystemInfoClient>().To<SystemInfoClient>()
                .InSingletonScope().WithConstructorArgument("apiClient", kernel.Get<IApiClient>());
+
+
+            kernel.Bind<IManifestService>().To<ManifestService>();
+
             //kernel.Bind(b => b.From("Multi_language.ApiHelper")
             //     .SelectAllClasses()
             //     .BindDefaultInterface());
