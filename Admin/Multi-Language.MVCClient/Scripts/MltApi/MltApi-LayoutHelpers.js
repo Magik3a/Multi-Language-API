@@ -13,7 +13,9 @@ $.MltApi.HomeIndexLinkClicked = function (elem) {
         function () {
             $.get("../../",
                 function (data) {
-                    $("#breadcrumb-parent").html("<i class='fa fa-globe'></i>" + "Home");
+                    $(".content-header h1").html("Dashboard <small>Hello! This is your administration panel.</small>");
+                    $("#breadcrumb-parent").html("<i class='fa fa-globe'></i>Index");
+                    $("#breadcrumb-child").html("Home");
                     $("#page-content").html(data);
                     $("#page-content").fadeTo("fast", 1);
                     $("#first-row-content").fadeTo("fast", 0);
