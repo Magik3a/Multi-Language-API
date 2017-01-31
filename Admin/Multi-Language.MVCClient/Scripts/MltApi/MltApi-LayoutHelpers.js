@@ -13,6 +13,7 @@ $.MltApi.HomeIndexLinkClicked = function (elem) {
         function () {
             $.get("../../",
                 function (data) {
+                    $("body").removeClass("sidebar-open");
                     $(".content-header h1").html("Dashboard <small>Hello! This is your administration panel.</small>");
                     $("#breadcrumb-parent").html("<i class='fa fa-globe'></i>Index");
                     $("#breadcrumb-child").html("Home");

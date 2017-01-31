@@ -20,8 +20,6 @@ using WebGrease.Css.Extensions;
 
 namespace Multi_Language.MVCClient.Controllers
 {
-    [Authorize]
-    [Authentication]
     public class HomeController : BaseController
     {
         private readonly IProjectsServices projectServices;
@@ -46,6 +44,8 @@ namespace Multi_Language.MVCClient.Controllers
             this.manifestService = manifestService;
         }
 
+        [Authorize]
+        [Authentication]
         public ActionResult Index()
         {
             var model = new IndexViewModels
@@ -76,6 +76,8 @@ namespace Multi_Language.MVCClient.Controllers
             return View(model);
         }
 
+        [Authorize]
+        [Authentication]
         public SystemStabilityBoxViewModel GetSystemStabilityLoggsViewModel(int hoursBefore = 24)
         {
             var loggsBefore = -hoursBefore;
@@ -114,11 +116,15 @@ namespace Multi_Language.MVCClient.Controllers
             };
         }
 
+        [Authorize]
+        [Authentication]
         public ActionResult GetSystemStabilityBox(int? hoursBefore)
         {
             return PartialView("InnerPartials/SystemStabilityBox", GetSystemStabilityLoggsViewModel(hoursBefore??24));
         }
 
+        [Authorize]
+        [Authentication]
         public ActionResult About()
         {
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "About page", "About description page");
@@ -129,6 +135,8 @@ namespace Multi_Language.MVCClient.Controllers
         }
 
 
+        [Authorize]
+        [Authentication]
         public ActionResult Contact()
         {
             SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Contact page", "Contact description page");
@@ -181,6 +189,7 @@ namespace Multi_Language.MVCClient.Controllers
         [NoTrailingSlash]
         [OutputCache(Duration = 8200)]
         [Route("opensearch.xml", Name = "opensearch")]
+        [AllowAnonymous]
         public ActionResult OpenSearchXml()
         {
             //string content = this.openSearchService.GetOpenSearchXml();
@@ -199,6 +208,7 @@ namespace Multi_Language.MVCClient.Controllers
         [NoTrailingSlash]
         [OutputCache(Duration = 8200)]
         [Route("robots.txt", Name = "robots")]
+        [AllowAnonymous]
         public ActionResult RobotsText()
         {
             //string content = this.robotsService.GetRobotsText();
@@ -216,6 +226,7 @@ namespace Multi_Language.MVCClient.Controllers
         /// <returns>The sitemap XML for the current site.</returns>
         [NoTrailingSlash]
         [Route("sitemap.xml", Name = "sitemap")]
+        [AllowAnonymous]
         public async Task<ActionResult> SitemapXml(int? index = null)
         {
             //string content = await this.sitemapService.GetSitemapXml(index);
@@ -226,6 +237,12 @@ namespace Multi_Language.MVCClient.Controllers
             }
 
             return this.Content(content, Boilerplate.Web.Mvc.ContentType.Xml, Encoding.UTF8);
+        }
+
+        [AllowAnonymous]
+        public ActionResult MetaTags()
+        {
+            return PartialView("~/Views/Shared/LayoutPartials/MetaTagsPartial.cshtml");
         }
     }
 }

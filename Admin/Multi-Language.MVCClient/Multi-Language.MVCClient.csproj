@@ -1125,6 +1125,7 @@
     <Content Include="Views\DocMultilanguage\GettingStartedPartials\CreateContextsPartial.cshtml" />
     <Content Include="Views\DocMultilanguage\GettingStartedPartials\CreateTranslationsPartial.cshtml" />
     <Content Include="Views\Shared\LayoutPartials\LockScreen.cshtml" />
+    <Content Include="Views\Shared\LayoutPartials\MetaTagsPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

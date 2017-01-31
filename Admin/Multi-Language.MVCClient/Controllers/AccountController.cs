@@ -66,7 +66,11 @@ namespace Multi_Language.MVCClient.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
+            if (!string.IsNullOrWhiteSpace(returnUrl))
+                ViewBag.ReturnUrl = returnUrl;
+            else
+                ViewBag.ReturnUrl = "";
+
             return View();
         }
 
@@ -95,7 +99,10 @@ namespace Multi_Language.MVCClient.Controllers
                     {
                         // TODO Change the way user is loged in. There is no need for mvc autorization?
                     }
-
+                    if (string.IsNullOrWhiteSpace(returnUrl))
+                    {
+                        return RedirectToAction("Index", "Home");
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -120,7 +127,7 @@ namespace Multi_Language.MVCClient.Controllers
         }
         private async Task<bool> PerformTokenRefreshActions(string email, string password)
         {
-            //TODO Make something smart here 
+            //TODO Make something smart here
             var response = await loginClient.GrandResourceOwnerAccess(email, password);
             if (response.StatusIsSuccessful)
             {
