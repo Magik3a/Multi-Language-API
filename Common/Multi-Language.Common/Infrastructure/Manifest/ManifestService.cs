@@ -23,6 +23,7 @@ namespace Multi_language.Common.Infrastructure.Manifest
         {
             JObject document = new JObject(
                 new JProperty("short_name", siteShortTitle),
+                new JProperty("display", "standalone"),
                 new JProperty("name", siteTitle),
                 new JProperty("icons",
                     new JArray(

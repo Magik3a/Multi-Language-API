@@ -82,7 +82,7 @@
 @* Description - Used by search engines. Aim for more than 160 characters. *@
 <meta name="description" content="Admin panel with web API for multi-language support and integration in all kind of clients (android, ios, web sites...) ">
 @{
-    string baseUrl = string.Format("{0}://{1}{2}", Request.Url.Scheme, Request.Url.Authority, Url.Content("~"));
+    string baseUrl = $"{Request.Url.Scheme}://{Request.Url.Authority}{Url.Content("~")}";
 }
 <meta property="fb:app_id" content="1155361694529040" />
 <meta property="og:url" content="@baseUrl" />
@@ -90,5 +90,17 @@
 <meta property="og:title" content="Multi API Administrator" />
 <meta property="og:description" content="Admin panel with web API for multi-language support and integration in all kind of clients (android, ios, web sites...)" />
 <meta property="og:image" content="@(baseUrl)Images/Socials/banner/Banner-03-VS.png" />
+
+
+<meta name="author" content="www.s2kdesign.com">
+<meta name="Email" content="s.krastanov@s2kdesign.com" />
+<meta name="COPYRIGHT" content="Copyright @DateTime.Now.Year s2kdesign.com, Bulgaria, Plovdiv" />
+<meta name="Distribution" content="Global" />
+<meta name="Rating" content="General" />
+<meta name="geo.country" content="BG" />
+
+<meta name="twitter:title" content="Multi API Configuration Administrator" />
+<meta name="twitter:description" content="Admin panel with web API for multi-language support and integration in all kind of clients (android, ios, web sites...)" />
+<meta name="twitter:image" content="https://www.bc-vit.bg/images/logo/bcvitLogo.PNG" />
 
 @*      SEO End point        *@
