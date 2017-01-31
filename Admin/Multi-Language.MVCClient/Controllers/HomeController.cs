@@ -12,6 +12,7 @@ using System.Web.Mvc;
 using Boilerplate.Web.Mvc.Filters;
 using Multi_language.ApiHelper;
 using Multi_language.Common.Infrastructure.Manifest;
+using Multi_language.Common.Infrastructure.Sitemap;
 using Multi_language.Models;
 using Multi_Language.MVCClient.Attributes;
 using Multi_Language.MVCClient.Models.SectionsViewModels;
@@ -68,7 +69,7 @@ namespace Multi_Language.MVCClient.Controllers
 
 
 
-            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Index page", "Index description page");
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Dashboard", "Hello! This is your administration panel.");
             if (Request.IsAjaxRequest())
                 return PartialView(model);
 
