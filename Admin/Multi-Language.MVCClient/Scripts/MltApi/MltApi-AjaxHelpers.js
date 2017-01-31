@@ -52,6 +52,7 @@ $.MltApi.AjaxClickComplete = function (action, controller, icon, clearPage) {
 };
 
 $.MltApi.AjaxClickSuccess = function (data, status, xhr) {
+    $("body").removeClass("sidebar-open");
     $(".content-header h1").html(xhr.getResponseHeader("ContentHeader") + " <small>" + xhr.getResponseHeader("ContentDescription") + "</small>");
     if (xhr.getResponseHeader("ProjectIsChanged") != null) {
         $("#project-box").fadeTo("fast", 0, function () {
