@@ -107,6 +107,7 @@
 
         <!-- jQuery -->
         @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
 
         <!-- Bootstrap -->
         @Scripts.Render("~/bundles/bootstrap")
@@ -119,16 +120,19 @@
         @{
             var reservedSpace = $"{Utils.GetDiskSpaceUsedPercentage():N1}";
             var freeSpace = $"{100 - Utils.GetDiskSpaceUsedPercentage():N1}";
-
+            var authenticated = User.Identity.IsAuthenticated;
             var baseAdressApi = System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"];
         }
-        <!-- Signalr Configuration and hubs-->
-        <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
-        <script src="@baseAdressApi/signalr/hubs"></script>
-        <script src="~/Scripts/MltApi/SignalR/MltApi-InternalHub.js"></script>
-        <script src="~/Scripts/MltApi/SignalR/InternalHub/MltApi-InternalHubRecievers.js"></script>
 
+        @if (authenticated)
+        {
+            <!-- Signalr Configuration and hubs-->
+            <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+            <script src="@baseAdressApi/signalr/hubs"></script>
+            <script src="~/Scripts/MltApi/SignalR/MltApi-InternalHub.js"></script>
+            <script src="~/Scripts/MltApi/SignalR/InternalHub/MltApi-InternalHubRecievers.js"></script>
 
+        }
         <style>
             .kv-file-zoom {
                 display: none;
@@ -142,10 +146,11 @@
             //Global variables. TODO Consider removing them
             $.MltApi.FreeSpace = @freeSpace;
             $.MltApi.ReservedSpace = @reservedSpace;
-            $(document).ajaxStart(function () {
+            $.MltApi.Authenticated = "@authenticated";
+            $(document).ajaxStart(function() {
                 Pace.restart();
             });
-            $(document).ready(function () {
+            $(document).ready(function() {
                 $.MltApi.HideHomeLogoText();
 
                 $.MltApi.HideItemsOnMobile();
@@ -153,7 +158,7 @@
 
                 $.MltApi.InitialisePlugins();
                 //if documentation controller
-                $.MltApi.ExpandAllPanels = function () {
+                $.MltApi.ExpandAllPanels = function() {
                     $('#accordion .panel-collapse').collapse('toggle');
                 };
 
@@ -162,7 +167,9 @@
                 $.MltApi.LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
 
                 //Init SignalR hubs after all
-                $.MltApi.InitInternalHub("@baseAdressApi/signalr");
+                if ($.MltApi.Authenticated !== "False") {
+                    $.MltApi.InitInternalHub("@baseAdressApi/signalr");
+                }
 
             });
         </script>

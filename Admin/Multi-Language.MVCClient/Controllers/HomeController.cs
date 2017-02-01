@@ -123,16 +123,7 @@ namespace Multi_Language.MVCClient.Controllers
             return PartialView("InnerPartials/SystemStabilityBox", GetSystemStabilityLoggsViewModel(hoursBefore??24));
         }
 
-        [Authorize]
-        [Authentication]
-        public ActionResult About()
-        {
-            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "About page", "About description page");
-            if (Request.IsAjaxRequest())
-                return PartialView();
 
-            return View();
-        }
 
 
         [Authorize]

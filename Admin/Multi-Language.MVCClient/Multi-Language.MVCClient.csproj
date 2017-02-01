@@ -228,6 +228,7 @@
     <Compile Include="Attributes\AuthenticationAttribute.cs" />
     <Compile Include="Attributes\CatchErrorAttribute.cs" />
     <Compile Include="Attributes\ValidationActionFilterAttribute.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Documentation\DocMultilanguageController.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="Models\SectionsViewModels\ProjectsBoxDropDownsViewModels.cs" />
     <Compile Include="Models\SectionsViewModels\ResourcesFirstRowSectionViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\SystemStabilityBoxViewModel.cs" />
+    <Compile Include="Models\SendEmailViewModel.cs" />
     <Compile Include="Models\UtilitiesViewModels\BackupViewModels.cs" />
     <Compile Include="Models\UtilitiesViewModels\SystemViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -310,8 +312,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\cssbundle\font-awesome.css" />
-    <Content Include="Content\cssbundle\font-awesome.min.css" />
     <Content Include="Content\cssbundle\select2.css" />
     <Content Include="Content\cssbundle\select2.min.css" />
     <Content Include="Content\Custom.css">
@@ -755,6 +755,8 @@
     <Content Include="Content\pace\themes\yellow\pace-theme-loading-bar.css" />
     <Content Include="Content\pace\themes\yellow\pace-theme-mac-osx.css" />
     <Content Include="Content\pace\themes\yellow\pace-theme-minimal.css" />
+    <Content Include="Content\cssbundle\font-awesome.css" />
+    <Content Include="Content\cssbundle\font-awesome.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -817,11 +819,6 @@
     <Content Include="Scripts\AddToHomeScreen\addtohomescreen.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\fonts\FontAwesome.otf" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\ionicons\_ionicons-variables.less" />
     <Content Include="Content\ionicons\_ionicons-icons.less" />
     <Content Include="Content\ionicons\_ionicons-font.less" />
@@ -846,6 +843,11 @@
     <Content Include="fonts\ionicons.woff" />
     <Content Include="Content\bootstrap-fileinput\sass\fileinput.scss" />
     <Content Include="Content\Custom.scss" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <None Include="Properties\PublishProfiles\adminnetfactuur.pubxml" />
     <None Include="Properties\PublishProfiles\admins2kdesign.pubxml" />
     <Content Include="Scripts\Chart.js" />
@@ -1063,7 +1065,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -1131,6 +1132,8 @@
     <Content Include="Views\DocMultilanguage\GettingStartedPartials\CreateTranslationsPartial.cshtml" />
     <Content Include="Views\Shared\LayoutPartials\LockScreen.cshtml" />
     <Content Include="Views\Shared\LayoutPartials\MetaTagsPartial.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\About\SendEmailPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

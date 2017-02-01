@@ -121,36 +121,59 @@
                 <li class="dropdown user user-menu">
                     <!-- Menu Toggle Button -->
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <!-- The user image in the navbar-->
-                        <img src="~/Images/user2-160x160.jpg" class="user-image" alt="User Image">
-                        <!-- hidden-xs hides the username on small devices so only the image appears. -->
-                        <span class="hidden-xs">@User.Identity.Name</span>
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <!-- The user image in the navbar-->
+                            <img src="~/Images/user2-160x160.jpg" class="user-image" alt="User Image">
+                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                            <span class="hidden-xs">@User.Identity.Name</span>
+                        }
+                        else
+                        {
+                             <!-- The user image in the navbar-->
+                            <img src="~/Images/Socials/icons/apple-touch-icon-152x152.png" class="user-image" alt="User Image">
+                            <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                            <span class="hidden-xs">Anonymous access</span>
+                        }
                     </a>
                     <ul class="dropdown-menu">
                         <!-- The user image in the menu -->
                         <li class="user-header">
-                            <img src="~/Images/user2-160x160.jpg" class="img-circle" alt="User Image">
 
-                            <p>
-                                @User.Identity.Name - Web Developer
-                                <small>Member since Nov. 2012</small>
-                            </p>
+                            @if (User.Identity.IsAuthenticated)
+                            {
+                                <img src="~/Images/user2-160x160.jpg" class="img-circle" alt="User Image">
+
+                                <p>
+                                    @User.Identity.Name - Web Developer
+                                    <small>Member since Nov. 2012</small>
+                                </p>
+                            }
+                            else
+                            {
+                                <img src="~/Images/Socials/icons/apple-touch-icon-152x152.png" class="img-circle" alt="User Image">
+
+                                <p>
+                                    Log in to access all of the features!
+                                    <small>Check the links below if you need a registration!</small>
+                                </p>
+                            }
                         </li>
                         <!-- Menu Body -->
-                        <li class="user-body">
-                            <div class="row">
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Followers</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Sales</a>
-                                </div>
-                                <div class="col-xs-4 text-center">
-                                    <a href="#">Friends</a>
-                                </div>
-                            </div>
-                            <!-- /.row -->
-                        </li>
+                        <!-- <li class="user-body">
+                             <div class="row">
+                                 <div class="col-xs-4 text-center">
+                                     <a href="#">Followers</a>
+                                 </div>
+                                 <div class="col-xs-4 text-center">
+                                     <a href="#">Sales</a>
+                                 </div>
+                                 <div class="col-xs-4 text-center">
+                                     <a href="#">Friends</a>
+                                 </div>
+                             </div>
+                         </li>-->
                         <!-- Menu Footer-->
                         <li class="user-footer">
 

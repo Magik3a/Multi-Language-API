@@ -12,6 +12,11 @@ namespace Multi_Language.MVCClient.Attributes
     {
         private readonly ITokenContainer tokenContainer;
 
+        private bool IsAjax(ResultExecutedContext filterContext)
+        {
+            return filterContext.HttpContext.Request.Headers["X-Requested-With"] == "XMLHttpRequest";
+        }
+
         public AuthenticationAttribute()
         {
             tokenContainer = new TokenContainer();

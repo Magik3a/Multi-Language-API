@@ -9,7 +9,7 @@ $.MltApi.AjaxClickBegin = function (elem) {
     }
     $("#page-content").fadeTo(0, 0, function () {
         if (target.is("li")) {
-            $(elem).append("<span id='mainSidebarLoader'><i class='fa fa-refresh fa-spin pull-right'></i></span>");
+            $(elem).append("<span id='mainSidebarLoader'><i class='fa fa-spinner fa-spin pull-right'></i></span>");
             target.addClass("active");
         }
     });
@@ -98,4 +98,8 @@ $.MltApi.AjaxLoginFromLockScreenSuccess = function (data, status, xhr) {
              });
              $(".lockscreen-wrapper").slideUp(300);
          });
+};
+
+$.MltApi.SendEmail = function (data, status, xhr) {
+
 };

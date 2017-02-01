@@ -8,6 +8,7 @@ using Multi_Language.MVCClient.Models.UtilitiesViewModels;
 
 namespace Multi_Language.MVCClient.Controllers.Utilities
 {
+    [Authorize]
     [Authentication]
     public class SystemController : BaseController
     {
