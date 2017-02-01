@@ -102,7 +102,7 @@ $.MltApi.LoadProjectBox = function () {
     }
     $.get({ url: "../../Sections/ProjectBox", cache: false }).then(function (data) {
         $("#project-box .box").fadeOut(500,
-            function() {
+            function () {
                 $("#project-box").append(data);
                 $.get({ url: "../../Sections/ProjectBoxDropDowns", cache: false }).then(function (data2) {
                     $("#project-box").append(data2);
@@ -123,16 +123,16 @@ $.MltApi.HideHomeLogoText = function () {
         var navbarHeight = $('#home-logo').outerHeight();
 
 
-        $(window).scroll(function(event) {
+        $(window).scroll(function (event) {
             didScroll = true;
         });
 
-        setInterval(function() {
-                if (didScroll) {
-                    hasScrolled();
-                    didScroll = false;
-                }
-            },
+        setInterval(function () {
+            if (didScroll) {
+                hasScrolled();
+                didScroll = false;
+            }
+        },
             250);
 
         function hasScrolled() {
@@ -160,6 +160,27 @@ $.MltApi.HideHomeLogoText = function () {
         }
     }
 };
+
+$.MltApi.ShowItemOnMobile = function (item) {
+    $(item).fadeOut(500);
+    $(item).parent().children(".hide-on-mobile").fadeIn(500,
+        function () {
+
+        });
+};
+$.MltApi.HideItemsOnMobile = function () {
+    // CHECK if mobile
+   // if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+    // Hide Header on on scroll
+    $.each($(".hide-on-mobile"),function(i, item) {
+        $(item).fadeOut(500,
+            function() {
+                $(item).parent().append("<button type='button' class='btn btn-info btn-sm' onclick=\"$.MltApi.ShowItemOnMobile(this)\">SHOW</button>");
+            });
+    });
+    // };
+};
+
 window.onpopstate = function (e) {
     if (e.state) {
         $(".wrapper").html(e.state.html);

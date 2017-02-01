@@ -36,14 +36,14 @@
                         @Html.DisplayNameFor(model => model.IsActive)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.UserName)
+                        User Name
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.DateChanged)
                     </th>
-                    <th>
+                    @*<th>
                         @Html.DisplayNameFor(model => model.DateCreated)
-                    </th>
+                    </th>*@
                     <th></th>
                 </tr>
             </thead>
@@ -62,14 +62,14 @@
                         @Html.DisplayNameFor(model => model.IsActive)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.UserName)
+                       User Name
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.DateChanged)
                     </th>
-                    <th>
+                    @*<th>
                         @Html.DisplayNameFor(model => model.DateCreated)
-                    </th>
+                    </th>*@
                     <th></th>
                 </tr>
             </tfoot>
@@ -90,14 +90,24 @@
                             @Html.DisplayFor(modelItem => item.IsActive)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.UserName)
+                            <button class="btn btn-primary btn-xs"
+                                    data-toggle="collapse" data-target="#show-@item.IdLanguage" aria-expanded="false" aria-controls="show-@item.IdLanguage">
+                                SHOW
+                            </button>
+
+                            <div class="collapse" id="show-@item.IdLanguage">
+                                <div class="well">
+                                    @Html.DisplayFor(modelItem => item.UserName)
+
+                                </div>
+                            </div>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.DateChanged)
                         </td>
-                        <td>
+                        @*<td>
                             @Html.DisplayFor(modelItem => item.DateCreated)
-                        </td>
+                        </td>*@
                         <td>
                              @{
                                 var url = System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"];

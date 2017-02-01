@@ -10,6 +10,7 @@ namespace Multi_Language.MVCClient.Models
 {
     public class ProjectsViewModel : IMapFrom<Projects>
     {
+        [Display(Name = "Id")]
         public int IdProject { get; set; }
 
         [Required]
@@ -18,8 +19,10 @@ namespace Multi_Language.MVCClient.Models
 
         public string UserId { get; set; }
 
+        [Display(Name = "Date Changed")]
         public DateTime? DateChanged { get; set; }
 
+        [Display(Name = "Date Created")]
         public DateTime? DateCreated { get; set; }
 
         public virtual AppUser User { get; set; }

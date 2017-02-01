@@ -26,18 +26,18 @@
             <thead>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.PhraseContext.IdPhraseContext)
+                        Id
 
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Language.Name)
+                        Lang.
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.User.UserName)
+                        User Name
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.PhraseText)
+                        Text
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.DateChanged)
@@ -51,18 +51,18 @@
             <tfoot>
                 <tr>
                     <th>
-                        @Html.DisplayNameFor(model => model.PhraseContext.IdPhraseContext)
+                        Id
 
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.Language.Name)
+                        Lang.
                     </th>
 
                     <th>
-                        @Html.DisplayNameFor(model => model.User.UserName)
+                       User Name
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.PhraseText)
+                        Text
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.DateChanged)
@@ -87,7 +87,17 @@
                             @Html.DisplayFor(modelItem => item.Language.Name)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.User.UserName)
+                            <button class="btn btn-primary btn-xs"
+                                    data-toggle="collapse" data-target="#show-@item.IdPhrase" aria-expanded="false" aria-controls="show-@item.IdPhrase">
+                                SHOW
+                            </button>
+
+                            <div class="collapse" id="show-@item.IdPhrase">
+                                <div class="well">
+                                    @Html.DisplayFor(modelItem => item.User.UserName)
+
+                                </div>
+                            </div>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.PhraseText)
@@ -115,7 +125,7 @@
                             </div>
                         </td>
                     </tr>
-                }
+                                }
             </tbody>
         </table>
     </div>
