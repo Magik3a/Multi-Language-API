@@ -323,7 +323,7 @@ namespace Multi_Language.MVCClient.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+           var user = await UserManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
@@ -408,7 +408,13 @@ namespace Multi_Language.MVCClient.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+
+                    var loginSuccess = await PerformLoginActions(loginInfo.Login.LoginProvider, loginInfo.Login.ProviderKey);
+                    if (loginSuccess)
+                    {
+                        //TODO
+                    }
+                        return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

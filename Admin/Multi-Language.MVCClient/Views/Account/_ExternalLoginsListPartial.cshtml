@@ -22,8 +22,8 @@
                                 id="@p.AuthenticationType"
                                 name="provider"
                                 value="@p.AuthenticationType"
-                                title="Log in using your @p.Caption account" class="btn btn-block btn-social btn-@p.AuthenticationType btn-flat">
-                            <i class="fa fa-@p.AuthenticationType"></i>
+                                title="Log in using your @p.Caption account" class="btn btn-block btn-social btn-@p.AuthenticationType.ToLower() btn-flat">
+                            <i class="fa fa-@p.AuthenticationType.ToLower()"></i>
                             @p.AuthenticationType
                         </button>
                     }

@@ -8,6 +8,7 @@ using Ninject;
 using Owin;
 using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Data.Entity;
 using System.Linq;
 using System.Reflection;
@@ -148,8 +149,8 @@ namespace Multi_Language.DataApi
             //Configure Facebook External Login
             facebookAuthOptions = new FacebookAuthenticationOptions()
             {
-                AppId = "xxxxxx",
-                AppSecret = "xxxxxx",
+                AppId = ConfigurationManager.AppSettings["FacebookAppID"],
+                AppSecret = ConfigurationManager.AppSettings["FacebookAppSecret"],
                 Provider = new FacebookAuthProvider()
             };
             app.UseFacebookAuthentication(facebookAuthOptions);
