@@ -18,7 +18,7 @@ using Multi_Language.MVCClient.ApiInfrastructure.Client;
 namespace Multi_Language.MVCClient.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -125,17 +125,7 @@ namespace Multi_Language.MVCClient.Controllers
 
             return response.StatusIsSuccessful;
         }
-        private async Task<bool> PerformTokenRefreshActions(string email, string password)
-        {
-            //TODO Make something smart here
-            var response = await loginClient.GrandResourceOwnerAccess(email, password);
-            if (response.StatusIsSuccessful)
-            {
-                tokenContainer.ApiToken = response.Data;
-            }
 
-            return response.StatusIsSuccessful;
-        }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -154,7 +144,7 @@ namespace Multi_Language.MVCClient.Controllers
             {
                 case SignInStatus.Success:
 
-                    var loginSuccess = await PerformTokenRefreshActions(username, password);
+                    var loginSuccess = await PerformLoginActions(username, password);
                     if (loginSuccess)
                     {
                         // TODO Change the way user is loged in. There is no need for mvc autorization?
@@ -397,6 +387,8 @@ namespace Multi_Language.MVCClient.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Account", "External login confirmation");
+
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
@@ -407,6 +399,7 @@ namespace Multi_Language.MVCClient.Controllers
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
             {
+
                 case SignInStatus.Success:
 
                     var loginSuccess = await PerformLoginActions(loginInfo.Login.LoginProvider, loginInfo.Login.ProviderKey);
@@ -422,8 +415,10 @@ namespace Multi_Language.MVCClient.Controllers
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
+
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
@@ -449,14 +444,20 @@ namespace Multi_Language.MVCClient.Controllers
                     return View("ExternalLoginFailure");
                 }
                 var user = new AppUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
+                var result = await UserManager.CreateAsync(user, model.NewPassword);
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
+                        var response = await loginClient.GrandResourceOwnerAccess(model.Email, model.NewPassword);
+
+                        if (!response.StatusIsSuccessful)
+                        {
+                            //TODO Show error in view bag
+                        }
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 AddErrors(result);

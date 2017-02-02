@@ -204,6 +204,7 @@
     <Compile Include="ApiInfrastructure\ApiModels\BackupApiModel.cs" />
     <Compile Include="ApiInfrastructure\ApiModels\LoginApiModel.cs" />
     <Compile Include="ApiInfrastructure\ApiModels\RegisterApiModel.cs" />
+    <Compile Include="ApiInfrastructure\ApiModels\RegisterExternalApiModel.cs" />
     <Compile Include="ApiInfrastructure\ApiModels\SystemInfoApiModel.cs" />
     <Compile Include="ApiInfrastructure\Client\BackupClient.cs" />
     <Compile Include="ApiInfrastructure\Client\Contracts\IBackupClient.cs" />

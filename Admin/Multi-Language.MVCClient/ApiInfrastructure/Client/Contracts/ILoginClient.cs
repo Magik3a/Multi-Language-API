@@ -11,5 +11,7 @@
         Task<TokenResponse> GrandResourceOwnerAccess(string email, string password);
 
         Task<RegisterResponse> Register(RegisterViewModel viewModel);
+
+        Task<RegisterResponse> RegisterExternal(RegisterExternalViewModel viewModel);
     }
 }

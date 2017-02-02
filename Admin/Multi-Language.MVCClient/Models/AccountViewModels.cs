@@ -3,6 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Multi_Language.MVCClient.Models
 {
+    public class RegisterExternalViewModel
+    {
+        public string UserName { get; set; }
+
+        public string Provider { get; set; }
+
+        public string ExternalAccessToken { get; set; }
+    }
     public class ExternalLoginConfirmationViewModel
     {
         [Required]
@@ -17,7 +25,7 @@ namespace Multi_Language.MVCClient.Models
 
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Compare("NewPassword", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
     }
 

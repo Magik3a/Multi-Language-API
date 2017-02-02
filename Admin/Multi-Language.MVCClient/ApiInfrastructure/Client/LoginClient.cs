@@ -11,6 +11,8 @@ namespace Multi_Language.MVCClient.ApiInfrastructure.Client
     public class LoginClient : ClientBase, ILoginClient
     {
         private const string RegisterUri = "api/account/register";
+        private const string RegisterExternalUri = "api/account/registerexternal";
+
         private const string TokenUri = "token";
         private const string ResourceOwnerAccessUri = "token";
         public LoginClient(IApiClient apiClient) : base(apiClient)
@@ -78,6 +80,20 @@ namespace Multi_Language.MVCClient.ApiInfrastructure.Client
                 Password = viewModel.Password
             };
             var response = await ApiClient.PostJsonEncodedContent(RegisterUri, apiModel);
+            var registerResponse = await CreateJsonResponse<RegisterResponse>(response);
+            return registerResponse;
+        }
+
+
+        public async Task<RegisterResponse> RegisterExternal(RegisterExternalViewModel viewModel)
+        {
+            var apiModel = new RegisterExternalApiModel()
+            {
+               provider = viewModel.Provider,
+               ExternalAccessToken = viewModel.ExternalAccessToken,
+               userName = viewModel.UserName
+            };
+            var response = await ApiClient.PostJsonEncodedContent(RegisterExternalUri, apiModel);
             var registerResponse = await CreateJsonResponse<RegisterResponse>(response);
             return registerResponse;
         }

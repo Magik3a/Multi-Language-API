@@ -94,7 +94,7 @@ $.MltApi.LoadProjectBox = function () {
     var url = $(location).attr('href').split('/');
 
     // Clear first row for some pages
-    if (url[3] === "Documentation" || url[3] === "About") {
+    if (url[3] === "Documentation" || url[3] === "About" || url[3] === "Account") {
         $("#project-box").fadeTo("fast",
            0,
            function () {
