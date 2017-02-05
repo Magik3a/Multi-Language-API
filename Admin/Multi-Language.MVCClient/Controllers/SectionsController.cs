@@ -102,7 +102,7 @@ namespace Multi_Language.MVCClient.Controllers
             if (id == "Home" || id == "")
             {
                 var model = new HomeFirstRowSectionViewModel();
-                model.BearerToken = tokenContainer?.ApiToken.ToString();
+                //model.BearerToken = tokenContainer?.ApiToken.ToString();
                 return PartialView("HomeFirstRowSection", model);
             }
             if (id == "Resources")

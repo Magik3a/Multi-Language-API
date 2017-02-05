@@ -7,7 +7,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Mime;
 using System.Net.Sockets;
+using System.Security.Cryptography;
 using System.Security.Principal;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Multi_language.Common
@@ -169,7 +171,7 @@ namespace Multi_language.Common
             return valueString.Split(new[] { ',', ';' }, StringSplitOptions.RemoveEmptyEntries).Select(_ => _.Trim()).Where(_ => !string.IsNullOrEmpty(_));
         }
 
-   
+
         /// <summary>
         /// Helper method to convert a DateTime to nice string representation that can be used in log statements.
         /// </summary>
@@ -235,6 +237,21 @@ namespace Multi_language.Common
             }
 
             return result.UppercaseFirst();
+        }
+
+        public static byte[] GetHash(string inputString)
+        {
+            HashAlgorithm algorithm = MD5.Create();  //or use SHA1.Create();
+            return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
+        }
+
+        public static string GetHashString(string inputString)
+        {
+            StringBuilder sb = new StringBuilder();
+            foreach (byte b in GetHash(inputString))
+                sb.Append(b.ToString("X2"));
+
+            return sb.ToString();
         }
 
         private static string GetMinutes(TimeSpan timeSpan)

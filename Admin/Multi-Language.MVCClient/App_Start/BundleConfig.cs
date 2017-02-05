@@ -40,6 +40,7 @@ namespace Multi_Language.MVCClient
                       "~/Scripts/fileinput.min.js",
                       "~/Scripts/Chart.min.js",
                       "~/Scripts/MltApi/Knockout/MltApi-Ko-ChartJS.js",
+                      // "~/Scripts/AddToHomeScreen/addtohomescreen.min.js",
 
                       "~/Scripts/MltApi/MltApi-AjaxHelpers.js",
                       "~/Scripts/MltApi/MltApi-InitPlugins.js",
@@ -73,7 +74,9 @@ namespace Multi_Language.MVCClient
                       "~/admin-lte/css/skins/skin-red.css",
                       "~/Content/pace/themes/white/pace-theme-flash.css",
                       "~/Content/pace.css",
-                      "~/Content/Custom.min.css"));
+                      "~/Content/Custom.min.css"
+                      // "~/Content/AddToHomeScreen/addtohomescreen.css"
+                      ));
         }
     }
 }

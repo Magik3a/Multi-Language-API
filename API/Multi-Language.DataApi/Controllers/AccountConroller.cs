@@ -18,7 +18,7 @@ using System.Web.Http;
 
 namespace Multi_Language.DataApi.Controllers
 {
-    
+
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -70,7 +70,7 @@ namespace Multi_Language.DataApi.Controllers
                 return BadRequest(Uri.EscapeDataString(error));
             }
 
-            if (!User.Identity.IsAuthenticated)
+            if (User == null || !User.Identity.IsAuthenticated)
             {
                 return new ChallengeResult(provider, this);
             }
@@ -303,7 +303,7 @@ namespace Multi_Language.DataApi.Controllers
             {
                 //You can get it from here: https://developers.facebook.com/tools/accesstoken/
                 //More about debug_tokn here: http://stackoverflow.com/questions/16641083/how-does-one-get-the-app-access-token-for-debug-token-inspection-on-facebook
-                var appToken = "xxxxxx";
+                var appToken = "1155361694529040|HWeewovsIrkEYfDd2jhJd7t9_Uw";
                 verifyTokenEndPoint = string.Format("https://graph.facebook.com/debug_token?input_token={0}&access_token={1}", accessToken, appToken);
             }
             else if (provider == "Google")

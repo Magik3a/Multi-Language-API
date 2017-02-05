@@ -1,19 +1,43 @@
 ﻿using System;
+using System.Configuration;
+using System.Web.Hosting;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
+using Microsoft.Owin.Security.OAuth;
 using Owin;
 using Multi_Language.MVCClient.Models;
 using Multi_language.Models;
 using Multi_language.Data;
+using Multi_Language.MVCClient.Providers;
 
 namespace Multi_Language.MVCClient
 {
     public partial class Startup
     {
+        public static OAuthAuthorizationServerOptions OAuthOptions { get; private set; }
+
+
+        public static string PublicClientId { get; private set; }
+
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
+        static Startup()
+        {
+            PublicClientId = "ngAuthApp";
+            OAuthOptions = new OAuthAuthorizationServerOptions
+            {
+                TokenEndpointPath = new PathString("/Token"),
+                AuthorizeEndpointPath = new PathString("/Account/ObtainLocalAccessToken"),
+                Provider = new ApplicationOAuthProvider(PublicClientId),
+                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                AllowInsecureHttp = true,
+            };
+
+
+        }
+
         public void ConfigureAuth(IAppBuilder app)
         {
             // Configure the db context, user manager and signin manager to use a single instance per request
@@ -21,6 +45,7 @@ namespace Multi_Language.MVCClient
             app.CreatePerOwinContext<ApplicationUserManager>(ApplicationUserManager.Create);
             app.CreatePerOwinContext<ApplicationSignInManager>(ApplicationSignInManager.Create);
 
+            app.UseOAuthBearerTokens(OAuthOptions);
             // Enable the application to use a cookie to store information for the signed in user
             // and to use a cookie to temporarily store information about a user logging in with a third party login provider
             // Configure the sign in cookie
@@ -56,15 +81,17 @@ namespace Multi_Language.MVCClient
             //   consumerKey: "",
             //   consumerSecret: "");
 
-            //app.UseFacebookAuthentication(
-            //   appId: "",
-            //   appSecret: "");
+            if(!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["FacebookAppID"]))
+            app.UseFacebookAuthentication(
+               appId: ConfigurationManager.AppSettings["FacebookAppID"],
+               appSecret: ConfigurationManager.AppSettings["FacebookAppSecret"]);
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            if (!string.IsNullOrWhiteSpace(ConfigurationManager.AppSettings["GoogleClientID"]))
+                app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = ConfigurationManager.AppSettings["GoogleClientID"],
+                ClientSecret = ConfigurationManager.AppSettings["GoogleClientSecret"]
+            });
         }
     }
 }

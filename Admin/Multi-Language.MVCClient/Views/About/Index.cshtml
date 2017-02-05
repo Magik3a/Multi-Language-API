@@ -1,0 +1,38 @@
+﻿
+@{
+    ViewBag.Title = "About";
+}
+<div class="row">
+    <div class="col-md-4 col-md-offset-4">
+        <img src="~/Images/Socials/banner/left-logo.png" class="image img-responsive img-thumbnail" />
+    </div>
+</div>
+
+<div class="row" style="margin-top: 50px">
+    <div class="col-md-10 col-md-offset-1">
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <i class="fa fa-envelope-square"></i>
+
+                <h3 class="box-title">Say "Hi" to the author!</h3>
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body clearfix">
+                <blockquote>
+                    <p> Thank you for using this application. If you have any regards or ideas for new functionalities or bugs, please don't hesitate to send me a message!</p>
+                    <small>Svetlin Krastanov - <cite title="Source Title">www.s2kdesign.com</cite></small>
+                </blockquote>
+                <hr />
+                <div class="col-md-8 col-md-offset-2">
+                    @Html.Partial("SendEmailPartial")
+
+                </div>
+            </div>
+
+            <!-- /.box-body -->
+
+
+        </div>
+    </div>
+
+</div>

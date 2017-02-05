@@ -30,7 +30,7 @@
                         @Html.DisplayNameFor(model => model.IdPhraseContext)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.User.UserName)
+                        User Name
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Context)
@@ -50,7 +50,7 @@
                         @Html.DisplayNameFor(model => model.IdPhraseContext)
                     </th>
                     <th>
-                        @Html.DisplayNameFor(model => model.User.UserName)
+                        User Name
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Context)
@@ -72,7 +72,17 @@
                             @Html.DisplayFor(modelItem => item.IdPhraseContext)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.User.UserName)
+                            <button class="btn btn-primary btn-xs"
+                                    data-toggle="collapse" data-target="#show-@item.IdPhraseContext" aria-expanded="false" aria-controls="show-@item.IdPhraseContext">
+                                SHOW
+                            </button>
+
+                            <div class="collapse" id="show-@item.IdPhraseContext">
+                                <div class="well">
+                                    @Html.DisplayFor(modelItem => item.User.UserName)
+
+                                </div>
+                            </div>
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.Context)

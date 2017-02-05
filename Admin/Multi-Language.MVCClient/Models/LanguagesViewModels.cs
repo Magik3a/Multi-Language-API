@@ -12,8 +12,10 @@ namespace Multi_Language.MVCClient.Models
 {
     public class LanguagesViewModels : IMapFrom<Languages>
     {
+        [Display(Name = "Id")]
         public int IdLanguage { get; set; }
 
+        [Display(Name = "Id")]
         public int IdProject { get; set; }
 
         [Required]
@@ -21,6 +23,7 @@ namespace Multi_Language.MVCClient.Models
 
         [Required]
         [StringLength(10)]
+        [Display(Name = "Init.")]
         public string Initials { get; set; }
 
         [Required]
@@ -31,13 +34,15 @@ namespace Multi_Language.MVCClient.Models
         [Column(TypeName = "image")]
         public byte[] Picture { get; set; }
 
+        [Display(Name = "Active")]
         public bool IsActive { get; set; }
 
         [StringLength(ValidationConstants.UserEmail)]
         public string UserName { get; set; }
-
+        [Display(Name = "Date Changed")]
         public DateTime? DateChanged { get; set; }
 
+        [Display(Name = "Date Created")]
         public DateTime? DateCreated { get; set; }
     }
 }

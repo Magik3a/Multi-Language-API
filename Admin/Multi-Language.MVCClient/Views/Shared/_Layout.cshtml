@@ -1,170 +1,180 @@
-﻿<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Multi-Language API</title>
-    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+﻿@using Multi_language.Common
+@using Multi_language.Common.Infrastructure.Manifest
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Multi API Administrator</title>
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+        @Styles.Render("~/Content/css")
+        @Scripts.Render("~/bundles/modernizr")
 
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+        @Html.Action("MetaTags", "Home")
 
-</head>
-<!--
-BODY TAG OPTIONS:
-=================
-Apply one or more of the following classes to get the
-desired effect
-|---------------------------------------------------------|
-| SKINS         | skin-blue                               |
-|               | skin-black                              |
-|               | skin-purple                             |
-|               | skin-yellow                             |
-|               | skin-red                                |
-|               | skin-green                              |
-|---------------------------------------------------------|
-|LAYOUT OPTIONS | fixed                                   |
-|               | layout-boxed                            |
-|               | layout-top-nav                          |
-|               | sidebar-collapse                        |
-|               | sidebar-mini                            |
-|---------------------------------------------------------|
--->
-<body class="hold-transition skin-red sidebar-mini">
-    <div class="wrapper">
+    </head>
 
-        <!-- Main Header -->
-        @Html.Partial("LayoutPartials/MainHeader")
+    <!--
+    BODY TAG OPTIONS:
+    =================
+    Apply one or more of the following classes to get the
+    desired effect
+    |---------------------------------------------------------|
+    | SKINS         | skin-blue                               |
+    |               | skin-black                              |
+    |               | skin-purple                             |
+    |               | skin-yellow                             |
+    |               | skin-red                                |
+    |               | skin-green                              |
+    |---------------------------------------------------------|
+    |LAYOUT OPTIONS | fixed                                   |
+    |               | layout-boxed                            |
+    |               | layout-top-nav                          |
+    |               | sidebar-collapse                        |
+    |               | sidebar-mini                            |
+    |---------------------------------------------------------|
+    -->
+    <body class="hold-transition skin-red sidebar-mini fixed">
+        <div class="wrapper">
 
-        <!-- Left side column. contains the logo and sidebar -->
-        @Html.Partial("LayoutPartials/MainSidebar")
+            <!-- Main Header -->
+            @Html.Partial("LayoutPartials/MainHeader")
 
-        <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper" id="main-page-wrapper">
-            <!-- Content Header (Page header) -->
-            <section class="content-header">
-                <h1>
-                    @ViewBag.ContentHeader
-                    <small>@ViewBag.ContentDescription</small>
-                </h1>
-                <ol class="breadcrumb">
-                    <li><a href="#" id="breadcrumb-parent"><i class="fa fa-dashboard"></i> Level</a></li>
-                    <li class="active" id="breadcrumb-child">Here</li>
-                </ol>
-            </section>
+            <!-- Left side column. contains the logo and sidebar -->
+            @Html.Partial("LayoutPartials/MainSidebar")
 
-            <!-- Main content -->
-            <section class="content" id="wrapper-page-content">
-                <div class="row">
-                    <div class="col-md-3" id="project-box" style="min-height: 176px">
-                        <div class="box box-danger" style="min-height: 163px">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Active project</h3>
-                                <div class="box-tools pull-right">
-                                    <span class="label label-default">Loading...</span>
-                                </div><!-- /.box-tools -->
-                            </div><!-- /.box-header -->
-                            <div class="box-body">
-                                Waiting for active project box
-                            </div><!-- /.box-body -->
-                            <div class="overlay">
-                                <i class="fa fa-refresh fa-spin"></i>
-                            </div>
-                        </div><!-- /.box -->
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper" id="main-page-wrapper">
+                <!-- Content Header (Page header) -->
+                <section class="content-header">
+                    <h1>
+                        @ViewBag.ContentHeader
+                        <small>@ViewBag.ContentDescription</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="#" id="breadcrumb-parent"><i class="fa fa-dashboard"></i> Level</a></li>
+                        <li class="active" id="breadcrumb-child">Here</li>
+                    </ol>
+                </section>
+
+                <!-- Main content -->
+                <section class="content" id="wrapper-page-content">
+                    <div class="row">
+                        <div class="col-md-3" id="project-box" style="min-height: 176px">
+                            <div class="box box-danger" style="min-height: 163px">
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Active project</h3>
+                                    <div class="box-tools pull-right">
+                                        <span class="label label-default">Loading...</span>
+                                    </div><!-- /.box-tools -->
+                                </div><!-- /.box-header -->
+                                <div class="box-body">
+                                    Waiting for active project box
+                                </div><!-- /.box-body -->
+                                <div class="overlay">
+                                    <i class="fa fa-refresh fa-spin"></i>
+                                </div>
+                            </div><!-- /.box -->
+                        </div>
+
+                        <div id="first-row-content" class="col-md-9">
+                            <div id="data"></div>
+                        </div>
                     </div>
-
-                    <div id="first-row-content" class="col-md-9">
-                        <div id="data"></div>
+                    <!-- Your Page Content Here -->
+                    <div id="page-content">
+                        @RenderBody()
                     </div>
-                </div>
-                <!-- Your Page Content Here -->
-                <div id="page-content">
-                    @RenderBody()
-                </div>
-            </section>
-            <!-- /.content -->
+                </section>
+                <!-- /.content -->
+            </div>
+
+            <!-- Main Footer -->
+            @Html.Partial("LayoutPartials/MainFooter")
+
+            <!-- Control Sidebar -->
+            @Html.Partial("LayoutPartials/ControlSidebar")
+
+            <!-- Add<,,> the sidebar's background. This div must be placed
+                 immediately after the control sidebar -->
+            <div class="control-sidebar-bg"></div>
         </div>
 
-        <!-- Main Footer -->
-        @Html.Partial("LayoutPartials/MainFooter")
+        @Html.Partial("LayoutPartials/LockScreen")
 
-        <!-- Control Sidebar -->
-        @Html.Partial("LayoutPartials/ControlSidebar")
+        <iframe id="file-download-frame" style="display:none;"></iframe>
 
-        <!-- Add the sidebar's background. This div must be placed
-             immediately after the control sidebar -->
-        <div class="control-sidebar-bg"></div>
-    </div>
+        <!-- jQuery -->
+        @Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/jqueryval")
 
-    @Html.Partial("LayoutPartials/LockScreen")
+        <!-- Bootstrap -->
+        @Scripts.Render("~/bundles/bootstrap")
 
-    <iframe id="file-download-frame" style="display:none;"></iframe>
+        <!-- Theme and plugins -->
+        @Scripts.Render("~/bundles/theme")
 
-    <!-- jQuery -->
-    @Scripts.Render("~/bundles/jquery")
-
-    <!-- Bootstrap -->
-    @Scripts.Render("~/bundles/bootstrap")
-
-    <!-- Theme and plugins -->
-    @Scripts.Render("~/bundles/theme")
-
-    @using Multi_language.Common
-    @{
-        var reservedSpace = $"{Utils.GetDiskSpaceUsedPercentage():N1}";
-        var freeSpace = $"{100 - Utils.GetDiskSpaceUsedPercentage():N1}";
-
-        var baseAdressApi = System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"];
-    }
-    <!-- Signalr Configuration and hubs-->
-    <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
-    <script src="@baseAdressApi/signalr/hubs"></script>
-<script src="~/Scripts/MltApi/SignalR/MltApi-InternalHub.js"></script>
-    <script src="~/Scripts/MltApi/SignalR/InternalHub/MltApi-InternalHubRecievers.js"></script>
-
-
-    <style>
-        .kv-file-zoom {
-            display: none;
+        @using Multi_language.Common
+@using Multi_language.Common.Infrastructure.Manifest
+        @{
+            var reservedSpace = $"{Utils.GetDiskSpaceUsedPercentage():N1}";
+            var freeSpace = $"{100 - Utils.GetDiskSpaceUsedPercentage():N1}";
+            var authenticated = User.Identity.IsAuthenticated;
+            var baseAdressApi = System.Configuration.ConfigurationManager.AppSettings["MultiLanguageApiUrl"];
         }
-    </style>
-    <script>
 
-        //Initialise scope for project. Keep global scope clean as f....
-        $.MltApi = $.MltApi || {};
+        @if (authenticated)
+        {
+            <!-- Signalr Configuration and hubs-->
+            <script src="~/Scripts/jquery.signalR-2.2.1.min.js"></script>
+            <script src="@baseAdressApi/signalr/hubs"></script>
+            <script src="~/Scripts/MltApi/SignalR/MltApi-InternalHub.js"></script>
+            <script src="~/Scripts/MltApi/SignalR/InternalHub/MltApi-InternalHubRecievers.js"></script>
 
-        //Global variables. TODO Consider removing them
-        $.MltApi.FreeSpace = @freeSpace;
-        $.MltApi.ReservedSpace = @reservedSpace;
+        }
+        <style>
+            .kv-file-zoom {
+                display: none;
+            }
+        </style>
+        <script>
 
-        $(document).ajaxStart(function () {
-            Pace.restart();
-        });
-        $(document).ready(function () {
-            $.MltApi.LoadProjectBox();
+            //Initialise scope for project. Keep global scope clean as f....
+            $.MltApi = $.MltApi || {};
 
-            $.MltApi.InitialisePlugins();
-            //if documentation controller
-            $.MltApi.ExpandAllPanels = function () {
-                $('#accordion .panel-collapse').collapse('toggle');
-            };
+            //Global variables. TODO Consider removing them
+            $.MltApi.FreeSpace = @freeSpace;
+            $.MltApi.ReservedSpace = @reservedSpace;
+            $.MltApi.Authenticated = "@authenticated";
+            $(document).ajaxStart(function() {
+                Pace.restart();
+            });
+            $(document).ready(function() {
+                $.MltApi.HideHomeLogoText();
+
+                $.MltApi.HideItemsOnMobile();
+                $.MltApi.LoadProjectBox();
+
+                $.MltApi.InitialisePlugins();
+                //if documentation controller
+                $.MltApi.ExpandAllPanels = function() {
+                    $('#accordion .panel-collapse').collapse('toggle');
+                };
 
 
-            var url = $(location).attr('href').split('/');
-            $.MltApi.LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
+                var url = $(location).attr('href').split('/');
+                $.MltApi.LoadFirstRow("../../Sections/FirstRow?id=" + url[3]);
 
-            //Init SignalR hubs after all
-            $.MltApi.InitInternalHub("@baseAdressApi/signalr");
+                //Init SignalR hubs after all
+                if ($.MltApi.Authenticated !== "False") {
+                    $.MltApi.InitInternalHub("@baseAdressApi/signalr");
+                }
 
-        });
-    </script>
+            });
+        </script>
 
 
-    @RenderSection("scripts", required: false)
-</body>
+        @RenderSection("scripts", required: false)
+    </body>
 </html>

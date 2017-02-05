@@ -48,6 +48,10 @@
       <HintPath>..\..\packages\AutoMapper.5.1.1\lib\net45\AutoMapper.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Boilerplate.Web.Mvc5, Version=1.0.0.0, Culture=neutral, PublicKeyToken=fc5550082a9c642c, processorArchitecture=MSIL">
+      <HintPath>..\..\packages\Boilerplate.Web.Mvc5.1.0.25\lib\net45\Boilerplate.Web.Mvc5.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
@@ -80,6 +84,7 @@
       <HintPath>..\..\packages\Microsoft.AspNet.WebApi.Client.5.2.3\lib\net45\System.Net.Http.Formatting.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -199,6 +204,7 @@
     <Compile Include="ApiInfrastructure\ApiModels\BackupApiModel.cs" />
     <Compile Include="ApiInfrastructure\ApiModels\LoginApiModel.cs" />
     <Compile Include="ApiInfrastructure\ApiModels\RegisterApiModel.cs" />
+    <Compile Include="ApiInfrastructure\ApiModels\RegisterExternalApiModel.cs" />
     <Compile Include="ApiInfrastructure\ApiModels\SystemInfoApiModel.cs" />
     <Compile Include="ApiInfrastructure\Client\BackupClient.cs" />
     <Compile Include="ApiInfrastructure\Client\Contracts\IBackupClient.cs" />
@@ -209,6 +215,7 @@
     <Compile Include="ApiInfrastructure\HttpClientInstance.cs" />
     <Compile Include="ApiInfrastructure\Responses\BackupsResponse.cs" />
     <Compile Include="ApiInfrastructure\Responses\CreateBackupResponse.cs" />
+    <Compile Include="ApiInfrastructure\Responses\LoginResponse.cs" />
     <Compile Include="ApiInfrastructure\Responses\RegisterResponse.cs" />
     <Compile Include="ApiInfrastructure\Responses\SystemInfoResponse.cs" />
     <Compile Include="ApiInfrastructure\Responses\TokenResponse.cs" />
@@ -223,6 +230,7 @@
     <Compile Include="Attributes\AuthenticationAttribute.cs" />
     <Compile Include="Attributes\CatchErrorAttribute.cs" />
     <Compile Include="Attributes\ValidationActionFilterAttribute.cs" />
+    <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\Documentation\DocMultilanguageController.cs" />
@@ -257,9 +265,11 @@
     <Compile Include="Models\SectionsViewModels\ProjectsBoxDropDownsViewModels.cs" />
     <Compile Include="Models\SectionsViewModels\ResourcesFirstRowSectionViewModel.cs" />
     <Compile Include="Models\SectionsViewModels\SystemStabilityBoxViewModel.cs" />
+    <Compile Include="Models\SendEmailViewModel.cs" />
     <Compile Include="Models\UtilitiesViewModels\BackupViewModels.cs" />
     <Compile Include="Models\UtilitiesViewModels\SystemViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Providers\ApplicationOAuthProvider.cs" />
     <Compile Include="Providers\CentralizedPrefixProvider.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -294,6 +304,7 @@
     <Content Include="admin-lte\css\skins\_all-skins.min.css" />
     <Content Include="admin-lte\js\app.js" />
     <Content Include="admin-lte\js\app.min.js" />
+    <Content Include="Content\AddToHomeScreen\addtohomescreen.css" />
     <Content Include="Content\bootstrap-fileinput\css\fileinput.css" />
     <Content Include="Content\bootstrap-fileinput\css\fileinput.min.css" />
     <Content Include="Content\bootstrap-fileinput\img\loading-sm.gif" />
@@ -304,8 +315,6 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\cssbundle\font-awesome.css" />
-    <Content Include="Content\cssbundle\font-awesome.min.css" />
     <Content Include="Content\cssbundle\select2.css" />
     <Content Include="Content\cssbundle\select2.min.css" />
     <Content Include="Content\Custom.css">
@@ -749,6 +758,8 @@
     <Content Include="Content\pace\themes\yellow\pace-theme-loading-bar.css" />
     <Content Include="Content\pace\themes\yellow\pace-theme-mac-osx.css" />
     <Content Include="Content\pace\themes\yellow\pace-theme-minimal.css" />
+    <Content Include="Content\cssbundle\font-awesome.css" />
+    <Content Include="Content\cssbundle\font-awesome.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -762,14 +773,55 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Images\favicon.ico" />
+    <Content Include="Images\humans.txt" />
+    <Content Include="Images\Socials\banner\bottom-logo.png" />
+    <Content Include="Images\Socials\banner\left-logo.png" />
+    <Content Include="Images\Socials\banner\logo-text.png" />
+    <Content Include="Images\Socials\banner\logo.png" />
+    <Content Include="Images\Socials\banner\right-logo.png" />
+    <Content Include="Images\Socials\banner\top-logo.png" />
+    <Content Include="Images\Socials\banner\top-logo2.png" />
+    <Content Include="Images\Socials\icons\android-chrome-144x144.png" />
+    <Content Include="Images\Socials\icons\android-chrome-192x192.png" />
+    <Content Include="Images\Socials\icons\android-chrome-36x36.png" />
+    <Content Include="Images\Socials\icons\android-chrome-48x48.png" />
+    <Content Include="Images\Socials\icons\android-chrome-72x72.png" />
+    <Content Include="Images\Socials\icons\android-chrome-96x96.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-114x114.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-120x120.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-144x144.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-152x152.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-180x180.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-57x57.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-60x60.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-72x72.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-76x76.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon-precomposed.png" />
+    <Content Include="Images\Socials\icons\apple-touch-icon.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-1496x2048.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-1536x2008.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-320x460.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-640x1096.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-640x920.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-748x1024.png" />
+    <Content Include="Images\Socials\icons\apple-touch-startup-image-768x1004.png" />
+    <Content Include="Images\Socials\icons\atom-icon-48x48.png" />
+    <Content Include="Images\Socials\icons\atom-logo-96x48.png" />
+    <Content Include="Images\Socials\icons\favicon-16x16.png" />
+    <Content Include="Images\Socials\icons\favicon-192x192.png" />
+    <Content Include="Images\Socials\icons\favicon-32x32.png" />
+    <Content Include="Images\Socials\icons\favicon-96x96.png" />
+    <Content Include="Images\Socials\icons\mstile-150x150.png" />
+    <Content Include="Images\Socials\icons\mstile-310x150.png" />
+    <Content Include="Images\Socials\icons\mstile-310x310.png" />
+    <Content Include="Images\Socials\icons\mstile-70x70.png" />
+    <Content Include="Images\Socials\icons\open-graph-1200x630.png" />
     <Content Include="Images\user2-160x160.jpg" />
+    <Content Include="Scripts\AddToHomeScreen\addtohomescreen.js" />
+    <Content Include="Scripts\AddToHomeScreen\addtohomescreen.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Content\fonts\FontAwesome.otf" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
-    <Content Include="Content\fonts\fontawesome-webfont.woff" />
-    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
-    <Content Include="Content\fonts\fontawesome-webfont.eot" />
     <Content Include="Content\ionicons\_ionicons-variables.less" />
     <Content Include="Content\ionicons\_ionicons-icons.less" />
     <Content Include="Content\ionicons\_ionicons-font.less" />
@@ -794,6 +846,11 @@
     <Content Include="fonts\ionicons.woff" />
     <Content Include="Content\bootstrap-fileinput\sass\fileinput.scss" />
     <Content Include="Content\Custom.scss" />
+    <Content Include="Content\fonts\FontAwesome.otf" />
+    <Content Include="Content\fonts\fontawesome-webfont.eot" />
+    <Content Include="Content\fonts\fontawesome-webfont.ttf" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff" />
+    <Content Include="Content\fonts\fontawesome-webfont.woff2" />
     <None Include="Properties\PublishProfiles\adminnetfactuur.pubxml" />
     <None Include="Properties\PublishProfiles\admins2kdesign.pubxml" />
     <Content Include="Scripts\Chart.js" />
@@ -1011,7 +1068,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
     <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Account\_ExternalLoginsListPartial.cshtml" />
@@ -1078,6 +1134,9 @@
     <Content Include="Views\DocMultilanguage\GettingStartedPartials\CreateContextsPartial.cshtml" />
     <Content Include="Views\DocMultilanguage\GettingStartedPartials\CreateTranslationsPartial.cshtml" />
     <Content Include="Views\Shared\LayoutPartials\LockScreen.cshtml" />
+    <Content Include="Views\Shared\LayoutPartials\MetaTagsPartial.cshtml" />
+    <Content Include="Views\About\Index.cshtml" />
+    <Content Include="Views\About\SendEmailPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

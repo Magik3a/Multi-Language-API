@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -12,13 +14,14 @@ using Multi_Language.MVCClient.Models;
 using Multi_language.Models;
 using Multi_language.ApiHelper;
 using Multi_language.ApiHelper.Client;
+using Multi_language.Common;
 using Multi_Language.MVCClient.ApiInfrastructure;
 using Multi_Language.MVCClient.ApiInfrastructure.Client;
 
 namespace Multi_Language.MVCClient.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
@@ -66,7 +69,11 @@ namespace Multi_Language.MVCClient.Controllers
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
         {
-            ViewBag.ReturnUrl = returnUrl;
+            if (!string.IsNullOrWhiteSpace(returnUrl))
+                ViewBag.ReturnUrl = returnUrl;
+            else
+                ViewBag.ReturnUrl = "";
+
             return View();
         }
 
@@ -90,12 +97,15 @@ namespace Multi_Language.MVCClient.Controllers
             {
                 case SignInStatus.Success:
 
-                    var loginSuccess = await PerformLoginActions(model.Email, model.Password);
-                    if (loginSuccess)
+                    //var loginSuccess = await PerformLoginActions(model.Email, model.Password);
+                    //if (loginSuccess)
+                    //{
+                    //    // TODO Change the way user is loged in. There is no need for mvc autorization?
+                    //}
+                    if (string.IsNullOrWhiteSpace(returnUrl))
                     {
-                        // TODO Change the way user is loged in. There is no need for mvc autorization?
+                        return RedirectToAction("Index", "Home");
                     }
-
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -118,17 +128,7 @@ namespace Multi_Language.MVCClient.Controllers
 
             return response.StatusIsSuccessful;
         }
-        private async Task<bool> PerformTokenRefreshActions(string email, string password)
-        {
-            //TODO Make something smart here 
-            var response = await loginClient.GrandResourceOwnerAccess(email, password);
-            if (response.StatusIsSuccessful)
-            {
-                tokenContainer.ApiToken = response.Data;
-            }
 
-            return response.StatusIsSuccessful;
-        }
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
@@ -147,7 +147,7 @@ namespace Multi_Language.MVCClient.Controllers
             {
                 case SignInStatus.Success:
 
-                    var loginSuccess = await PerformTokenRefreshActions(username, password);
+                    var loginSuccess = await PerformLoginActions(username, password);
                     if (loginSuccess)
                     {
                         // TODO Change the way user is loged in. There is no need for mvc autorization?
@@ -316,7 +316,7 @@ namespace Multi_Language.MVCClient.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+           var user = await UserManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
@@ -344,9 +344,14 @@ namespace Multi_Language.MVCClient.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
+        public async Task<ActionResult> ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
+            //var result = await loginClient.LoginExternal(provider);
+            //if (result.StatusIsSuccessful)
+            //    tokenContainer.ApiToken = result.Data;
+            // return RedirectToAction("Index", "Home");
+
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
@@ -390,6 +395,8 @@ namespace Multi_Language.MVCClient.Controllers
         [AllowAnonymous]
         public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
         {
+            SetViewBagsAndHeaders(Request.IsAjaxRequest(), "Account", "External login confirmation");
+
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
@@ -400,8 +407,17 @@ namespace Multi_Language.MVCClient.Controllers
             var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
             switch (result)
             {
+
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    HttpCookie authCookie = Request.Cookies[".AspNet.ExternalCookie"];
+
+                    var response = await loginClient.LoginExternal(loginInfo.Login.LoginProvider, authCookie);
+                    if (!response.StatusIsSuccessful)
+                    {
+                        //TODO Show error in view bag
+
+                    }
+                    return RedirectToAction("Index", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:
@@ -409,8 +425,10 @@ namespace Multi_Language.MVCClient.Controllers
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
+
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+
                     return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
@@ -436,14 +454,20 @@ namespace Multi_Language.MVCClient.Controllers
                     return View("ExternalLoginFailure");
                 }
                 var user = new AppUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
+                var result = await UserManager.CreateAsync(user, model.NewPassword);
                 if (result.Succeeded)
                 {
                     result = await UserManager.AddLoginAsync(user.Id, info.Login);
                     if (result.Succeeded)
                     {
+                        var response = await loginClient.GrandResourceOwnerAccess(model.Email, model.NewPassword);
+
+                        if (!response.StatusIsSuccessful)
+                        {
+                            //TODO Show error in view bag
+                        }
                         await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
+                        return RedirectToAction("Index", "Home");
                     }
                 }
                 AddErrors(result);
