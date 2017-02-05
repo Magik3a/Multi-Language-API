@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Helpers;
@@ -29,9 +30,16 @@ namespace Multi_language.ApiHelper.Client
             where TModel : ApiModel
             where TResponse : ApiResponse<string>, new()
         {
-            using (var apiResponse = await ApiClient.PostJsonEncodedContent(url, model))
+            try
             {
-                return await DecodeJsonResponse<TResponse, string>(apiResponse);
+                using (var apiResponse = await ApiClient.PostJsonEncodedContent(url, model))
+                {
+                    return await DecodeJsonResponse<TResponse, string>(apiResponse);
+                }
+            }
+            catch (Exception e)
+            {
+                return new TResponse() { Data = e.InnerException?.ToString() } ;
             }
         }
 

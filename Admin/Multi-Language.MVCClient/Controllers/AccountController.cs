@@ -1,10 +1,12 @@
 ﻿using System;
+using System.Configuration;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
@@ -12,6 +14,7 @@ using Multi_Language.MVCClient.Models;
 using Multi_language.Models;
 using Multi_language.ApiHelper;
 using Multi_language.ApiHelper.Client;
+using Multi_language.Common;
 using Multi_Language.MVCClient.ApiInfrastructure;
 using Multi_Language.MVCClient.ApiInfrastructure.Client;
 
@@ -94,11 +97,11 @@ namespace Multi_Language.MVCClient.Controllers
             {
                 case SignInStatus.Success:
 
-                    var loginSuccess = await PerformLoginActions(model.Email, model.Password);
-                    if (loginSuccess)
-                    {
-                        // TODO Change the way user is loged in. There is no need for mvc autorization?
-                    }
+                    //var loginSuccess = await PerformLoginActions(model.Email, model.Password);
+                    //if (loginSuccess)
+                    //{
+                    //    // TODO Change the way user is loged in. There is no need for mvc autorization?
+                    //}
                     if (string.IsNullOrWhiteSpace(returnUrl))
                     {
                         return RedirectToAction("Index", "Home");
@@ -341,9 +344,14 @@ namespace Multi_Language.MVCClient.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
+        public async Task<ActionResult> ExternalLogin(string provider, string returnUrl)
         {
             // Request a redirect to the external login provider
+            //var result = await loginClient.LoginExternal(provider);
+            //if (result.StatusIsSuccessful)
+            //    tokenContainer.ApiToken = result.Data;
+            // return RedirectToAction("Index", "Home");
+
             return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
         }
 
@@ -401,13 +409,15 @@ namespace Multi_Language.MVCClient.Controllers
             {
 
                 case SignInStatus.Success:
+                    HttpCookie authCookie = Request.Cookies[".AspNet.ExternalCookie"];
 
-                    var loginSuccess = await PerformLoginActions(loginInfo.Login.LoginProvider, loginInfo.Login.ProviderKey);
-                    if (loginSuccess)
+                    var response = await loginClient.LoginExternal(loginInfo.Login.LoginProvider, authCookie);
+                    if (!response.StatusIsSuccessful)
                     {
-                        //TODO
+                        //TODO Show error in view bag
+
                     }
-                        return RedirectToLocal(returnUrl);
+                    return RedirectToAction("Index", "Home");
                 case SignInStatus.LockedOut:
                     return View("Lockout");
                 case SignInStatus.RequiresVerification:

@@ -35,9 +35,11 @@ namespace Multi_Language.DataApi.Controllers
         [Route("getall", Name = "GetBackupFileList")]
         public IEnumerable<FileDataModel> GetBackupList()
         {
-            var userName = User.Identity.IsAuthenticated;
-
-            var userRole = User.IsInRole(ERoleLevels.AdminPermissions.ToString());
+            if (User != null)
+            {
+                var userClaims = User.Identity.AuthenticationType;
+                //TODO Should be logged in
+            }
             return Get(backupFolder, "bak", name =>
                     new FileDataModel(name, Utils.GetFileSizeString(Path.Combine(backupFilePath, name))));
         }
