@@ -3,6 +3,8 @@
 [![Reported Bugs](https://badge.waffle.io/Magik3a/Multi-Language-API.png?label=bug&title=Reported%20Bugs)](http://waffle.io/Magik3a/Multi-Language-API)
 [![Build status](https://ci.appveyor.com/api/projects/status/8q2gd8ldexwl595q?svg=true)](https://ci.appveyor.com/project/Magik3a/multi-language-api)
 
+PREVIEW: http://admin.s2kdesign.com/
+
 Hi developers, let me introduce my admin panel. It's a single page application (SPA) with Oauth 2.0 Security (bearer token) and it's fully mobile-web-app-capable. It uses SignalR for real time communication and server stability statistics. You can use it for maintaining one database for your multilingual applications. Integration in SaaS apps is easy and can be done in every modern language:
 
 Example in Jquery - $.get("http://api.s2kdesign.com/Project/2/Context/2", function (data) { console.log(data); });
